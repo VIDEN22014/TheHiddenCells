@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/proj.win32/Release.win32/Resources/HelloWorld1.png
+/proj.win32/Release.win32/TheHiddenCells.tlog/CL.14092.write.1.tlog
