@@ -2,10 +2,10 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\TheHiddenCells\proj.win32\Release.win32\libcocos2d.dll</FullPath>
+      <FullPath>D:\Humeniuk_Bohdan\KN-3\1_Semester\TheHiddenCells\proj.win32\Release.win32\libcocos2d.dll</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>D:\TheHiddenCells\proj.win32\Release.win32\TheHiddenCells.exe</FullPath>
+      <FullPath>D:\Humeniuk_Bohdan\KN-3\1_Semester\TheHiddenCells\proj.win32\Release.win32\TheHiddenCells.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
