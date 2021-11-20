@@ -54,21 +54,21 @@ bool ShopScene::init()
 
     spriteStartHero->runAction(Animate::create(animationHero));
 
-    scroolrightButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
-       switch (type)
-       {
-        case ui::Widget::TouchEventType::BEGAN:
-            break;
-        case ui::Widget::TouchEventType::ENDED:
+   // scroolrightButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+     //  switch (type)
+     //  {
+    //    case ui::Widget::TouchEventType::BEGAN:
+      ///      break;
+     //   case ui::Widget::TouchEventType::ENDED:
  
                //CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
 
           // GoToGameScene(this);
-           break;
-        default:
-           break;
-    }
-    });
+       //    break;
+      //  default:
+      //     break;
+  //  }
+   // });
     this->addChild(scroolrightButton);
 
     return true;

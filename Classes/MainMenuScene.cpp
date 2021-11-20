@@ -30,7 +30,7 @@ bool MainMenuScene::init()
 	//CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("backgroundmusic.mp3", true);
 	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.25f);
 
-	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG_4_960.png");
+	auto spriteBackground = Sprite::create("BG 4.png");
 	Size size = Director::getInstance()->getWinSize();
 	spriteBackground->setPosition(Vec2(0, 0));
 	spriteBackground->setAnchorPoint(Vec2(0, 0));
