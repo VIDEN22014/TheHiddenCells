@@ -120,8 +120,6 @@ bool MainMenu::init()
         case ui::Widget::TouchEventType::ENDED:
             if (playSound) {
                 CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
-                CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("SoundBlip.wav");
-                CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic(); 
             }
             GoToGameScene(this);
             break;
@@ -255,7 +253,7 @@ bool MainMenu::init()
             if (playSound) {
                 CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
             }
-            CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("backgroundmusic.mp3");
+            CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("backgroundmusic.mp3");
             CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
             break;
         default:
@@ -267,9 +265,9 @@ bool MainMenu::init()
 }
 
 void MainMenu::GoToGameScene(Ref*sender) {
-   // Director::getInstance()->end();
-    auto scene = GameScene::createScene();
-    Director::getInstance()->replaceScene(scene);
+    
+        auto scene = GameScene::createScene();
+        Director::getInstance()->replaceScene(TransitionSlideInT::create(1.5, scene));
   
 }
 

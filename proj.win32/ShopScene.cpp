@@ -15,12 +15,11 @@ bool ShopScene::init()
         return false;
     }
 
-    auto sprite = Sprite::create("BG 4.png");
+    auto sprite = Sprite::create("backmenu.png");
     Size size = Director::getInstance()->getWinSize();
     sprite->setPosition(Vec2(size.width / 2, size.height / 2));
+    sprite->setScale(0.5);
     this->addChild(sprite);
-  // this->scheduleUpdate();
 }
-void ShopScene::update(float dt) {}
 
 
