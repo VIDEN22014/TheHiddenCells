@@ -27,6 +27,21 @@
     <ClCompile Include="ShopScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="Level1Scene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Level2Scene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Level3Scene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelSelectScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -42,6 +57,21 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="ShopScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelSelectScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Level1Scene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Level2Scene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Level3Scene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
