@@ -6,12 +6,11 @@
 class ShopScene : public cocos2d::Scene
 {
 public:
-    static cocos2d::Scene* createScene();
+	static cocos2d::Scene* createScene();
 
-    virtual bool init();
-    void GoToGameScene(Ref* pSender);
-    void GoToShopScene(Ref* pSender);
-    CREATE_FUNC(ShopScene);
+	virtual bool init();
+	CREATE_FUNC(ShopScene);
+	void update(float dt);
 };
 
 #endif // __HELLOWORLD_SCENE_H__

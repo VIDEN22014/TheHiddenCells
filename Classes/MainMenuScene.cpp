@@ -1,10 +1,12 @@
 #include "MainMenuScene.h"
 #include <cocos/ui/UIButton.h>
+#include <proj.win32/Game.h>
 #include <proj.win32/GameScene.h>
 #include <proj.win32/ShopScene.h>
 #include "SimpleAudioEngine.h"
 
 USING_NS_CC;
+
 
 Scene* MainMenuScene::createScene()
 {
@@ -25,19 +27,19 @@ bool MainMenuScene::init()
 
 
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("backgroundmusic.mp3", true);
+	//CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("backgroundmusic.mp3", true);
 	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.25f);
 
-	auto spriteBackground = Sprite::create("BG 4.png");
+	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG_4_960.png");
 	Size size = Director::getInstance()->getWinSize();
-	spriteBackground->setPosition(Vec2(size.width / 2, size.height / 2));
+	spriteBackground->setPosition(Vec2(0, 0));
+	spriteBackground->setAnchorPoint(Vec2(0, 0));
 	this->addChild(spriteBackground);
 
 
 
 	auto CoinSprite = Sprite::create("coin_01.png");
-	CoinSprite->setPosition(Vec2(35, 900));//820 900
-	spriteBackground->setScale(3.3);
+	CoinSprite->setPosition(Vec2(0 + CoinSprite->getContentSize().width, 960- CoinSprite->getContentSize().height));//820 900
 	this->addChild(CoinSprite);
 
 	auto animation = Animation::create();
@@ -51,13 +53,14 @@ bool MainMenuScene::init()
 	animation->addSpriteFrameWithFile("coin_08.png");
 	animation->setDelayPerUnit(0.1111111112f);
 	animation->setLoops(-1);
+	CoinSprite->runAction(Animate::create(animation));
 
-	auto action = Animate::create(animation);
-	CoinSprite->runAction(action);
+	auto CoinLabel = Label::createWithTTF(std::to_string(gameData::money), "DungeonFont.ttf", 42);
+	CoinLabel->setAnchorPoint(Vec2(0,0.5));
+	CoinLabel->setPosition(Vec2(CoinSprite->getPositionX()+CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
+	this->addChild(CoinLabel);
 
-	auto CointLabel = Label::createWithTTF("000", "DungeonFont.ttf", 43);
-	CointLabel->setPosition(Vec2(95, 900));
-	this->addChild(CointLabel);
+
 
 	auto spriteIcon = Sprite::create("iconForHero.png");
 	spriteIcon->setPosition(Vec2(size.width / 2, 555));
@@ -119,7 +122,7 @@ bool MainMenuScene::init()
 			if (playSound) {
 				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
 			}
-			GoToGameScene(this);
+			Game::GoToLevelSelect();
 			break;
 		default:
 			break;
@@ -141,7 +144,7 @@ bool MainMenuScene::init()
 			if (playSound) {
 				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
 			}
-			GoToShopScene(this);
+			Game::GoToShop();
 			break;
 		default:
 			break;
@@ -163,7 +166,7 @@ bool MainMenuScene::init()
 		case ui::Widget::TouchEventType::ENDED:
 			if (playSound) {
 				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
-				GoToExit(this);
+				Game::GoToExit();
 			}
 			break;
 		default:
@@ -265,17 +268,3 @@ bool MainMenuScene::init()
 }
 
 void MainMenuScene::update(float dt) {}
-
-void MainMenuScene::GoToGameScene(Ref* sender) {
-	auto scene = GameScene::createScene();
-	Director::getInstance()->replaceScene(scene);
-}
-
-
-void MainMenuScene::GoToShopScene(Ref* pSender) {
-	auto scene = ShopScene::createScene();
-	Director::getInstance()->replaceScene(scene);
-}
-void MainMenuScene::GoToExit(Ref* sender) {
-	CCDirector::sharedDirector()->end();
-}
