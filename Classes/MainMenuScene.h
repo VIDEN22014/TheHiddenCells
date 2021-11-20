@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 
-class MainMenu : public cocos2d::Scene
+class MainMenuScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
@@ -13,7 +13,8 @@ public:
     void GoToShopScene(Ref* pSender);
     void GoToExit(Ref* pSender);
     void CreateButtonSound();
-    CREATE_FUNC(MainMenu);
+    CREATE_FUNC(MainMenuScene);
+    void update(float dt);
 };
 
 #endif // __HELLOWORLD_SCENE_H__
