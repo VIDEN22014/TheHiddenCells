@@ -1,5 +1,6 @@
 #include "MainMenuScene.h"
 #include <cocos/ui/UIButton.h>
+#include <proj.win32/Game.h>
 #include <proj.win32/GameScene.h>
 #include <proj.win32/ShopScene.h>
 #include "SimpleAudioEngine.h"
@@ -119,7 +120,7 @@ bool MainMenuScene::init()
 			if (playSound) {
 				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
 			}
-			GoToGameScene(this);
+			Game::GoToLevelSelect();
 			break;
 		default:
 			break;
@@ -141,7 +142,7 @@ bool MainMenuScene::init()
 			if (playSound) {
 				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
 			}
-			GoToShopScene(this);
+			Game::GoToShop();
 			break;
 		default:
 			break;
@@ -163,7 +164,7 @@ bool MainMenuScene::init()
 		case ui::Widget::TouchEventType::ENDED:
 			if (playSound) {
 				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
-				GoToExit(this);
+				Game::GoToExit();
 			}
 			break;
 		default:
@@ -265,17 +266,3 @@ bool MainMenuScene::init()
 }
 
 void MainMenuScene::update(float dt) {}
-
-void MainMenuScene::GoToGameScene(Ref* sender) {
-	auto scene = GameScene::createScene();
-	Director::getInstance()->replaceScene(scene);
-}
-
-
-void MainMenuScene::GoToShopScene(Ref* pSender) {
-	auto scene = ShopScene::createScene();
-	Director::getInstance()->replaceScene(scene);
-}
-void MainMenuScene::GoToExit(Ref* sender) {
-	CCDirector::sharedDirector()->end();
-}
