@@ -9,6 +9,10 @@
 
 USING_NS_CC;
 
+namespace gameData {
+	int money = 100;
+}
+
 void Game::GoToExit() {
 	CCDirector::sharedDirector()->end();
 }
@@ -48,7 +52,9 @@ void Game::GoToGameScene() {
 	Director::getInstance()->replaceScene(scene);
 }
 
+void Game::MoneyChange(int moneyDiff) {
 
+}
 
 
 

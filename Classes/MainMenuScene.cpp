@@ -7,6 +7,7 @@
 
 USING_NS_CC;
 
+
 Scene* MainMenuScene::createScene()
 {
 	return MainMenuScene::create();
@@ -53,12 +54,11 @@ bool MainMenuScene::init()
 	animation->setDelayPerUnit(0.1111111112f);
 	animation->setLoops(-1);
 
-	auto action = Animate::create(animation);
-	CoinSprite->runAction(action);
+	CoinSprite->runAction(Animate::create(animation));
 
-	auto CointLabel = Label::createWithTTF("000", "DungeonFont.ttf", 43);
-	CointLabel->setPosition(Vec2(95, 900));
-	this->addChild(CointLabel);
+	auto CoinLabel = Label::createWithTTF(std::to_string(gameData::money), "DungeonFont.ttf", 43);
+	CoinLabel->setPosition(Vec2(CoinSprite->getPositionX(), CoinSprite->getPositionY()));
+	this->addChild(CoinLabel);
 
 	auto spriteIcon = Sprite::create("iconForHero.png");
 	spriteIcon->setPosition(Vec2(size.width / 2, 555));
