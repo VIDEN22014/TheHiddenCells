@@ -26,7 +26,7 @@ bool LevelSelectScene::init()
 	this->addChild(spriteBackground);
 
 
-
+	//Level Buttons
 	auto level1Button = ui::Button::create("Assets/UI/StoneButtonsLight/tile002.png", "Assets/UI/StoneButtonsLightPressed/tile002.png");
 	level1Button->setScale(5);
 	level1Button->setPosition(Vec2(size.width / 2.0, size.height / 2.0));
@@ -92,6 +92,26 @@ bool LevelSelectScene::init()
 	level3Label->setPosition(Vec2(level3Button->getPositionX() + level3Button->getContentSize().width * level3Button->getScale() / 1.75, level3Button->getPositionY()));
 	this->addChild(level3Label);
 
+	//Coin Sprite
+	auto CoinSprite = Sprite::create("coin_01.png");
+	CoinSprite->setPosition(Vec2(0 + CoinSprite->getContentSize().width, 960 - CoinSprite->getContentSize().height));//820 900
+	this->addChild(CoinSprite);
+	auto animation = Animation::create();
+	animation->addSpriteFrameWithFile("coin_01.png");
+	animation->addSpriteFrameWithFile("coin_02.png");
+	animation->addSpriteFrameWithFile("coin_03.png");
+	animation->addSpriteFrameWithFile("coin_04.png");
+	animation->addSpriteFrameWithFile("coin_05.png");
+	animation->addSpriteFrameWithFile("coin_06.png");
+	animation->addSpriteFrameWithFile("coin_07.png");
+	animation->addSpriteFrameWithFile("coin_08.png");
+	animation->setDelayPerUnit(0.1111111112f);
+	animation->setLoops(-1);
+	CoinSprite->runAction(Animate::create(animation));
+	auto CoinLabel = Label::createWithTTF(std::to_string(gameData::money), "DungeonFont.ttf", 42);
+	CoinLabel->setAnchorPoint(Vec2(0, 0.5));
+	CoinLabel->setPosition(Vec2(CoinSprite->getPositionX() + CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
+	this->addChild(CoinLabel);
 
 	//Return Button
 	auto returnButton = ui::Button::create("Assets/UI/StoneButtonsLight/tile005.png", "Assets/UI/StoneButtonsLightPressed/tile005.png");

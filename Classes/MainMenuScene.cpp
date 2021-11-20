@@ -27,7 +27,7 @@ bool MainMenuScene::init()
 
 
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("backgroundmusic.mp3", true);
+	//CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("backgroundmusic.mp3", true);
 	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.25f);
 
 	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG_4_960.png");
@@ -39,7 +39,7 @@ bool MainMenuScene::init()
 
 
 	auto CoinSprite = Sprite::create("coin_01.png");
-	CoinSprite->setPosition(Vec2(35, 900));//820 900
+	CoinSprite->setPosition(Vec2(0 + CoinSprite->getContentSize().width, 960- CoinSprite->getContentSize().height));//820 900
 	this->addChild(CoinSprite);
 
 	auto animation = Animation::create();
@@ -53,12 +53,14 @@ bool MainMenuScene::init()
 	animation->addSpriteFrameWithFile("coin_08.png");
 	animation->setDelayPerUnit(0.1111111112f);
 	animation->setLoops(-1);
-
 	CoinSprite->runAction(Animate::create(animation));
 
-	auto CoinLabel = Label::createWithTTF(std::to_string(gameData::money), "DungeonFont.ttf", 43);
-	CoinLabel->setPosition(Vec2(CoinSprite->getPositionX(), CoinSprite->getPositionY()));
+	auto CoinLabel = Label::createWithTTF(std::to_string(gameData::money), "DungeonFont.ttf", 42);
+	CoinLabel->setAnchorPoint(Vec2(0,0.5));
+	CoinLabel->setPosition(Vec2(CoinSprite->getPositionX()+CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
 	this->addChild(CoinLabel);
+
+
 
 	auto spriteIcon = Sprite::create("iconForHero.png");
 	spriteIcon->setPosition(Vec2(size.width / 2, 555));

@@ -15,8 +15,7 @@ public:
 	static void GoToLevel2();
 	static void GoToLevel3();
 	static void GoToGameScene();
-	static void MoneyChange(int moneyDiff);
-	int Game::GetMoney();
+	static void MoneyChange(int moneyDiff, cocos2d::Label* label);
 };
 
 

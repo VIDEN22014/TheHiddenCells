@@ -25,7 +25,26 @@ bool Level3Scene::init()
 	spriteBackground->setPosition(Vec2(0, 0));
 	this->addChild(spriteBackground);
 
-
+	//Coin Sprite
+	auto CoinSprite = Sprite::create("coin_01.png");
+	CoinSprite->setPosition(Vec2(0 + CoinSprite->getContentSize().width, 960 - CoinSprite->getContentSize().height));//820 900
+	this->addChild(CoinSprite);
+	auto animation = Animation::create();
+	animation->addSpriteFrameWithFile("coin_01.png");
+	animation->addSpriteFrameWithFile("coin_02.png");
+	animation->addSpriteFrameWithFile("coin_03.png");
+	animation->addSpriteFrameWithFile("coin_04.png");
+	animation->addSpriteFrameWithFile("coin_05.png");
+	animation->addSpriteFrameWithFile("coin_06.png");
+	animation->addSpriteFrameWithFile("coin_07.png");
+	animation->addSpriteFrameWithFile("coin_08.png");
+	animation->setDelayPerUnit(0.1111111112f);
+	animation->setLoops(-1);
+	CoinSprite->runAction(Animate::create(animation));
+	auto CoinLabel = Label::createWithTTF(std::to_string(gameData::money), "DungeonFont.ttf", 42);
+	CoinLabel->setAnchorPoint(Vec2(0, 0.5));
+	CoinLabel->setPosition(Vec2(CoinSprite->getPositionX() + CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
+	this->addChild(CoinLabel);
 
 
 	//Return Button

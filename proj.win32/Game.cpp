@@ -10,7 +10,7 @@
 USING_NS_CC;
 
 namespace gameData {
-	int money = 100;
+	int money = 100000000000000;
 }
 
 void Game::GoToExit() {
@@ -52,8 +52,9 @@ void Game::GoToGameScene() {
 	Director::getInstance()->replaceScene(scene);
 }
 
-void Game::MoneyChange(int moneyDiff) {
-
+void Game::MoneyChange(int moneyDiff, cocos2d::Label* label) {
+	gameData::money += moneyDiff;
+	label->setString(std::to_string(gameData::money));
 }
 
 
