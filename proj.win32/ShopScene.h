@@ -11,6 +11,7 @@ public:
     virtual bool init();
     void GoToGameScene(Ref* pSender);
     void GoToShopScene(Ref* pSender);
+    virtual void update(float dt);
     CREATE_FUNC(ShopScene);
 };
 

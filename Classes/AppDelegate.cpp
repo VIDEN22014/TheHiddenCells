@@ -57,7 +57,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
 
-    SimpleAudioEngine::getInstance()->preloadBackgroundMusic("BackMusik.mp3");
+    SimpleAudioEngine::getInstance()->preloadBackgroundMusic("backgroundmusic.mp3");
     // Звуковой эффект инициализации
    SimpleAudioEngine::getInstance()->preloadEffect("SoundBlip.wav");
 
