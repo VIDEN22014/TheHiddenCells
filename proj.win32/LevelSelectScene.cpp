@@ -17,7 +17,7 @@ bool LevelSelectScene::init()
 		return false;
 	}
 
-	auto sprite = Sprite::create("backmenu.png");
+	auto sprite = Sprite::create("Assets/Backgrounds/BG_4_960.png");
 	Size size = Director::getInstance()->getWinSize();
 	sprite->setAnchorPoint(Vec2(0, 0));
 	sprite->setPosition(Vec2(0, 0));

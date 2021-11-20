@@ -29,16 +29,16 @@ bool MainMenuScene::init()
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("backgroundmusic.mp3", true);
 	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.25f);
 
-	auto spriteBackground = Sprite::create("BG 4.png");
+	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG_4_960.png");
 	Size size = Director::getInstance()->getWinSize();
-	spriteBackground->setPosition(Vec2(size.width / 2, size.height / 2));
+	spriteBackground->setPosition(Vec2(0, 0));
+	spriteBackground->setAnchorPoint(Vec2(0, 0));
 	this->addChild(spriteBackground);
 
 
 
 	auto CoinSprite = Sprite::create("coin_01.png");
 	CoinSprite->setPosition(Vec2(35, 900));//820 900
-	spriteBackground->setScale(3.3);
 	this->addChild(CoinSprite);
 
 	auto animation = Animation::create();
