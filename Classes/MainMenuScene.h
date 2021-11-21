@@ -7,7 +7,9 @@ class MainMenuScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
+    cocos2d::Sprite* spriteStartHero;
 
+    void MainMenuScene::changeTextureHeroes(int index);
     virtual bool init();
     void CreateButtonSound();
     CREATE_FUNC(MainMenuScene);

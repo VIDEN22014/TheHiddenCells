@@ -27,7 +27,7 @@ bool MainMenuScene::init()
 
 
 
-	//CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("backgroundmusic.mp3", true);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("backgroundmusic.mp3", true);
 	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.25f);
 
 	auto spriteBackground = Sprite::create("BG 4.png");
@@ -67,21 +67,23 @@ bool MainMenuScene::init()
 	spriteIcon->setScale(5.0);
 	this->addChild(spriteIcon);
 
-	auto spriteStartHero = Sprite::create("StartHero1.png");
+	
+
+	spriteStartHero = Sprite::create("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_1.png");
 	spriteStartHero->setPosition(Vec2(size.width / 2, 555));
 	spriteStartHero->setScale(5.0);
 	this->addChild(spriteStartHero);
 
 	auto animationHero = Animation::create();
-	animationHero->addSpriteFrameWithFile("StartHero1.png");
-	animationHero->addSpriteFrameWithFile("StartHero2.png");
-	animationHero->addSpriteFrameWithFile("StartHero3.png");
-	animationHero->addSpriteFrameWithFile("StartHero4.png");
+	animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_1.png");
+	animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_2.png");
+	animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_3.png");
+	animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_4.png");
 	animationHero->setDelayPerUnit(0.1111111112f);
 	animationHero->setLoops(-1);
 
 	spriteStartHero->runAction(Animate::create(animationHero));
-
+	changeTextureHeroes(gameData::changeHero%4);
 
 	auto spriteKNIS = Sprite::create("knisback.png");
 	spriteKNIS->setPosition(Vec2(825, 135));
@@ -261,10 +263,68 @@ bool MainMenuScene::init()
 			break;
 		}
 		});
-	//
-	//this->scheduleUpdate();
+	
+	this->scheduleUpdate();
 
 	return true;
 }
+void MainMenuScene::changeTextureHeroes(int index) {
+	if (index == 0) {
+		//if(spriteStartHero->numberOfRunningActions()!=0)
+		spriteStartHero->stopAllActions();
+		spriteStartHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_1.png");
 
+		auto animationHero = Animation::create();
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_1.png");
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_2.png");
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_3.png");
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_4.png");
+		animationHero->setDelayPerUnit(0.1111111112f);
+		animationHero->setLoops(-1);
+
+		spriteStartHero->runAction(Animate::create(animationHero));
+	}
+	else if (index == 1) {
+		spriteStartHero->stopAllActions();
+		spriteStartHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Large Knight - Standard/LargeKnight_Idle_1.png");
+
+		auto animationHero = Animation::create();
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Large Knight - Standard/LargeKnight_Idle_1.png");
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Large Knight - Standard/LargeKnight_Idle_2.png");
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Large Knight - Standard/LargeKnight_Idle_3.png");
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Large Knight - Standard/LargeKnight_Idle_4.png");
+		animationHero->setDelayPerUnit(0.1111111112f);
+		animationHero->setLoops(-1);
+
+		spriteStartHero->runAction(Animate::create(animationHero));
+	}
+	else if (index == 2) {
+		spriteStartHero->stopAllActions();
+		spriteStartHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Mage/Mage_Idle_1.png");
+
+		auto animationHero = Animation::create();
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Mage/Mage_Idle_1.png");
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Mage/Mage_Idle_2.png");
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Mage/Mage_Idle_3.png");
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Mage/Mage_Idle_4.png");
+		animationHero->setDelayPerUnit(0.1111111112f);
+		animationHero->setLoops(-1);
+
+		spriteStartHero->runAction(Animate::create(animationHero));
+	}
+	else if (index == 3) {
+		spriteStartHero->stopAllActions();
+		spriteStartHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Thief/Thief_Idle_1.png");
+
+		auto animationHero = Animation::create();
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Thief/Thief_Idle_1.png");
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Thief/Thief_Idle_2.png");
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Thief/Thief_Idle_3.png");
+		animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Thief/Thief_Idle_4.png");
+		animationHero->setDelayPerUnit(0.1111111112f);
+		animationHero->setLoops(-1);
+
+		spriteStartHero->runAction(Animate::create(animationHero));
+	}
+}
 void MainMenuScene::update(float dt) {}

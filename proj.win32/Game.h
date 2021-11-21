@@ -2,6 +2,9 @@
 
 namespace gameData {
 	extern int money;
+	extern int changeHero;
+	extern int lvlHero[4];
+	extern int lvlAmmo[4];
 }
 
 class Game

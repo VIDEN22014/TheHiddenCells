@@ -11,6 +11,9 @@ USING_NS_CC;
 
 namespace gameData {
 	int money = 100000000000000;
+	int changeHero = 0; 
+	int lvlHero[4] = { 0,0,0,0 };
+	int lvlAmmo[4] = { 0,0,0,0 };
 }
 
 void Game::GoToExit() {
@@ -56,6 +59,8 @@ void Game::MoneyChange(int moneyDiff, cocos2d::Label* label) {
 	gameData::money += moneyDiff;
 	label->setString(std::to_string(gameData::money));
 }
+
+
 
 
 
