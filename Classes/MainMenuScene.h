@@ -9,7 +9,7 @@ public:
     static cocos2d::Scene* createScene();
     cocos2d::Sprite* spriteStartHero;
 
-    void MainMenuScene::changeTextureHeroes(int index);
+    void MainMenuScene::changeTextureHeroes();
     virtual bool init();
     void CreateButtonSound();
     CREATE_FUNC(MainMenuScene);
