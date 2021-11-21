@@ -67,8 +67,7 @@ bool Level1Scene::init()
 		});
 	this->addChild(returnButton);
 
-	CardHero crd;
-	crd.moveCard();
+
 	return true;
 }
 

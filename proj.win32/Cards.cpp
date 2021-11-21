@@ -10,13 +10,16 @@ public:
 	virtual void moveCard();
 };
 
-class CardHero: public Card {
-	void moveCard() override {
-		gameData::money += 100;
-	}
+class CardHero : public Card {
+public:
+	void moveCard() override;
 };
 
 void Card::moveCard() {
 	gameData::money = 0;
 	return;
+}
+
+void CardHero::moveCard(){
+	gameData::money += 100;
 }

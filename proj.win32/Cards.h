@@ -12,5 +12,6 @@ public:
 };
 
 class CardHero : public Card {
-	//void moveCard();
+public:
+	void moveCard() override;
 };
