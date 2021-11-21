@@ -1,10 +1,11 @@
 #include "ui/CocosGUI.h"
 #include <proj.win32/Level1Scene.h>
-#include <proj.win32/Game.h>
+#include <proj.win32/Cards.h>
 
 USING_NS_CC;
 
 Scene* Level1SceneObj;
+
 
 Scene* Level1Scene::createScene()
 {
@@ -17,6 +18,7 @@ bool Level1Scene::init()
 	{
 		return false;
 	}
+
 	//Background Sprite
 	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG_4_960.png");
 	Size size = Director::getInstance()->getWinSize();
@@ -65,8 +67,8 @@ bool Level1Scene::init()
 		});
 	this->addChild(returnButton);
 
-
-
+	CardHero crd;
+	crd.moveCard();
 	return true;
 }
 

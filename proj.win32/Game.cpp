@@ -9,12 +9,15 @@
 
 USING_NS_CC;
 
+
 namespace gameData {
-	int money = 100000000000000;
-	int changeHero = 0; 
+	int money = 10000;
+	int changeHero = 0;
 	int lvlHero[4] = { 0,0,0,0 };
 	int lvlAmmo[4] = { 0,0,0,0 };
+	extern position heroPosition;
 }
+
 
 void Game::GoToExit() {
 	CCDirector::sharedDirector()->end();
