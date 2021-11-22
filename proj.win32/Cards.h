@@ -7,7 +7,7 @@ public:
 	Card() {};
 	cocos2d::Sprite* spriteFrame;
 	cocos2d::Sprite* spriteCard;
-	position pos;
+	//position pos;
 	virtual void moveCard();
 };
 

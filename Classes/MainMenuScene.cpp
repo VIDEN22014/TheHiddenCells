@@ -14,6 +14,10 @@ Scene* MainMenuScene::createScene()
 }
 bool playSound = true;
 bool playMusic = true;
+cocos2d::Label* LabelAmountXP1;
+cocos2d::Label* LabelAmountAmmo1;
+cocos2d::Sprite* minixp1;
+cocos2d::Sprite* miniammo1;
 bool MainMenuScene::init()
 {
 
@@ -84,6 +88,28 @@ bool MainMenuScene::init()
 
 	spriteStartHero->runAction(Animate::create(animationHero));
 
+	//встановлення іконки хп на іконку героя
+	minixp1 = Sprite::create("Assets/Icons/04_heart/heart.png");
+	minixp1->setScale(1.7);
+	minixp1->setPosition(420, 615);
+	this->addChild(minixp1);
+	//встановлення іконки зброї на іконку героя
+	miniammo1 = Sprite::create("Assets/Weapons/weapon_regular_sword.png");
+	miniammo1->setScale(2.0);
+	miniammo1->setPosition(520, 610);
+	this->addChild(miniammo1);
+
+	//встановлення лейбла к-сті хп
+	LabelAmountXP1 = Label::create("", "DungeonFont.ttf", 18);
+	LabelAmountXP1->setAnchorPoint(Vec2(0, 0.5));
+	LabelAmountXP1->setPosition(435, 615);
+	this->addChild(LabelAmountXP1);
+	// встановлення лейбла к-сті хп зброї(урону)
+	LabelAmountAmmo1 = Label::create("", "DungeonFont.ttf", 18);
+	LabelAmountAmmo1->setAnchorPoint(Vec2(0, 0.5));
+	LabelAmountAmmo1->setPosition(535, 610);
+	this->addChild(LabelAmountAmmo1);
+
 	changeTextureHeroes();
 
 	auto spriteKNIS = Sprite::create("knisback.png");
@@ -110,6 +136,8 @@ bool MainMenuScene::init()
 	animationGerb->setLoops(-1);
 
 	spriteKNISGerb->runAction(Animate::create(animationGerb));
+
+	
 
 	auto levelSelectButton = ui::Button::create("startButton.png", "startButtonPressed.png");
 	levelSelectButton->setAnchorPoint(Vec2(0, 0));
@@ -272,6 +300,10 @@ bool MainMenuScene::init()
 void MainMenuScene::changeTextureHeroes() {
 
 		if (gameData::changeHero==0&&gameData::lockHero[0]){
+			miniammo1->setTexture("Assets/Weapons/weapon_regular_sword.png");
+			LabelAmountXP1->setString(std::to_string(gameData::amountXPHeros[0]));
+			LabelAmountAmmo1->setString(std::to_string(gameData::amountAmmoHeros[0]));
+
 			spriteStartHero->stopAllActions();
 			spriteStartHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_1.png");
 
@@ -287,6 +319,9 @@ void MainMenuScene::changeTextureHeroes() {
 			return;
 		}
 		else if (gameData::changeHero == 1 && gameData::lockHero[1]) {
+			miniammo1->setTexture("Assets/Weapons/weapon_hammer.png");
+			LabelAmountXP1->setString(std::to_string(gameData::amountXPHeros[1]));
+			LabelAmountAmmo1->setString(std::to_string(gameData::amountAmmoHeros[1]));
 			spriteStartHero->stopAllActions();
 			spriteStartHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Large Knight - Standard/LargeKnight_Idle_1.png");
 
@@ -302,6 +337,10 @@ void MainMenuScene::changeTextureHeroes() {
 			return;
 		}
 		else if (gameData::changeHero == 2 && gameData::lockHero[2]) {
+			miniammo1->setTexture("Assets/Weapons/weapon_red_magic_staff.png");
+			miniammo1->setScale(1.5);
+			LabelAmountXP1->setString(std::to_string(gameData::amountXPHeros[2]));
+			LabelAmountAmmo1->setString(std::to_string(gameData::amountAmmoHeros[2]));
 			spriteStartHero->stopAllActions();
 			spriteStartHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Mage/Mage_Idle_1.png");
 
@@ -317,7 +356,10 @@ void MainMenuScene::changeTextureHeroes() {
 			return;
 
 		}
-		else if (gameData::changeHero == 2 && gameData::lockHero[3]) {
+		else if (gameData::changeHero == 3 && gameData::lockHero[3]) {
+			miniammo1->setTexture("Assets/Weapons/weapon_golden_sword.png");
+			LabelAmountXP1->setString(std::to_string(gameData::amountXPHeros[3]));
+			LabelAmountAmmo1->setString(std::to_string(gameData::amountAmmoHeros[3]));
 			spriteStartHero->stopAllActions();
 			spriteStartHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Thief/Thief_Idle_1.png");
 
@@ -333,6 +375,9 @@ void MainMenuScene::changeTextureHeroes() {
 			return;
 		}
 			if (gameData::lastBuyHero == 3) {
+				miniammo1->setTexture("Assets/Weapons/weapon_golden_sword.png");
+				LabelAmountXP1->setString(std::to_string(gameData::amountXPHeros[3]));
+				LabelAmountAmmo1->setString(std::to_string(gameData::amountAmmoHeros[3]));
 				spriteStartHero->stopAllActions();
 				spriteStartHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Thief/Thief_Idle_1.png");
 
@@ -348,6 +393,10 @@ void MainMenuScene::changeTextureHeroes() {
 				return;
 			}
 			else if (gameData::lastBuyHero == 2) {
+				miniammo1->setTexture("Assets/Weapons/weapon_red_magic_staff.png");
+				miniammo1->setScale(1.5);
+				LabelAmountXP1->setString(std::to_string(gameData::amountXPHeros[2]));
+				LabelAmountAmmo1->setString(std::to_string(gameData::amountAmmoHeros[2]));
 				spriteStartHero->stopAllActions();
 				spriteStartHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Mage/Mage_Idle_1.png");
 
@@ -363,6 +412,9 @@ void MainMenuScene::changeTextureHeroes() {
 				return;
 			}
 			else if (gameData::lastBuyHero == 1) {
+				miniammo1->setTexture("Assets/Weapons/weapon_hammer.png");
+				LabelAmountXP1->setString(std::to_string(gameData::amountXPHeros[1]));
+				LabelAmountAmmo1->setString(std::to_string(gameData::amountAmmoHeros[1]));
 				spriteStartHero->stopAllActions();
 				spriteStartHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Large Knight - Standard/LargeKnight_Idle_1.png");
 
@@ -378,6 +430,9 @@ void MainMenuScene::changeTextureHeroes() {
 				return;
 			}
 			else if (gameData::lastBuyHero == 0) {
+				miniammo1->setTexture("Assets/Weapons/weapon_regular_sword.png");
+				LabelAmountXP1->setString(std::to_string(gameData::amountXPHeros[0]));
+				LabelAmountAmmo1->setString(std::to_string(gameData::amountAmmoHeros[0]));
 				//if(spriteStartHero->numberOfRunningActions()!=0)
 				spriteStartHero->stopAllActions();
 				spriteStartHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_1.png");

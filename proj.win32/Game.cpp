@@ -19,6 +19,8 @@ namespace gameData {
 	int  priceHero[4] = {0,-150,-300,-350};
 	int priceHeart=20;
 	int priceAmmo=20;
+	int amountXPHeros[4] = {8,15,12,10};
+	int amountAmmoHeros[4] = {5,10,8,5};
 }
 
 void Game::GoToExit() {

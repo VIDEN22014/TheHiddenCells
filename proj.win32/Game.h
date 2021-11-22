@@ -10,7 +10,22 @@ namespace gameData {
 	extern int  lastBuyHero;
 	extern int priceHeart;
 	extern int priceAmmo;
+	extern int amountXPHeros[4];
+	extern int amountAmmoHeros[4];
 }
+
+struct position
+{
+	//позиції як в двоимірному масиві
+	int x;
+	int y;
+
+	position() {}
+	position(int X, int Y) {
+		x = X;
+		y = Y;
+	}
+};
 
 class Game
 {
