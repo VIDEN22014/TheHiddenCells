@@ -14,19 +14,6 @@ namespace gameData {
 	extern int amountAmmoHeros[4];
 }
 
-struct position
-{
-	//позиції як в двоимірному масиві
-	int x;
-	int y;
-
-	position() {}
-	position(int X, int Y) {
-		x = X;
-		y = Y;
-	}
-};
-
 class Game
 {
 public:
