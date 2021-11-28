@@ -14,6 +14,11 @@ namespace gameData {
 	extern int amountAmmoHeros[4];
 }
 
+struct position {
+	int x;
+	int y;
+};
+
 class Game
 {
 public:

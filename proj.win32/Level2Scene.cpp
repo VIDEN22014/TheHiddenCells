@@ -19,29 +19,29 @@ bool Level2Scene::init()
 		return false;
 	}
 	//Background Sprite
-	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG_4_960.png");
+	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG 4.png");
 	Size size = Director::getInstance()->getWinSize();
 	spriteBackground->setAnchorPoint(Vec2(0, 0));
 	spriteBackground->setPosition(Vec2(0, 0));
 	this->addChild(spriteBackground);
 
 	//Coin Sprite
-	auto CoinSprite = Sprite::create("coin_01.png");
+	auto CoinSprite = Sprite::create("Assets/Icons/Coins_0/coin_01.png");
 	CoinSprite->setPosition(Vec2(0 + CoinSprite->getContentSize().width, 960 - CoinSprite->getContentSize().height));//820 900
 	this->addChild(CoinSprite);
 	auto animation = Animation::create();
-	animation->addSpriteFrameWithFile("coin_01.png");
-	animation->addSpriteFrameWithFile("coin_02.png");
-	animation->addSpriteFrameWithFile("coin_03.png");
-	animation->addSpriteFrameWithFile("coin_04.png");
-	animation->addSpriteFrameWithFile("coin_05.png");
-	animation->addSpriteFrameWithFile("coin_06.png");
-	animation->addSpriteFrameWithFile("coin_07.png");
-	animation->addSpriteFrameWithFile("coin_08.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_01.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_02.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_03.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_04.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_05.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_06.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_07.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_08.png");
 	animation->setDelayPerUnit(0.1111111112f);
 	animation->setLoops(-1);
 	CoinSprite->runAction(Animate::create(animation));
-	auto CoinLabel = Label::createWithTTF(std::to_string(gameData::money), "DungeonFont.ttf", 42);
+	auto CoinLabel = Label::createWithTTF(std::to_string(gameData::money), "Fonts/DungeonFont.ttf", 42);
 	CoinLabel->setAnchorPoint(Vec2(0, 0.5));
 	CoinLabel->setPosition(Vec2(CoinSprite->getPositionX() + CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
 	this->addChild(CoinLabel);
