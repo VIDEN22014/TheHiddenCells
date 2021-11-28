@@ -21,9 +21,6 @@
     <ClCompile Include="..\Classes\MainMenuScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="ShopScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -54,9 +51,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MainMenuScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="GameScene.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="ShopScene.h">

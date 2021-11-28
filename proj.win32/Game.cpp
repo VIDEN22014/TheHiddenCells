@@ -5,7 +5,6 @@
 #include <proj.win32/Level1Scene.h>
 #include <proj.win32/Level2Scene.h>
 #include <proj.win32/Level3Scene.h>
-#include "GameScene.h"
 
 USING_NS_CC;
 
@@ -57,10 +56,7 @@ void Game::GoToLevel3() {
 	Director::getInstance()->replaceScene(scene);
 }
 
-void Game::GoToGameScene() {
-	auto scene = GameScene::createScene();
-	Director::getInstance()->replaceScene(scene);
-}
+
 
 void Game::MoneyChange(int moneyDiff, cocos2d::Label* label) {
 	gameData::money += moneyDiff;

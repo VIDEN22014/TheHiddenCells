@@ -14,11 +14,11 @@ namespace gameData {
 	extern int amountAmmoHeros[4];
 }
 
+
 struct position {
 	int x;
 	int y;
 };
-
 class Game
 {
 public:
@@ -31,8 +31,4 @@ public:
 	static void GoToLevel3();
 	static void GoToGameScene();
 	static void MoneyChange(int moneyDiff, cocos2d::Label* label);
-};
-struct position
-{
-	int x, y;
 };

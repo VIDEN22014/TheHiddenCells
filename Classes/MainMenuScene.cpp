@@ -1,7 +1,6 @@
 #include "MainMenuScene.h"
 #include <cocos/ui/UIButton.h>
 #include <proj.win32/Game.h>
-#include <proj.win32/GameScene.h>
 #include <proj.win32/ShopScene.h>
 #include "SimpleAudioEngine.h"
 
