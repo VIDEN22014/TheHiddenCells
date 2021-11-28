@@ -27,5 +27,7 @@ public:
 	static void GoToGameScene();
 	static void MoneyChange(int moneyDiff, cocos2d::Label* label);
 };
-
-
+struct position
+{
+	int x, y;
+};

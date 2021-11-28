@@ -26,15 +26,15 @@ bool MainMenuScene::init()
 		return false;
 	}
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("SoundBlip.wav");
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("backgroundmusic.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/SoundBlip.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/backgroundmusic.mp3");
 
 
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("backgroundmusic.mp3", true);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/backgroundmusic.mp3", true);
 	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.25f);
 
-	auto spriteBackground = Sprite::create("BG 4.png");
+	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG 4.png");
 	Size size = Director::getInstance()->getWinSize();
 	spriteBackground->setPosition(Vec2(0, 0));
 	spriteBackground->setAnchorPoint(Vec2(0, 0));
@@ -42,31 +42,31 @@ bool MainMenuScene::init()
 
 
 
-	auto CoinSprite = Sprite::create("coin_01.png");
+	auto CoinSprite = Sprite::create("Assets/Icons/Coins_0/coin_01.png");
 	CoinSprite->setPosition(Vec2(0 + CoinSprite->getContentSize().width, 960- CoinSprite->getContentSize().height));//820 900
 	this->addChild(CoinSprite);
 
 	auto animation = Animation::create();
-	animation->addSpriteFrameWithFile("coin_01.png");
-	animation->addSpriteFrameWithFile("coin_02.png");
-	animation->addSpriteFrameWithFile("coin_03.png");
-	animation->addSpriteFrameWithFile("coin_04.png");
-	animation->addSpriteFrameWithFile("coin_05.png");
-	animation->addSpriteFrameWithFile("coin_06.png");
-	animation->addSpriteFrameWithFile("coin_07.png");
-	animation->addSpriteFrameWithFile("coin_08.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_01.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_02.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_03.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_04.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_05.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_06.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_07.png");
+	animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_08.png");
 	animation->setDelayPerUnit(0.1111111112f);
 	animation->setLoops(-1);
 	CoinSprite->runAction(Animate::create(animation));
 
-	auto CoinLabel = Label::createWithTTF(std::to_string(gameData::money), "DungeonFont.ttf", 42);
+	auto CoinLabel = Label::createWithTTF(std::to_string(gameData::money), "Fonts/DungeonFont.ttf", 42);
 	CoinLabel->setAnchorPoint(Vec2(0,0.5));
 	CoinLabel->setPosition(Vec2(CoinSprite->getPositionX()+CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
 	this->addChild(CoinLabel);
 
 
 
-	auto spriteIcon = Sprite::create("iconForHero.png");
+	auto spriteIcon = Sprite::create("Assets/Icons/iconForHero.png");
 	spriteIcon->setPosition(Vec2(size.width / 2, 555));
 	spriteIcon->setScale(5.0);
 	this->addChild(spriteIcon);
@@ -100,38 +100,38 @@ bool MainMenuScene::init()
 	this->addChild(miniammo1);
 
 	//встановлення лейбла к-сті хп
-	LabelAmountXP1 = Label::create("", "DungeonFont.ttf", 18);
+	LabelAmountXP1 = Label::create("", "Fonts/DungeonFont.ttf", 18);
 	LabelAmountXP1->setAnchorPoint(Vec2(0, 0.5));
 	LabelAmountXP1->setPosition(435, 615);
 	this->addChild(LabelAmountXP1);
 	// встановлення лейбла к-сті хп зброї(урону)
-	LabelAmountAmmo1 = Label::create("", "DungeonFont.ttf", 18);
+	LabelAmountAmmo1 = Label::create("", "Fonts/DungeonFont.ttf", 18);
 	LabelAmountAmmo1->setAnchorPoint(Vec2(0, 0.5));
 	LabelAmountAmmo1->setPosition(535, 610);
 	this->addChild(LabelAmountAmmo1);
 
 	changeTextureHeroes();
 
-	auto spriteKNIS = Sprite::create("knisback.png");
+	auto spriteKNIS = Sprite::create("Assets/Icons/KNIS-Gerb/knisback.png");
 	spriteKNIS->setPosition(Vec2(825, 135));
 	this->addChild(spriteKNIS);
 
-	auto spriteKNISGerb = Sprite::create("knisGerb01.png");
+	auto spriteKNISGerb = Sprite::create("Assets/Icons/KNIS-Gerb/knisGerb01.png");
 	spriteKNISGerb->setPosition(Vec2(825, 135));
 	this->addChild(spriteKNISGerb);
 
 	auto animationGerb = Animation::create();
-	animationGerb->addSpriteFrameWithFile("knisGerb02.png");
-	animationGerb->addSpriteFrameWithFile("knisGerb03.png");
-	animationGerb->addSpriteFrameWithFile("knisGerb04.png");
-	animationGerb->addSpriteFrameWithFile("knisGerb05.png");
-	animationGerb->addSpriteFrameWithFile("knisGerb06.png");
-	animationGerb->addSpriteFrameWithFile("knisGerb07.png");
-	animationGerb->addSpriteFrameWithFile("knisGerb08.png");
-	animationGerb->addSpriteFrameWithFile("knisGerb09.png");
-	animationGerb->addSpriteFrameWithFile("knisGerb10.png");
-	animationGerb->addSpriteFrameWithFile("knisGerb11.png");
-	animationGerb->addSpriteFrameWithFile("knisGerb12.png");
+	animationGerb->addSpriteFrameWithFile("Assets/Icons/KNIS-Gerb/knisGerb02.png");
+	animationGerb->addSpriteFrameWithFile("Assets/Icons/KNIS-Gerb/knisGerb03.png");
+	animationGerb->addSpriteFrameWithFile("Assets/Icons/KNIS-Gerb/knisGerb04.png");
+	animationGerb->addSpriteFrameWithFile("Assets/Icons/KNIS-Gerb/knisGerb05.png");
+	animationGerb->addSpriteFrameWithFile("Assets/Icons/KNIS-Gerb/knisGerb06.png");
+	animationGerb->addSpriteFrameWithFile("Assets/Icons/KNIS-Gerb/knisGerb07.png");
+	animationGerb->addSpriteFrameWithFile("Assets/Icons/KNIS-Gerb/knisGerb08.png");
+	animationGerb->addSpriteFrameWithFile("Assets/Icons/KNIS-Gerb/knisGerb09.png");
+	animationGerb->addSpriteFrameWithFile("Assets/Icons/KNIS-Gerb/knisGerb10.png");
+	animationGerb->addSpriteFrameWithFile("Assets/Icons/KNIS-Gerb/knisGerb11.png");
+	animationGerb->addSpriteFrameWithFile("Assets/Icons/KNIS-Gerb/knisGerb12.png");
 	animationGerb->setDelayPerUnit(0.322222222f);
 	animationGerb->setLoops(-1);
 
@@ -139,7 +139,7 @@ bool MainMenuScene::init()
 
 	
 
-	auto levelSelectButton = ui::Button::create("startButton.png", "startButtonPressed.png");
+	auto levelSelectButton = ui::Button::create("Assets/UI/Test-Button/startButton.png", "Assets/UI/Test-Button/startButtonPressed.png");
 	levelSelectButton->setAnchorPoint(Vec2(0, 0));
 	levelSelectButton->setScale(4.5);
 	levelSelectButton->setPosition(Vec2(440, 375));
@@ -161,7 +161,7 @@ bool MainMenuScene::init()
 		});
 	this->addChild(levelSelectButton);
 	//
-	auto shopButton = ui::Button::create("shopButton.png", "shopButtonPressed.png");
+	auto shopButton = ui::Button::create("Assets/UI/Test-Button/shopButton.png", "Assets/UI/Test-Button/shopButtonPressed.png");
 	shopButton->setAnchorPoint(Vec2(0, 0));
 	shopButton->setScale(4.5);
 	shopButton->setPosition(Vec2(440, 275));
@@ -173,7 +173,7 @@ bool MainMenuScene::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 			if (playSound) {
-				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
+				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
 			}
 			Game::GoToShop();
 			break;
@@ -183,7 +183,7 @@ bool MainMenuScene::init()
 		});
 	this->addChild(shopButton);
 	//
-	auto exitButton = ui::Button::create("exitButton.png", "exitButtonPressed.png");
+	auto exitButton = ui::Button::create("Assets/UI/StoneButtons/tile000.png", "Assets/UI/Test-Button/exitButtonPressed.png");
 	exitButton->setAnchorPoint(Vec2(0, 0));
 	exitButton->setScale(4.5);
 	exitButton->setPosition(Vec2(440, 175));
@@ -196,7 +196,7 @@ bool MainMenuScene::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 			if (playSound) {
-				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
+				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
 				Game::GoToExit();
 			}
 			break;
@@ -207,7 +207,7 @@ bool MainMenuScene::init()
 	this->addChild(exitButton);
 	//
 
-	auto startSoundButton = ui::Button::create("sountButton.png", "sountButtonPressed.png");
+	auto startSoundButton = ui::Button::create("Assets/UI/Test-Button/sountButton.png", "Assets/UI/Test-Button/sountButtonPressed.png");
 	startSoundButton->setAnchorPoint(Vec2(0, 0));
 	startSoundButton->setScale(4.5);
 	startSoundButton->setPosition(Vec2(735, 855));
@@ -219,15 +219,15 @@ bool MainMenuScene::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 			playSound = true;
-			CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("SoundBlip.wav");
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
+			CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/SoundBlip.wav");
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
 			break;
 		default:
 			break;
 		}
 		});
 	//
-	auto endSoundButton = ui::Button::create("sountEndButton.png", "sountEndButtonPressed.png");
+	auto endSoundButton = ui::Button::create("Assets/UI/Test-Button/sountEndButton.png", "Assets/UI/Test-Button/sountEndButtonPressed.png");
 	endSoundButton->setAnchorPoint(Vec2(0, 0));
 	endSoundButton->setScale(4.5);
 	endSoundButton->setPosition(Vec2(825, 855));
@@ -238,18 +238,18 @@ bool MainMenuScene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
 			playSound = false;
-			CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("SoundBlip.wav");
+			CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("Sound/SoundBlip.wav");
 			break;
 		default:
 			break;
 		}
 		});
 	//
-	auto startMusicButton = ui::Button::create("musicButton.png", "musicButtonPressed.png");
+	auto startMusicButton = ui::Button::create("Assets/UI/Test-Button/musicButton.png", "Assets/UI/Test-Button/musicButtonPressed.png");
 	startMusicButton->setAnchorPoint(Vec2(0, 0));
-	startMusicButton->setScale(4.5);
+	startMusicButton->setScale(4.5);	
 	startMusicButton->setPosition(Vec2(735, 775));
 	this->addChild(startMusicButton);
 	startMusicButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
@@ -260,17 +260,17 @@ bool MainMenuScene::init()
 		case ui::Widget::TouchEventType::ENDED:
 			playMusic = true;
 			if (playSound) {
-				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
+				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
 			}
-			CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("backgroundmusic.mp3");
-			CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("backgroundmusic.mp3", true);
+			CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/backgroundmusic.mp3");
+			CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/backgroundmusic.mp3", true);
 			break;
 		default:
 			break;
 		}
 		});
 	//
-	auto endMusicButton = ui::Button::create("musicEndButton.png", "musicEndButtonPressed.png");
+	auto endMusicButton = ui::Button::create("Assets/UI/Test-Button/musicEndButton.png", "Assets/UI/Test-Button/musicEndButtonPressed.png");
 	endMusicButton->setAnchorPoint(Vec2(0, 0));
 	endMusicButton->setScale(4.5);
 	endMusicButton->setPosition(Vec2(825, 775));
@@ -283,9 +283,9 @@ bool MainMenuScene::init()
 		case ui::Widget::TouchEventType::ENDED:
 			playMusic = false;
 			if (playSound) {
-				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
+				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
 			}
-			CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("backgroundmusic.mp3");
+			CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("Sound/backgroundmusic.mp3");
 			CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 			break;
 		default:

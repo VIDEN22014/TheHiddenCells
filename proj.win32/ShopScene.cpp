@@ -30,24 +30,24 @@ bool ShopScene::init()
         return false;
     }
     //НАЛАШТУВАННЯ UI
-    auto sprite = Sprite::create("BG 4.png");
+    auto sprite = Sprite::create("Assets/Backgrounds/BG 4.png");
     Size size = Director::getInstance()->getWinSize();
     sprite->setPosition(Vec2(size.width / 2, size.height / 2));
     this->addChild(sprite);
 
 
-    auto spriteIcon = Sprite::create("iconForHero.png");
+    auto spriteIcon = Sprite::create("Assets/Icons/iconForHero.png");
     spriteIcon->setPosition(Vec2(size.width / 2, 550));
     spriteIcon->setScale(5.0);
     this->addChild(spriteIcon);
 
-    auto scroolrightButton = ui::Button::create("scrollRightButton.png", "scrollRightButtonPressed.png");
+    auto scroolrightButton = ui::Button::create("Assets/UI/Test-Button/scrollRightButton.png", "Assets/UI/Test-Button/scrollRightButtonPressed.png");
     scroolrightButton->setAnchorPoint(Vec2(0, 0));
     scroolrightButton->setScale(4.5);
     scroolrightButton->setPosition(Vec2(580, 520));
 
 
-    auto scroolleftButton = ui::Button::create("scrollLeftButton.png", "scrollLeftButtonPressed.png");
+    auto scroolleftButton = ui::Button::create("Assets/UI/Test-Button/scrollLeftButton.png", "Assets/UI/Test-Button/scrollLeftButtonPressed.png");
     scroolleftButton->setAnchorPoint(Vec2(0, 0));
     scroolleftButton->setScale(4.5);
     scroolleftButton->setPosition(Vec2(305, 520));
@@ -93,25 +93,25 @@ bool ShopScene::init()
     spriteStartHero->runAction(Animate::create(animationHero));
 
 
-    auto CoinSprite = Sprite::create("coin_01.png");
+    auto CoinSprite = Sprite::create("Assets/Icons/Coins_0/coin_01.png");
     CoinSprite->setPosition(Vec2(0 + CoinSprite->getContentSize().width, 960 - CoinSprite->getContentSize().height));//820 900
     this->addChild(CoinSprite);
 
     auto animation = Animation::create();
-    animation->addSpriteFrameWithFile("coin_01.png");
-    animation->addSpriteFrameWithFile("coin_02.png");
-    animation->addSpriteFrameWithFile("coin_03.png");
-    animation->addSpriteFrameWithFile("coin_04.png");
-    animation->addSpriteFrameWithFile("coin_05.png");
-    animation->addSpriteFrameWithFile("coin_06.png");
-    animation->addSpriteFrameWithFile("coin_07.png");
-    animation->addSpriteFrameWithFile("coin_08.png");
+    animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_01.png");
+    animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_02.png");
+    animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_03.png");
+    animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_04.png");
+    animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_05.png");
+    animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_06.png");
+    animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_07.png");
+    animation->addSpriteFrameWithFile("Assets/Icons/Coins_0/coin_08.png");
     animation->setDelayPerUnit(0.1111111112f);
     animation->setLoops(-1);
     CoinSprite->runAction(Animate::create(animation));
 
     //label кілкьість монеток
-    CoinLabel = Label::createWithTTF(std::to_string(gameData::money), "DungeonFont.ttf", 42);
+    CoinLabel = Label::createWithTTF(std::to_string(gameData::money), "Fonts/DungeonFont.ttf", 42);
     CoinLabel->setAnchorPoint(Vec2(0, 0.5));
     CoinLabel->setPosition(Vec2(CoinSprite->getPositionX() + CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
     this->addChild(CoinLabel);
@@ -136,12 +136,12 @@ bool ShopScene::init()
     this->addChild(miniammo);
 
     //встановлення лейбла к-сті хп
-    LabelAmountXP = Label::create("", "DungeonFont.ttf", 18);
+    LabelAmountXP = Label::create("", "Fonts/DungeonFont.ttf", 18);
     LabelAmountXP->setAnchorPoint(Vec2(0, 0.5));
     LabelAmountXP->setPosition(435, 615);
     this->addChild(LabelAmountXP);
     // встановлення лейбла к-сті хп зброї(урону)
-    LabelAmountAmmo = Label::create("", "DungeonFont.ttf", 18);
+    LabelAmountAmmo = Label::create("", "Fonts/DungeonFont.ttf", 18);
     LabelAmountAmmo->setAnchorPoint(Vec2(0, 0.5));
     LabelAmountAmmo->setPosition(535, 610);
     this->addChild(LabelAmountAmmo);
@@ -286,16 +286,16 @@ bool ShopScene::init()
     this->addChild(lockHero);
 
     //label ціна героїв
-    priceHero = Label::create("", "DungeonFont.ttf", 42);
+    priceHero = Label::create("", "Fonts/DungeonFont.ttf", 42);
     priceHero->setPosition(480, 700);
     this->addChild(priceHero);
 
     //label ціна хп
-    LabelpriceHeart= Label::create(std::to_string(gameData::priceHeart), "DungeonFont.ttf", 42);
+    LabelpriceHeart= Label::create(std::to_string(gameData::priceHeart), "Fonts/DungeonFont.ttf", 42);
     LabelpriceHeart->setPosition(750, 430);
     this->addChild(LabelpriceHeart);
     //label ціна зброї
-    LabelpriceAmmo = Label::create(std::to_string(gameData::priceAmmo), "DungeonFont.ttf", 42);
+    LabelpriceAmmo = Label::create(std::to_string(gameData::priceAmmo), "Fonts/DungeonFont.ttf", 42);
     LabelpriceAmmo->setPosition(750, 330);
     this->addChild(LabelpriceAmmo);
 

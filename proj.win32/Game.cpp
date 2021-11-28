@@ -10,7 +10,7 @@
 USING_NS_CC;
 
 namespace gameData {
-	int  money = 200;
+	int  money = 2000000;
 	int  changeHero = 0; 
 	int  lastBuyHero = 0;
 	int  lvlHeart[4] = { 0,0,0,0 };
