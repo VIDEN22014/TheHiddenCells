@@ -1,3 +1,6 @@
+#pragma once
+
+
 #ifndef __LEVEL_3_SCENE_H__
 #define __LEVEL_3_SCENE_H__
 

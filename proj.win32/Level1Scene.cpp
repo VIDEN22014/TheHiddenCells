@@ -1,6 +1,9 @@
 #include "ui/CocosGUI.h"
 #include <proj.win32/Level1Scene.h>
 #include <proj.win32/Cards.h>
+#include <proj.win32/GameData.h>
+#include <proj.win32/Game.h>
+
 
 USING_NS_CC;
 
@@ -47,6 +50,8 @@ bool Level1Scene::init()
 	CoinLabel->setPosition(Vec2(CoinSprite->getPositionX() + CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
 	this->addChild(CoinLabel);
 
+	Card& Dist = *(new CardHero());
+
 
 	//Return Button
 	auto returnButton = ui::Button::create("Assets/UI/StoneButtonsLight/tile005.png", "Assets/UI/StoneButtonsLightPressed/tile005.png");
@@ -59,6 +64,7 @@ bool Level1Scene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
+			Dist.moveCard();
 			Game::GoToLevelSelect();
 			break;
 		default:

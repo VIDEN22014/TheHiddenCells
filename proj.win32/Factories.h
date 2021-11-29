@@ -1,6 +1,9 @@
-#include "cocos2d.h"
+#pragma once
+
+#ifndef __FACTORIES_H__
+#define __FACTORIES_H__
+
 #include <proj.win32/Cards.h>
-#include <proj.win32/Game.h>
 
 
 
@@ -16,3 +19,5 @@ class Level1Factory : public AbstractFactory {
 public:
 	Card* createMonster(position pos) override;
 };
+
+#endif // __FACTORIES_H__
