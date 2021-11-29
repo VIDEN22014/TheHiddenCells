@@ -74,6 +74,9 @@
     <ClInclude Include="Cards.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="CardGenerator.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
