@@ -1,4 +1,4 @@
-#include <proj.win32/Game.h>
+#include <proj.win32/Cards.h>
 
 
 USING_NS_CC;
