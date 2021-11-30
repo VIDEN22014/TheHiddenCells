@@ -1,5 +1,18 @@
 #pragma once
-//#include <proj.win32/Cards.h>
+
+struct position {
+	int x;
+	int y;
+	position() {
+		this->x = 0;
+		this->y = 0;
+	};
+	position(int x, int y) {
+		this->x = x;
+		this->y = y;
+	};
+};
+
 namespace gameData {
 	extern int money;
 	extern int changeHero;
@@ -12,11 +25,7 @@ namespace gameData {
 	extern int priceAmmo;
 	extern int amountXPHeros[4];
 	extern int amountAmmoHeros[4];
-	//extern Card *itemCards;
+	extern position heroPosition;
 }
 
 
-struct position {
-	int x;
-	int y;
-};

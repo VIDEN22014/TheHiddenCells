@@ -9,6 +9,8 @@ USING_NS_CC;
 
 Scene* Level1SceneObj;
 Label* Coin1Label;
+Card* cards[3][3];
+
 Scene* Level1Scene::createScene()
 {
 	return Level1SceneObj = Level1Scene::create();
@@ -55,30 +57,30 @@ bool Level1Scene::init()
 	Card& Dist = *(new CardHero());
 	//x
 	int i=0 ;
-	for ( i= 0; i < 9; i++) {
-		buttons[i]->loadTextures("Assets/UI/StoneButtons/tile00" + std::to_string(i) + ".png", "Assets/UI/StoneButtonsLight/tile00" + std::to_string(i) + ".png");
-		buttons[i]->setScale(8.0);
-		buttons[i]->setAnchorPoint(Vec2(0.5, 0.5));
-		buttons[i]->setPosition(Vec2((352 + 8*16 * (i % 3)), (608 - 8*16 * (i / 3))));
-		
-		buttons[i]->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
-			switch (type)
-			{
-			case ui::Widget::TouchEventType::BEGAN:
-				//Sprite* sprite;
-				//Coin1Label->setString(std::to_string(i));
-				buttons[i]->loadTextures("Assets/UI/StoneButtons/tile001.png", "Assets/UI/StoneButtonsLight/tile00" + std::to_string(i) + ".png");
-				//Dist.moveCard();
-				break;
-			case ui::Widget::TouchEventType::ENDED:
-				
-				break;
-			default:
-				break;
-			}
-			});
-		this->addChild(buttons[i]);
-	}
+	//for ( i= 0; i < 9; i++) {
+	//	buttons[i]->loadTextures("Assets/UI/StoneButtons/tile00" + std::to_string(i) + ".png", "Assets/UI/StoneButtonsLight/tile00" + std::to_string(i) + ".png");
+	//	buttons[i]->setScale(8.0);
+	//	buttons[i]->setAnchorPoint(Vec2(0.5, 0.5));
+	//	buttons[i]->setPosition(Vec2((352 + 8*16 * (i % 3)), (608 - 8*16 * (i / 3))));
+	//	
+	//	buttons[i]->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+	//		switch (type)
+	//		{
+	//		case ui::Widget::TouchEventType::BEGAN:
+	//			//Sprite* sprite;
+	//			//Coin1Label->setString(std::to_string(i));
+	//			buttons[i]->loadTextures("Assets/UI/StoneButtons/tile001.png", "Assets/UI/StoneButtonsLight/tile00" + std::to_string(i) + ".png");
+	//			//Dist.moveCard();
+	//			break;
+	//		case ui::Widget::TouchEventType::ENDED:
+	//			
+	//			break;
+	//		default:
+	//			break;
+	//		}
+	//		});
+	//	this->addChild(buttons[i]);
+	//}
     //
 	
 	//Return Button

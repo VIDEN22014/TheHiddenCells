@@ -1,4 +1,7 @@
-//#include <proj.win32/GameData.h>
+#include <proj.win32/GameData.h>
+
+
+
 namespace gameData {
 	int  money = 2000000;
 	int  changeHero = 0;
@@ -11,5 +14,5 @@ namespace gameData {
 	int priceAmmo = 20;
 	int amountXPHeros[4] = { 8,15,12,10 };
 	int amountAmmoHeros[4] = { 5,10,8,5 };
-	//Card* itemCards;
+	position heroPosition(1,1);
 }
