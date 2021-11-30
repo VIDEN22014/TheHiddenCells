@@ -10,9 +10,11 @@
 class AbstractFactory
 {
 public:
+	std::string spriteFramePath = "Assets/Cards/squareGoldenFrame.png";
 	virtual Card* createHero(position pos,cocos2d::Scene*scene);
 	virtual Card* createCoin(position pos, cocos2d::Scene* scene);
 	virtual Card* createMonster(position pos, cocos2d::Scene* scene);
+
 };
 
 class Level1Factory : public AbstractFactory {

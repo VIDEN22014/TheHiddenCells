@@ -14,7 +14,7 @@ public:
 	AbstractFactory* factory;
 	cocos2d::Scene* scene;
 	GeneratorCard(int lvl, cocos2d::Scene* scene) {
-		if (lvl == 1) { AbstractFactory* factory = new Level1Factory(); }
+		if (lvl == 1) { factory = new Level1Factory(); }
 		this->scene = scene;
 	};
 

@@ -3,7 +3,8 @@
 #include <proj.win32/Cards.h>
 #include <proj.win32/GameData.h>
 #include <proj.win32/Game.h>
-
+#include <proj.win32/GeneratorCard.h>
+#include <proj.win32/CardGenerator.h>
 
 USING_NS_CC;
 
@@ -23,7 +24,15 @@ bool Level1Scene::init()
 	{
 		return false;
 	}
-
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			
+			if (i == 1 && j == 1) {
+				cards[i][j] = GeneratorCard(1, this).GenerateHeroCard(*(new position(i, j)));
+			}
+			else{ cards[i][j] = GeneratorCard(1, this).GenerateRandomCard(*(new position(i, j))); }
+		}
+	}
 	//Background Sprite
 	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG 4.png");
 	Size size = Director::getInstance()->getWinSize();
@@ -82,7 +91,7 @@ bool Level1Scene::init()
 			touchSprite[i][j]->setScale(12);
 			touchSprite[i][j]->setPosition(Vec2(278 + j * (touchSprite[i][j]->getContentSize().width * touchSprite[i][j]->getScale() + 10),
 				682 - i * (touchSprite[i][j]->getContentSize().width * touchSprite[i][j]->getScale() + 10)));
-
+			touchSprite[i][j]->setVisible(false);
 			this->addChild(touchSprite[i][j]);
 		}
 	}
@@ -102,7 +111,7 @@ void checkTouch(float touchX, float touchY) {
 		{
 			if (touchX >= touchSprite[i][j]->getPositionX()-192/2.0 && touchX <= touchSprite[i][j]->getPositionX() + 192 / 2.0 && touchY >= touchSprite[i][j]->getPositionY()- 192 / 2.0 && touchY <= touchSprite[i][j]->getPositionY() + 192 / 2.0) {
 				Coin1Label->setString(std::to_string(i)+ std::to_string(j));
-				//Game::Turn(i, j, cards, 1);
+				Game::Turn(i, j, cards, 1);
 			}
 		}
 	}
