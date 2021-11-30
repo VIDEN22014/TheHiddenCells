@@ -2,6 +2,8 @@
 #include <cocos/ui/UIButton.h>
 #include <proj.win32/Game.h>
 #include <cocos/audio/include/SimpleAudioEngine.h>
+#include <proj.win32/GameData.h>
+
 
 
 USING_NS_CC;

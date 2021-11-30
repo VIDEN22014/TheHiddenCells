@@ -1,17 +1,27 @@
+#pragma once
+
+#ifndef __CARDS_H__
+#define __CARDS_H__
+
+#include <proj.win32/GameData.h>
 #include "cocos2d.h"
-#include <proj.win32/Game.h>
+
+
 
 
 class Card {
 public:
 	Card() {};
-	cocos2d::Sprite* spriteFrame;
-	cocos2d::Sprite* spriteCard;
+	cocos2d::Sprite* spriteFrame = nullptr;
+	cocos2d::Sprite* spriteCard = nullptr;
 	position pos;
 	virtual void moveCard();
 };
 
 class CardHero : public Card {
 public:
+	CardHero(): Card() {};
 	void moveCard() override;
 };
+
+#endif // __CARDS_H__

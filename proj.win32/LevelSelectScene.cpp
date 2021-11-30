@@ -1,6 +1,9 @@
 #include "ui/CocosGUI.h"
 #include <proj.win32/LevelSelectScene.h>
 #include <proj.win32/Game.h>
+#include <proj.win32/GameData.h>
+
+
 
 USING_NS_CC;
 

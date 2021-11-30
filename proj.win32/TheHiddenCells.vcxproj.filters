@@ -42,6 +42,12 @@
     <ClCompile Include="Cards.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="Factories.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GameData.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -74,7 +80,10 @@
     <ClInclude Include="Cards.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="CardGenerator.h">
+    <ClInclude Include="Factories.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="GameData.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

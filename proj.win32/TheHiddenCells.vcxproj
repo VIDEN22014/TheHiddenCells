@@ -153,7 +153,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\MainMenuScene.cpp" />
     <ClCompile Include="Cards.cpp" />
+    <ClCompile Include="Factories.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameData.cpp" />
     <ClCompile Include="Level1Scene.cpp" />
     <ClCompile Include="Level2Scene.cpp" />
     <ClCompile Include="Level3Scene.cpp" />
@@ -166,7 +168,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\MainMenuScene.h" />
     <ClInclude Include="CardGenerator.h" />
     <ClInclude Include="Cards.h" />
+    <ClInclude Include="Factories.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameData.h" />
     <ClInclude Include="Level1Scene.h" />
     <ClInclude Include="Level2Scene.h" />
     <ClInclude Include="Level3Scene.h" />

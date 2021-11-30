@@ -1,24 +1,13 @@
+#pragma once
+
+#ifndef __GAME_H__
+#define __GAME_H__
+
 #include "cocos2d.h"
 
-namespace gameData {
-	extern int money;
-	extern int changeHero;
-	extern int lvlHeart[4];
-	extern int lvlAmmo[4];
-	extern bool lockHero[4];
-	extern int priceHero[4];
-	extern int  lastBuyHero;
-	extern int priceHeart;
-	extern int priceAmmo;
-	extern int amountXPHeros[4];
-	extern int amountAmmoHeros[4];
-}
 
 
-struct position {
-	int x;
-	int y;
-};
+
 class Game
 {
 public:
@@ -32,3 +21,6 @@ public:
 	static void GoToGameScene();
 	static void MoneyChange(int moneyDiff, cocos2d::Label* label);
 };
+
+
+#endif // __GAME_H__

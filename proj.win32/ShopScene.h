@@ -1,3 +1,6 @@
+#pragma once
+
+
 #ifndef __SHOP_SCENE_H__
 #define __SHOP_SCENE_H__
 

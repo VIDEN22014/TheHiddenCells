@@ -1,6 +1,10 @@
 #include "ui/CocosGUI.h"
 #include <proj.win32/Level2Scene.h>
 #include <proj.win32/Cards.h>
+#include <proj.win32/GameData.h>
+#include <proj.win32/Game.h>
+
+
 
 
 USING_NS_CC;
