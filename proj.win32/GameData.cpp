@@ -1,7 +1,4 @@
-#include <proj.win32/GameData.h>
-
-
-
+//#include <proj.win32/GameData.h>
 namespace gameData {
 	int  money = 2000000;
 	int  changeHero = 0;
