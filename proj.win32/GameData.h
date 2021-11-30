@@ -25,7 +25,6 @@ namespace gameData {
 	extern int priceAmmo;
 	extern int amountXPHeros[4];
 	extern int amountAmmoHeros[4];
-	//extern Card *itemCards;
 }
 
 
