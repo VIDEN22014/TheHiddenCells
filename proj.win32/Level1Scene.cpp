@@ -8,8 +8,7 @@
 USING_NS_CC;
 
 Scene* Level1SceneObj;
-
-
+//Label* CoinLabel = Label::create("", "Fonts/DungeonFont.ttf", 42);
 Scene* Level1Scene::createScene()
 {
 	return Level1SceneObj = Level1Scene::create();
@@ -17,6 +16,8 @@ Scene* Level1Scene::createScene()
 
 bool Level1Scene::init()
 {
+	ui::Button* buttons[] = { ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create() };
+
 	if (!Scene::init())
 	{
 		return false;
@@ -45,14 +46,40 @@ bool Level1Scene::init()
 	animation->setDelayPerUnit(0.1111111112f);
 	animation->setLoops(-1);
 	CoinSprite->runAction(Animate::create(animation));
-	auto CoinLabel = Label::createWithTTF(std::to_string(gameData::money), "Fonts/DungeonFont.ttf", 42);
+
+	auto CoinLabel = Label::create(std::to_string(gameData::money), "Fonts/DungeonFont.ttf", 42);
 	CoinLabel->setAnchorPoint(Vec2(0, 0.5));
 	CoinLabel->setPosition(Vec2(CoinSprite->getPositionX() + CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
 	this->addChild(CoinLabel);
 
 	Card& Dist = *(new CardHero());
-
-
+	//x
+	int i ;
+	for ( i= 0; i < 9; i++) {
+		buttons[i]->loadTextures("Assets/UI/StoneButtons/tile00" + std::to_string(i) + ".png", "Assets/UI/StoneButtonsLight/tile00" + std::to_string(i) + ".png");
+		buttons[i]->setScale(8.0);
+		buttons[i]->setAnchorPoint(Vec2(0.5, 0.5));
+		buttons[i]->setPosition(Vec2((352 + 8*16 * (i % 3)), (608 - 8*16 * (i / 3))));
+		buttons[i]->setVisible(false);
+		buttons[i]->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+			switch (type)
+			{
+			case ui::Widget::TouchEventType::BEGAN:
+				//Sprite* sprite;
+				CoinLabel->setString(std::to_string(i));
+				Dist.moveCard();
+				break;
+			case ui::Widget::TouchEventType::ENDED:
+				
+				break;
+			default:
+				break;
+			}
+			});
+		this->addChild(buttons[i]);
+	}
+    //
+	
 	//Return Button
 	auto returnButton = ui::Button::create("Assets/UI/StoneButtonsLight/tile005.png", "Assets/UI/StoneButtonsLightPressed/tile005.png");
 	returnButton->setScale(5);
