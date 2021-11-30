@@ -3,14 +3,13 @@
 #include <proj.win32/Cards.h>
 #include <proj.win32/GameData.h>
 #include <proj.win32/Game.h>
-#include <proj.win32/GeneratorCard.h>
-#include <proj.win32/CardGenerator.h>
 
 
 USING_NS_CC;
 
 Scene* Level1SceneObj;
 Label* Coin1Label;
+Sprite* touchSprite[3][3];
 Card* cards[3][3];
 
 Scene* Level1Scene::createScene()
@@ -20,20 +19,11 @@ Scene* Level1Scene::createScene()
 
 bool Level1Scene::init()
 {
-
 	if (!Scene::init())
 	{
 		return false;
 	}
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			cards[i][j] = GeneratorCard(1, Level1SceneObj).GenerateRandomCard(*(new position(278 + j * 192 + 10, 682 - i * 192 + 10)));
-			if (i == 1&&j == 1) {
-				cards[i][j] = GeneratorCard(1, Level1SceneObj).GenerateHeroCard(*(new position(480, 480)));
-			}
-		}
-	}
-	
+
 	//Background Sprite
 	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG 4.png");
 	Size size = Director::getInstance()->getWinSize();
@@ -63,6 +53,8 @@ bool Level1Scene::init()
 	Coin1Label->setPosition(Vec2(CoinSprite->getPositionX() + CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
 	this->addChild(Coin1Label);
 
+
+
 	//Return Button
 	auto returnButton = ui::Button::create("Assets/UI/StoneButtonsLight/tile005.png", "Assets/UI/StoneButtonsLightPressed/tile005.png");
 	returnButton->setScale(5);
@@ -82,7 +74,43 @@ bool Level1Scene::init()
 		});
 	this->addChild(returnButton);
 
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			touchSprite[i][j] = Sprite::create("Assets/UI/StoneButtonsLight/tile005.png");
+			touchSprite[i][j]->setScale(12);
+			touchSprite[i][j]->setPosition(Vec2(278 + j * (touchSprite[i][j]->getContentSize().width * touchSprite[i][j]->getScale() + 10),
+				682 - i * (touchSprite[i][j]->getContentSize().width * touchSprite[i][j]->getScale() + 10)));
 
+			this->addChild(touchSprite[i][j]);
+		}
+	}
+
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = CC_CALLBACK_2(Level1Scene::onTouchBegan, this);
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+
+
+	return true;
+}
+
+void checkTouch(float touchX, float touchY) {
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (touchX >= touchSprite[i][j]->getPositionX()-192/2.0 && touchX <= touchSprite[i][j]->getPositionX() + 192 / 2.0 && touchY >= touchSprite[i][j]->getPositionY()- 192 / 2.0 && touchY <= touchSprite[i][j]->getPositionY() + 192 / 2.0) {
+				Coin1Label->setString(std::to_string(i)+ std::to_string(j));
+				//Game::Turn(i, j, cards, 1);
+			}
+		}
+	}
+}
+
+bool Level1Scene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+	checkTouch(touch->getLocation().x, touch->getLocation().y);
 	return true;
 }
 
