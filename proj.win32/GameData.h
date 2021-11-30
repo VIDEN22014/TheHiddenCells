@@ -1,5 +1,5 @@
 #pragma once
-
+//#include <proj.win32/Cards.h>
 namespace gameData {
 	extern int money;
 	extern int changeHero;
@@ -12,6 +12,7 @@ namespace gameData {
 	extern int priceAmmo;
 	extern int amountXPHeros[4];
 	extern int amountAmmoHeros[4];
+	//extern Card *itemCards;
 }
 
 
