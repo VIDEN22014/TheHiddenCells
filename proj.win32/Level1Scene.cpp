@@ -9,6 +9,7 @@ USING_NS_CC;
 
 Scene* Level1SceneObj;
 Label* Coin1Label;
+Sprite* touchSprite[3][3];
 Card* cards[3][3];
 
 Scene* Level1Scene::createScene()
@@ -18,8 +19,6 @@ Scene* Level1Scene::createScene()
 
 bool Level1Scene::init()
 {
-	ui::Button* buttons[] = { ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create() };
-
 	if (!Scene::init())
 	{
 		return false;
@@ -54,35 +53,8 @@ bool Level1Scene::init()
 	Coin1Label->setPosition(Vec2(CoinSprite->getPositionX() + CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
 	this->addChild(Coin1Label);
 
-	Card& Dist = *(new CardHero());
-	//x
-	int i=0 ;
-	//for ( i= 0; i < 9; i++) {
-	//	buttons[i]->loadTextures("Assets/UI/StoneButtons/tile00" + std::to_string(i) + ".png", "Assets/UI/StoneButtonsLight/tile00" + std::to_string(i) + ".png");
-	//	buttons[i]->setScale(8.0);
-	//	buttons[i]->setAnchorPoint(Vec2(0.5, 0.5));
-	//	buttons[i]->setPosition(Vec2((352 + 8*16 * (i % 3)), (608 - 8*16 * (i / 3))));
-	//	
-	//	buttons[i]->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
-	//		switch (type)
-	//		{
-	//		case ui::Widget::TouchEventType::BEGAN:
-	//			//Sprite* sprite;
-	//			//Coin1Label->setString(std::to_string(i));
-	//			buttons[i]->loadTextures("Assets/UI/StoneButtons/tile001.png", "Assets/UI/StoneButtonsLight/tile00" + std::to_string(i) + ".png");
-	//			//Dist.moveCard();
-	//			break;
-	//		case ui::Widget::TouchEventType::ENDED:
-	//			
-	//			break;
-	//		default:
-	//			break;
-	//		}
-	//		});
-	//	this->addChild(buttons[i]);
-	//}
-    //
-	
+
+
 	//Return Button
 	auto returnButton = ui::Button::create("Assets/UI/StoneButtonsLight/tile005.png", "Assets/UI/StoneButtonsLightPressed/tile005.png");
 	returnButton->setScale(5);
@@ -94,7 +66,6 @@ bool Level1Scene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			Dist.moveCard();
 			Game::GoToLevelSelect();
 			break;
 		default:
@@ -103,7 +74,43 @@ bool Level1Scene::init()
 		});
 	this->addChild(returnButton);
 
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			touchSprite[i][j] = Sprite::create("Assets/UI/StoneButtonsLight/tile005.png");
+			touchSprite[i][j]->setScale(12);
+			touchSprite[i][j]->setPosition(Vec2(278 + j * (touchSprite[i][j]->getContentSize().width * touchSprite[i][j]->getScale() + 10),
+				682 - i * (touchSprite[i][j]->getContentSize().width * touchSprite[i][j]->getScale() + 10)));
 
+			this->addChild(touchSprite[i][j]);
+		}
+	}
+
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = CC_CALLBACK_2(Level1Scene::onTouchBegan, this);
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+
+
+	return true;
+}
+
+void checkTouch(float touchX, float touchY) {
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (touchX >= touchSprite[i][j]->getPositionX()-192/2.0 && touchX <= touchSprite[i][j]->getPositionX() + 192 / 2.0 && touchY >= touchSprite[i][j]->getPositionY()- 192 / 2.0 && touchY <= touchSprite[i][j]->getPositionY() + 192 / 2.0) {
+				Coin1Label->setString(std::to_string(i)+ std::to_string(j));
+				//Game::Turn(i, j, cards, 1);
+			}
+		}
+	}
+}
+
+bool Level1Scene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+	checkTouch(touch->getLocation().x, touch->getLocation().y);
 	return true;
 }
 
