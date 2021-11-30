@@ -4,6 +4,7 @@
 #define __GAME_H__
 
 #include "cocos2d.h"
+#include <proj.win32/Cards.h>
 
 
 
@@ -20,6 +21,7 @@ public:
 	static void GoToLevel3();
 	static void GoToGameScene();
 	static void MoneyChange(int moneyDiff, cocos2d::Label* label);
+	static void Turn(int x, int y,Card* cards[3][3]);
 };
 
 

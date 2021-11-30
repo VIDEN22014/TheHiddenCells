@@ -9,6 +9,10 @@
 
 USING_NS_CC;
 
+void Game::Turn(int x, int y, Card* cards[3][3]) {
+	cards[0][0]->moveCard();
+	return;
+}
 
 void Game::GoToExit() {
 	CCDirector::sharedDirector()->end();
