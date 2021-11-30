@@ -10,14 +10,14 @@
 class AbstractFactory
 {
 public:
-	virtual Card* createHero(position pos);
-	virtual Card* createCoin(position pos);
-	virtual Card* createMonster(position pos);
+	virtual Card* createHero(position pos,cocos2d::Scene*scene);
+	virtual Card* createCoin(position pos, cocos2d::Scene* scene);
+	virtual Card* createMonster(position pos, cocos2d::Scene* scene);
 };
 
 class Level1Factory : public AbstractFactory {
 public:
-	Card* createMonster(position pos) override;
+	Card* createMonster(position pos, cocos2d::Scene* scene) override;
 };
 
 #endif // __FACTORIES_H__

@@ -3,6 +3,8 @@
 #include <proj.win32/Cards.h>
 #include <proj.win32/GameData.h>
 #include <proj.win32/Game.h>
+#include <proj.win32/GeneratorCard.h>
+#include <proj.win32/CardGenerator.h>
 
 
 USING_NS_CC;
@@ -18,13 +20,20 @@ Scene* Level1Scene::createScene()
 
 bool Level1Scene::init()
 {
-	ui::Button* buttons[] = { ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create(),ui::Button::create() };
 
 	if (!Scene::init())
 	{
 		return false;
 	}
-
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			cards[i][j] = GeneratorCard(1, Level1SceneObj).GenerateRandomCard(*(new position(278 + j * 192 + 10, 682 - i * 192 + 10)));
+			if (i == 1&&j == 1) {
+				cards[i][j] = GeneratorCard(1, Level1SceneObj).GenerateHeroCard(*(new position(480, 480)));
+			}
+		}
+	}
+	
 	//Background Sprite
 	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG 4.png");
 	Size size = Director::getInstance()->getWinSize();
@@ -54,35 +63,6 @@ bool Level1Scene::init()
 	Coin1Label->setPosition(Vec2(CoinSprite->getPositionX() + CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
 	this->addChild(Coin1Label);
 
-	Card& Dist = *(new CardHero());
-	//x
-	int i=0 ;
-	//for ( i= 0; i < 9; i++) {
-	//	buttons[i]->loadTextures("Assets/UI/StoneButtons/tile00" + std::to_string(i) + ".png", "Assets/UI/StoneButtonsLight/tile00" + std::to_string(i) + ".png");
-	//	buttons[i]->setScale(8.0);
-	//	buttons[i]->setAnchorPoint(Vec2(0.5, 0.5));
-	//	buttons[i]->setPosition(Vec2((352 + 8*16 * (i % 3)), (608 - 8*16 * (i / 3))));
-	//	
-	//	buttons[i]->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
-	//		switch (type)
-	//		{
-	//		case ui::Widget::TouchEventType::BEGAN:
-	//			//Sprite* sprite;
-	//			//Coin1Label->setString(std::to_string(i));
-	//			buttons[i]->loadTextures("Assets/UI/StoneButtons/tile001.png", "Assets/UI/StoneButtonsLight/tile00" + std::to_string(i) + ".png");
-	//			//Dist.moveCard();
-	//			break;
-	//		case ui::Widget::TouchEventType::ENDED:
-	//			
-	//			break;
-	//		default:
-	//			break;
-	//		}
-	//		});
-	//	this->addChild(buttons[i]);
-	//}
-    //
-	
 	//Return Button
 	auto returnButton = ui::Button::create("Assets/UI/StoneButtonsLight/tile005.png", "Assets/UI/StoneButtonsLightPressed/tile005.png");
 	returnButton->setScale(5);
@@ -94,7 +74,6 @@ bool Level1Scene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			Dist.moveCard();
 			Game::GoToLevelSelect();
 			break;
 		default:

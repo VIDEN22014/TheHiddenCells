@@ -18,4 +18,6 @@ namespace gameData {
 struct position {
 	int x;
 	int y;
+	position() { this->x = 0; this->y = 0; }
+	position(int x, int y) { this->x = x; this->y = y; };
 };

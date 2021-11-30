@@ -1,11 +1,14 @@
 #include <proj.win32/Factories.h>
 
 
-Card* Level1Factory::createMonster(position pos) {
-	gameData::money += 100;
+Card* AbstractFactory::createMonster(position pos) {
 	return new Card();
 }
-
-
+Card* Level1Factory::createHero(position pos) {
+	return new CardHero();
+}
+Card* AbstractFactory::createCoin(position pos) {
+	return new CardCoin();
+}
 
 
