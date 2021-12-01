@@ -22,6 +22,18 @@ bool CardIterator::hasNext() {
 			}
 			return true;
 		}
+		else if ((iterationsCount == 1 && !isLeftRight))
+		{
+			if (iteratorPosition.y == 0 || (iteratorPosition.x == 2 && iteratorPosition.y == 1))
+			{
+				iterationVec = position(0, 1);//RIGHT
+			}
+			else
+			{
+				iterationVec = position(0, -1);//LEFT
+			}
+			return true;
+		}
 		return false;
 	}
 	return true;
