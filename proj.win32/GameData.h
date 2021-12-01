@@ -44,6 +44,7 @@ namespace gameData {
 	extern cocos2d::Scene* currentScene;
 	extern int currentLevel;
 	extern cocos2d::Label* currentMoneyLabel;
+	extern bool isSceneLocked;
 }
 
 

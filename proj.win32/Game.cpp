@@ -13,11 +13,13 @@
 USING_NS_CC;
 
 void Game::Turn(position pos, Card* cards[3][3], int level) {
-	if (abs(pos.x - gameData::heroPosition.x) + abs(pos.y - gameData::heroPosition.y) == 1) {
+	if (abs(pos.x - gameData::heroPosition.x) + abs(pos.y - gameData::heroPosition.y) == 1 && !gameData::isSceneLocked) {
 		if (cards[pos.x][pos.y]->cardInteract() == 1) {
 			std::vector<position> cardVector;
 			CardIterator cardIterator(gameData::heroPosition, pos);
-			Card* tempCard;
+
+
+			gameData::isSceneLocked = true;
 			cards[pos.x][pos.y]->deleteCard();
 
 
@@ -31,10 +33,32 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 			for (int i = 0; i < cardVector.size() - 1; i++)
 			{
 				cards[cardVector[i].x][cardVector[i].y] = cards[cardVector[i + 1].x][cardVector[i + 1].y];
-				cards[cardVector[i].x][cardVector[i].y]->moveCard(position(cardVector[i].x - cardVector[i + 1].x, cardVector[i].y - cardVector[i + 1].y));
 			}
+
+
 			position endPos = cardVector[cardVector.size() - 1];
-			cards[endPos.x][endPos.y] = GeneratorCard(1, gameData::currentScene).GenerateRandomCard(*(new position(endPos)));
+			auto createCB = CallFunc::create([endPos, cardVector, cards, level]() {
+				CardCreate(endPos, cards, level);
+				});
+
+			auto unlockCB = CallFunc::create([endPos, cardVector, cards, level]() {
+				gameData::isSceneLocked = false;
+				});
+
+
+			for (int i = 0; i < cardVector.size() - 1; i++)
+			{
+				position vecDirection = cardVector[i] - cardVector[i + 1];
+				cards[cardVector[i].x][cardVector[i].y]->spriteCard->runAction(Sequence::create(DelayTime::create(i * 0.75), MoveBy::create(0.75, Vec2(vecDirection.y * (192 + 10), -vecDirection.x * (192 + 10)))->clone(), nullptr));
+				cards[cardVector[i].x][cardVector[i].y]->spriteFrame->runAction(Sequence::create(DelayTime::create(i * 0.75), MoveBy::create(0.75, Vec2(vecDirection.y * (192 + 10), -vecDirection.x * (192 + 10)))->clone(), nullptr));
+				if (i == cardVector.size() - 2)
+				{
+					cards[cardVector[i].x][cardVector[i].y]->spriteFrame->runAction(Sequence::create(DelayTime::create((i + 1) * 0.75 + 0.15), createCB, unlockCB, nullptr));
+				}
+			}
+
+
+
 
 
 
@@ -48,6 +72,11 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 		}
 	}
 	return;
+}
+
+void Game::CardCreate(position endPos, Card* cards[3][3], int level) {
+	cards[endPos.x][endPos.y] = GeneratorCard(level, gameData::currentScene).GenerateRandomCard(*(new position(endPos)));
+
 }
 
 void Game::GoToExit() {

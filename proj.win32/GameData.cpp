@@ -16,4 +16,5 @@ namespace gameData {
 	cocos2d::Scene* currentScene;
 	int currentLevel = 1;
 	cocos2d::Label* currentMoneyLabel;
+	bool isSceneLocked = false;
 }
