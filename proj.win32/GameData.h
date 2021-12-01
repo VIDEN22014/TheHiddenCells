@@ -13,7 +13,19 @@ struct position {
 		this->x = x;
 		this->y = y;
 	};
+	position operator+(position pos2)
+	{
+		return position(this->x + pos2.x, this->y + pos2.y);
+	}
+
+	position operator-(position pos2)
+	{
+		return position(this->x - pos2.x, this->y - pos2.y);
+	}
+
 };
+
+
 
 namespace gameData {
 	extern int money;
