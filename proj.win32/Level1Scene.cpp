@@ -80,7 +80,9 @@ bool Level1Scene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			Game::GoToLevelSelect();
+			if (!gameData::isSceneLocked) {
+				Game::GoToLevelSelect();
+			}
 			break;
 		default:
 			break;
