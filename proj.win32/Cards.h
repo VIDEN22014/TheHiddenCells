@@ -14,8 +14,8 @@ public:
 	Card(position cardpos,std::string spriteCardPath,std::string spriteFramePath,cocos2d::Scene *scene) {
 		spriteFrame = cocos2d::Sprite::create(spriteFramePath);
 		spriteCard = cocos2d::Sprite::create(spriteCardPath);
-		spriteCard->setPosition(Vec2(278 + cardpos.x * (192 + 10),682 - cardpos.y *( 192 + 10)));
-		spriteFrame->setPosition(Vec2(278 + cardpos.x * (192 + 10), 682 - cardpos.y *( 192 + 10)));
+		spriteCard->setPosition(Vec2(278 + cardpos.y * (192 + 10),682 - cardpos.x *( 192 + 10)));
+		spriteFrame->setPosition(Vec2(278 + cardpos.y * (192 + 10), 682 - cardpos.x *( 192 + 10)));
 		scene->addChild(spriteFrame, 1);
 		scene->addChild(spriteCard, 2);
 	};
@@ -24,6 +24,7 @@ public:
 	cocos2d::Sprite* spriteCard = nullptr;
 	position pos();
 	virtual void moveCard();
+	virtual void deleteCard();
 };
 
 class CardHero : public Card {

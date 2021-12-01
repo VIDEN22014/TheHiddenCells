@@ -6,11 +6,16 @@
 #include <proj.win32/Level1Scene.h>
 #include <proj.win32/Level2Scene.h>
 #include <proj.win32/Level3Scene.h>
+#include <Math.h>
 
 USING_NS_CC;
 
-void Game::Turn(position pos, Card* cards[3][3],int level) {
-	cards[0][0]->moveCard();
+void Game::Turn(position pos, Card* cards[3][3], int level) {
+	if (abs(pos.x - gameData::heroPosition.x) + abs(pos.y - gameData::heroPosition.y) == 1) {
+		
+		cards[0][0]->moveCard();
+
+	}
 	return;
 }
 

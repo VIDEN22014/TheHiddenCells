@@ -24,13 +24,17 @@ bool Level1Scene::init()
 	{
 		return false;
 	}
+	gameData::currentScene = this;
+	gameData::currentLevel = 1;
+
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			
 			if (i == 1 && j == 1) {
 				cards[i][j] = GeneratorCard(1, this).GenerateHeroCard(*(new position(i, j)));
 			}
-			else{ cards[i][j] = GeneratorCard(1, this).GenerateRandomCard(*(new position(i, j))); }
+			else {
+				cards[i][j] = GeneratorCard(1, this).GenerateRandomCard(*(new position(i, j)));
+			}
 		}
 	}
 	//Background Sprite
@@ -109,8 +113,8 @@ void checkTouch(float touchX, float touchY) {
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			if (touchX >= touchSprite[i][j]->getPositionX()-192/2.0 && touchX <= touchSprite[i][j]->getPositionX() + 192 / 2.0 && touchY >= touchSprite[i][j]->getPositionY()- 192 / 2.0 && touchY <= touchSprite[i][j]->getPositionY() + 192 / 2.0) {
-				Coin1Label->setString(std::to_string(gameData::heroPosition.x)+ std::to_string(gameData::heroPosition.y));
+			if (touchX >= touchSprite[i][j]->getPositionX() - 192 / 2.0 && touchX <= touchSprite[i][j]->getPositionX() + 192 / 2.0 && touchY >= touchSprite[i][j]->getPositionY() - 192 / 2.0 && touchY <= touchSprite[i][j]->getPositionY() + 192 / 2.0) {
+				Coin1Label->setString(std::to_string(gameData::heroPosition.x) + std::to_string(gameData::heroPosition.y));
 				Game::Turn(position(i, j), cards, 1);
 			}
 		}

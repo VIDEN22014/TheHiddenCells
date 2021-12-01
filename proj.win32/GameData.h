@@ -1,4 +1,6 @@
 #pragma once
+#include "cocos2d.h"
+
 
 struct position {
 	int x;
@@ -26,6 +28,8 @@ namespace gameData {
 	extern int amountXPHeros[4];
 	extern int amountAmmoHeros[4];
 	extern position heroPosition;
+	extern cocos2d::Scene* currentScene;
+	extern int currentLevel;
 }
 
 

@@ -7,6 +7,12 @@ void Card::moveCard() {
 	gameData::money = 0;
 }
 
+void Card::deleteCard() {
+	spriteFrame->removeFromParent();
+	spriteCard->removeFromParent();
+
+}
+
 void CardHero::moveCard(){
 	gameData::money += 100;
 }

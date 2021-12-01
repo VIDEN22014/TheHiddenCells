@@ -11,5 +11,7 @@ namespace gameData {
 	int priceAmmo = 20;
 	int amountXPHeros[4] = { 8,15,12,10 };
 	int amountAmmoHeros[4] = { 5,10,8,5 };
-	position heroPosition(1,1);
+	position heroPosition(1, 1);
+	cocos2d::Scene* currentScene;
+	int currentLevel = 1;
 }
