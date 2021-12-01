@@ -110,8 +110,8 @@ void checkTouch(float touchX, float touchY) {
 		for (int j = 0; j < 3; j++)
 		{
 			if (touchX >= touchSprite[i][j]->getPositionX()-192/2.0 && touchX <= touchSprite[i][j]->getPositionX() + 192 / 2.0 && touchY >= touchSprite[i][j]->getPositionY()- 192 / 2.0 && touchY <= touchSprite[i][j]->getPositionY() + 192 / 2.0) {
-				Coin1Label->setString(std::to_string(i)+ std::to_string(j));
-				Game::Turn(i, j, cards, 1);
+				Coin1Label->setString(std::to_string(gameData::heroPosition.x)+ std::to_string(gameData::heroPosition.y));
+				Game::Turn(position(i, j), cards, 1);
 			}
 		}
 	}

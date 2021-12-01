@@ -9,7 +9,7 @@
 
 USING_NS_CC;
 
-void Game::Turn(int x, int y, Card* cards[3][3],int level) {
+void Game::Turn(position pos, Card* cards[3][3],int level) {
 	cards[0][0]->moveCard();
 	return;
 }
