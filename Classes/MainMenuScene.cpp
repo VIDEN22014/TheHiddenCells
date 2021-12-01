@@ -300,7 +300,7 @@ bool MainMenuScene::init()
 }
 void MainMenuScene::changeTextureHeroes() {
 
-		if (gameData::changeHero==0&&gameData::lockHero[0]){
+		if (gameData::chosenHero==0&&gameData::lockHero[0]){
 			miniammo1->setTexture("Assets/Weapons/weapon_regular_sword.png");
 			LabelAmountXP1->setString(std::to_string(gameData::amountXPHeros[0]));
 			LabelAmountAmmo1->setString(std::to_string(gameData::amountAmmoHeros[0]));
@@ -319,7 +319,7 @@ void MainMenuScene::changeTextureHeroes() {
 			spriteStartHero->runAction(Animate::create(animationHero));
 			return;
 		}
-		else if (gameData::changeHero == 1 && gameData::lockHero[1]) {
+		else if (gameData::chosenHero == 1 && gameData::lockHero[1]) {
 			miniammo1->setTexture("Assets/Weapons/weapon_hammer.png");
 			LabelAmountXP1->setString(std::to_string(gameData::amountXPHeros[1]));
 			LabelAmountAmmo1->setString(std::to_string(gameData::amountAmmoHeros[1]));
@@ -337,7 +337,7 @@ void MainMenuScene::changeTextureHeroes() {
 			spriteStartHero->runAction(Animate::create(animationHero));
 			return;
 		}
-		else if (gameData::changeHero == 2 && gameData::lockHero[2]) {
+		else if (gameData::chosenHero == 2 && gameData::lockHero[2]) {
 			miniammo1->setTexture("Assets/Weapons/weapon_red_magic_staff.png");
 			miniammo1->setScale(1.5);
 			LabelAmountXP1->setString(std::to_string(gameData::amountXPHeros[2]));
@@ -357,7 +357,7 @@ void MainMenuScene::changeTextureHeroes() {
 			return;
 
 		}
-		else if (gameData::changeHero == 3 && gameData::lockHero[3]) {
+		else if (gameData::chosenHero == 3 && gameData::lockHero[3]) {
 			miniammo1->setTexture("Assets/Weapons/weapon_golden_sword.png");
 			LabelAmountXP1->setString(std::to_string(gameData::amountXPHeros[3]));
 			LabelAmountAmmo1->setString(std::to_string(gameData::amountAmmoHeros[3]));

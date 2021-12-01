@@ -6,15 +6,20 @@
 #include <proj.win32/Level1Scene.h>
 #include <proj.win32/Level2Scene.h>
 #include <proj.win32/Level3Scene.h>
+#include <proj.win32/GeneratorCard.h>
 #include <Math.h>
 
 USING_NS_CC;
 
 void Game::Turn(position pos, Card* cards[3][3], int level) {
 	if (abs(pos.x - gameData::heroPosition.x) + abs(pos.y - gameData::heroPosition.y) == 1) {
-		
-		cards[0][0]->moveCard();
-
+		if (cards[pos.x][pos.y]->cardInteract() == 1) {
+			cards[pos.x][pos.y]->deleteCard();
+			cards[pos.x][pos.y] = cards[gameData::heroPosition.x][gameData::heroPosition.y];
+			cards[pos.x][pos.y]->moveCard(position(pos.x - gameData::heroPosition.x, pos.y - gameData::heroPosition.y));
+			cards[gameData::heroPosition.x][gameData::heroPosition.y] = GeneratorCard(1, gameData::currentScene).GenerateRandomCard(*(new position(gameData::heroPosition.x, gameData::heroPosition.y)));
+			gameData::heroPosition = position(pos);
+		}
 	}
 	return;
 }

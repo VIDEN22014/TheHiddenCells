@@ -1,7 +1,8 @@
 #include <proj.win32/GameData.h>
 namespace gameData {
 	int  money = 2000000;
-	int  changeHero = 0;
+	int tempMoney = 0;
+	int  chosenHero = 0;
 	int  lastBuyHero = 0;
 	int  lvlHeart[4] = { 0,0,0,0 };
 	int  lvlAmmo[4] = { 0,0,0,0 };
@@ -14,4 +15,5 @@ namespace gameData {
 	position heroPosition(1, 1);
 	cocos2d::Scene* currentScene;
 	int currentLevel = 1;
+	cocos2d::Label* currentMoneyLabel;
 }

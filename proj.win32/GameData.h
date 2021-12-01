@@ -17,7 +17,8 @@ struct position {
 
 namespace gameData {
 	extern int money;
-	extern int changeHero;
+	extern int tempMoney;
+	extern int chosenHero;
 	extern int lvlHeart[4];
 	extern int lvlAmmo[4];
 	extern bool lockHero[4];
@@ -30,6 +31,7 @@ namespace gameData {
 	extern position heroPosition;
 	extern cocos2d::Scene* currentScene;
 	extern int currentLevel;
+	extern cocos2d::Label* currentMoneyLabel;
 }
 
 

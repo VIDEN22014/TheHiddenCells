@@ -156,11 +156,11 @@ bool ShopScene::init()
             break;
         case ui::Widget::TouchEventType::ENDED:
             InfoLabel->setVisible(false);
-            gameData::changeHero++;
-            if (gameData::changeHero == -1) { gameData::changeHero = 3; }
-            changeTextureHeroes(abs(gameData::changeHero % 4),false);
-            changeTexturelineExp(gameData::lvlHeart[gameData::changeHero % 4],0);
-            changeTexturelineExp(gameData::lvlAmmo[gameData::changeHero % 4], 1);
+            gameData::chosenHero++;
+            if (gameData::chosenHero == -1) { gameData::chosenHero = 3; }
+            changeTextureHeroes(abs(gameData::chosenHero % 4),false);
+            changeTexturelineExp(gameData::lvlHeart[gameData::chosenHero % 4],0);
+            changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);
             //CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
             break;
         default:
@@ -176,12 +176,12 @@ bool ShopScene::init()
             break;
         case ui::Widget::TouchEventType::ENDED:
             InfoLabel->setVisible(false);
-            gameData::changeHero--;
-            if (gameData::changeHero == -1) { gameData::changeHero = 3; }
-            changeTextureHeroes(abs(gameData::changeHero % 4),false);
+            gameData::chosenHero--;
+            if (gameData::chosenHero == -1) { gameData::chosenHero = 3; }
+            changeTextureHeroes(abs(gameData::chosenHero % 4),false);
            
-            changeTexturelineExp(gameData::lvlHeart[gameData::changeHero % 4],0);
-          changeTexturelineExp(gameData::lvlAmmo[gameData::changeHero % 4], 1);
+            changeTexturelineExp(gameData::lvlHeart[gameData::chosenHero % 4],0);
+          changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);
             // CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
             break;
         default:
@@ -218,10 +218,10 @@ bool ShopScene::init()
         case ui::Widget::TouchEventType::BEGAN:
             break;
         case ui::Widget::TouchEventType::ENDED:
-            if (gameData::lockHero[gameData::changeHero % 4]&& gameData::money >= gameData::priceHeart) {
-                if (gameData::lvlHeart[gameData::changeHero % 4] < 7) {
-                    gameData::lvlHeart[gameData::changeHero % 4]++;
-                    changeTexturelineExp(gameData::lvlHeart[gameData::changeHero % 4], 0);
+            if (gameData::lockHero[gameData::chosenHero % 4]&& gameData::money >= gameData::priceHeart) {
+                if (gameData::lvlHeart[gameData::chosenHero % 4] < 7) {
+                    gameData::lvlHeart[gameData::chosenHero % 4]++;
+                    changeTexturelineExp(gameData::lvlHeart[gameData::chosenHero % 4], 0);
                 
                     Game::MoneyChange(-gameData::priceHeart, CoinLabel);
                     gameData::priceHeart += 20;
@@ -245,10 +245,10 @@ bool ShopScene::init()
         case ui::Widget::TouchEventType::BEGAN:
             break;
         case ui::Widget::TouchEventType::ENDED:
-            if (gameData::lockHero[gameData::changeHero % 4]) {
-                if (gameData::lvlAmmo[gameData::changeHero % 4] < 7&& gameData::money >= gameData::priceAmmo) {
-                    gameData::lvlAmmo[gameData::changeHero % 4]++;
-                    ShopScene::changeTexturelineExp(gameData::lvlAmmo[gameData::changeHero % 4], 1);
+            if (gameData::lockHero[gameData::chosenHero % 4]) {
+                if (gameData::lvlAmmo[gameData::chosenHero % 4] < 7&& gameData::money >= gameData::priceAmmo) {
+                    gameData::lvlAmmo[gameData::chosenHero % 4]++;
+                    ShopScene::changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);
                 
                     Game::MoneyChange(-gameData::priceAmmo, CoinLabel);
                     gameData::priceAmmo += 20;
@@ -272,11 +272,11 @@ bool ShopScene::init()
         case ui::Widget::TouchEventType::BEGAN:
             break;
         case ui::Widget::TouchEventType::ENDED:
-            if (gameData::money>=abs( gameData::priceHero[gameData::changeHero % 4])) {
-                gameData::lockHero[gameData::changeHero % 4] = true;
+            if (gameData::money>=abs( gameData::priceHero[gameData::chosenHero % 4])) {
+                gameData::lockHero[gameData::chosenHero % 4] = true;
                 lockHero->setVisible(false);
-                changeTextureHeroes(gameData::changeHero % 4,true);
-                Game::MoneyChange(gameData::priceHero[gameData::changeHero % 4], CoinLabel);
+                changeTextureHeroes(gameData::chosenHero % 4,true);
+                Game::MoneyChange(gameData::priceHero[gameData::chosenHero % 4], CoinLabel);
             }
             else { InfoLabel->setVisible(true); }
             break;
@@ -301,9 +301,9 @@ bool ShopScene::init()
     LabelpriceAmmo->setPosition(750, 330);
     this->addChild(LabelpriceAmmo);
 
-    changeTextureHeroes(gameData::changeHero % 4,false);
-    changeTexturelineExp(gameData::lvlHeart[gameData::changeHero % 4], 0);
-    changeTexturelineExp(gameData::lvlAmmo[gameData::changeHero % 4], 1);
+    changeTextureHeroes(gameData::chosenHero % 4,false);
+    changeTexturelineExp(gameData::lvlHeart[gameData::chosenHero % 4], 0);
+    changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);
 
 
 
