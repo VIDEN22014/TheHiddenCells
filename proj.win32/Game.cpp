@@ -14,7 +14,7 @@ USING_NS_CC;
 
 void Game::Turn(position pos, Card* cards[3][3], int level) {
 	if (abs(pos.x - gameData::heroPosition.x) + abs(pos.y - gameData::heroPosition.y) == 1 && !gameData::isSceneLocked) {
-		if (cards[pos.x][pos.y]->cardInteract() == 1) {
+		if (cards[pos.x][pos.y]->cardInteract(cards) == 1) {
 			std::vector<position> cardVector;
 			CardIterator cardIterator(gameData::heroPosition, pos);
 
@@ -30,6 +30,7 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 			{
 				cardVector.push_back(cardIterator.getNext());
 			}
+
 
 			//Card*[][] Replace
 			for (int i = 0; i < cardVector.size() - 1; i++)
@@ -59,8 +60,18 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 					cards[cardVector[i].x][cardVector[i].y]->spriteFrame->runAction(Sequence::create(DelayTime::create((i + 1) * 0.75 + 0.15), createCB, unlockCB, nullptr));
 				}
 			}
-
 			gameData::heroPosition = position(pos);
+
+
+			//Card OnTurn
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					cards[i][j]->cardOnTurn(cards);
+				}
+			}
+
 		}
 	}
 	return;
