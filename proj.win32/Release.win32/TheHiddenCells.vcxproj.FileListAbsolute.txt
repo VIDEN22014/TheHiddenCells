@@ -1,2 +1,1 @@
-D:\TheHiddenCells\proj.win32\Release.win32\TheHiddenCells.exe
-D:\Humeniuk_Bohdan\KN-3\1_Semester\TheHiddenCells\proj.win32\Release.win32\TheHiddenCells.exe
+C:\Users\dxbog\source\repos\VIDEN22014\TheHiddenCells\proj.win32\Release.win32\TheHiddenCells.exe

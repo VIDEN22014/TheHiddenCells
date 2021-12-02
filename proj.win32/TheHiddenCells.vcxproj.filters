@@ -18,7 +18,40 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+    <ClCompile Include="..\Classes\MainMenuScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Level1Scene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Level2Scene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Level3Scene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelSelectScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Cards.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Factories.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GameData.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratorCard.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="CardIterator.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +62,41 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
+    <ClInclude Include="..\Classes\MainMenuScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelSelectScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Level1Scene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Level2Scene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Level3Scene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Cards.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Factories.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="GameData.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="CardGenerator.h" />
+    <ClInclude Include="GeneratorCard.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="CardIterator.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
