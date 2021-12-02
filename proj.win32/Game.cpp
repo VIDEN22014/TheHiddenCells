@@ -18,8 +18,10 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 			std::vector<position> cardVector;
 			CardIterator cardIterator(gameData::heroPosition, pos);
 
-
+			//Lock Scene
 			gameData::isSceneLocked = true;
+
+
 			cards[pos.x][pos.y]->deleteCard();
 
 
@@ -29,23 +31,23 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 				cardVector.push_back(cardIterator.getNext());
 			}
 
-
+			//Card*[][] Replace
 			for (int i = 0; i < cardVector.size() - 1; i++)
 			{
 				cards[cardVector[i].x][cardVector[i].y] = cards[cardVector[i + 1].x][cardVector[i + 1].y];
 			}
 
-
+			//Creating CallBack Functions
 			position endPos = cardVector[cardVector.size() - 1];
 			auto createCB = CallFunc::create([endPos, cardVector, cards, level]() {
-				CardCreate(endPos, cards, level);
+				cards[endPos.x][endPos.y] = GeneratorCard(level, gameData::currentScene).GenerateRandomCard(*(new position(endPos)));
 				});
 
 			auto unlockCB = CallFunc::create([endPos, cardVector, cards, level]() {
 				gameData::isSceneLocked = false;
 				});
 
-
+			//Card Move With Delays
 			for (int i = 0; i < cardVector.size() - 1; i++)
 			{
 				position vecDirection = cardVector[i] - cardVector[i + 1];
@@ -57,26 +59,10 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 				}
 			}
 
-
-
-
-
-
-			/*cards[pos.x][pos.y]->deleteCard();
-			cards[pos.x][pos.y] = cards[gameData::heroPosition.x][gameData::heroPosition.y];
-			cards[pos.x][pos.y]->moveCard(position(pos.x - gameData::heroPosition.x, pos.y - gameData::heroPosition.y));
-			cards[gameData::heroPosition.x][gameData::heroPosition.y] = GeneratorCard(1, gameData::currentScene).GenerateRandomCard(*(new position(gameData::heroPosition.x, gameData::heroPosition.y)));
-			gameData::heroPosition = position(pos);*/
-
 			gameData::heroPosition = position(pos);
 		}
 	}
 	return;
-}
-
-void Game::CardCreate(position endPos, Card* cards[3][3], int level) {
-	cards[endPos.x][endPos.y] = GeneratorCard(level, gameData::currentScene).GenerateRandomCard(*(new position(endPos)));
-
 }
 
 void Game::GoToExit() {

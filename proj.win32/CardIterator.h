@@ -15,10 +15,8 @@ using namespace cocos2d;
 
 class CardIterator {
 private:
-	int iterationsLinesCount;
 	int iterationsCount;
 public:
-	position iteratorPreviousPosition;
 	position iteratorPosition;
 	position iterationVec;
 	bool isLeftRight;
@@ -27,7 +25,6 @@ public:
 		this->iterationVec = *(new position(oldHeroPos - destination));
 		this->isLeftRight=(abs((oldHeroPos - destination).y)==1);
 		iterationsCount = 0;
-		iterationsLinesCount = 0;
 	};
 	bool hasNext();
 	position getNext();

@@ -40,8 +40,6 @@ bool CardIterator::hasNext() {
 }
 
 position CardIterator::getNext() {
-	iterationsLinesCount++;
-	iteratorPreviousPosition = iteratorPosition;
 	iteratorPosition = iteratorPosition + iterationVec;
 	iterationsCount++;
 	return iteratorPosition;
