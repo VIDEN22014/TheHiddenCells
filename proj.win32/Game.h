@@ -22,6 +22,7 @@ public:
 	static void GoToGameScene();
 	static void MoneyChange(int moneyDiff, cocos2d::Label* label);
 	static void Turn(position pos, Card* cards[3][3], int level);
+	static void CardCreate(position pos, Card* cards[3][3], int level);
 };
 
 

@@ -5,8 +5,8 @@
 
 
 void Card::moveCard(position vecDirection) {
-	spriteCard->runAction(MoveBy::create(1,Vec2(vecDirection.y *(192+10), -vecDirection.x * (192 + 10))));
-	spriteFrame->runAction(MoveBy::create(1,Vec2(vecDirection.y *(192+10), -vecDirection.x * (192 + 10))));
+	spriteCard->runAction(MoveBy::create(1,Vec2(vecDirection.y *(192+10), -vecDirection.x * (192 + 10)))->clone());
+	spriteFrame->runAction(MoveBy::create(1,Vec2(vecDirection.y *(192+10), -vecDirection.x * (192 + 10)))->clone());
 }
 
 int Card::cardInteract() {

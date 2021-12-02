@@ -13,7 +13,19 @@ struct position {
 		this->x = x;
 		this->y = y;
 	};
+	position operator+(position pos2)
+	{
+		return position(this->x + pos2.x, this->y + pos2.y);
+	}
+
+	position operator-(position pos2)
+	{
+		return position(this->x - pos2.x, this->y - pos2.y);
+	}
+
 };
+
+
 
 namespace gameData {
 	extern int money;
@@ -32,6 +44,7 @@ namespace gameData {
 	extern cocos2d::Scene* currentScene;
 	extern int currentLevel;
 	extern cocos2d::Label* currentMoneyLabel;
+	extern bool isSceneLocked;
 	extern std::string pathTosprites[7];
 	extern int generateTypeCard;
 }
