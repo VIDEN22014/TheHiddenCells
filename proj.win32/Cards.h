@@ -53,4 +53,24 @@ public:
 	CardCoin(position cardpos,std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) : Card(cardpos,spriteCardPath, spriteFramePath,scene) {};
 	int cardInteract() override;
 };
+class CardMonster : public Card {
+public:
+	CardMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) : Card(cardpos, spriteCardPath, spriteFramePath, scene) {};
+	//int cardInteract() override;
+};
+
+class CardTeasure: public Card {
+public:
+	bool goodTreasure;
+	CardTeasure(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) : Card(cardpos, spriteCardPath, spriteFramePath, scene) {};
+	//int cardInteract() override;
+};
+class CardGoodTreasure :public CardTeasure {
+	public:
+	CardGoodTreasure(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardTeasure(cardpos, spriteCardPath, spriteFramePath, scene) { this->goodTreasure = true; };
+};
+class CardBadTreasure :public CardTeasure {
+public:
+	CardBadTreasure(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardTeasure(cardpos, spriteCardPath, spriteFramePath, scene) { this->goodTreasure = false; };
+};
 #endif // __CARDS_H__
