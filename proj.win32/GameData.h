@@ -45,6 +45,8 @@ namespace gameData {
 	extern int currentLevel;
 	extern cocos2d::Label* currentMoneyLabel;
 	extern bool isSceneLocked;
+	extern std::string pathTosprites[7];
+	extern int generateTypeCard;
 }
 
 

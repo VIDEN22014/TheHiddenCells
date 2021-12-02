@@ -17,6 +17,7 @@ public:
 		if (lvl == 1) { factory = new Level1Factory(); }
 		this->scene = scene;
 	};
+	
 
 	Card* GenerateHeroCard(position pos);
 	Card* GenerateRandomCard(position pos);
