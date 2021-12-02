@@ -20,6 +20,13 @@ public:
 		scene->addChild(spriteCard, 2);
 		cardMaxHP = 10;
 		cardCurrentHP = cardMaxHP;
+		labelCard = Label::create(std::to_string(cardCurrentHP), "Fonts/DungeonFont.ttf", gameData::fontSize);
+		labelCard->setAnchorPoint(Vec2(0, 1));
+		labelCard->setPosition(Vec2(spriteCard->getPositionX() - 192 / 2 + 16, spriteCard->getPositionY() + 192 / 2 - 16));
+		scene->addChild(labelCard, 2);
+
+
+
 	};
 	Card(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) {
 		spriteFrame = cocos2d::Sprite::create(spriteFramePath);
@@ -30,12 +37,17 @@ public:
 		scene->addChild(spriteCard, 2);
 		this->cardMaxHP = cardMaxHP;
 		cardCurrentHP = this->cardMaxHP;
+		labelCard = Label::create(std::to_string(cardCurrentHP), "Fonts/DungeonFont.ttf", gameData::fontSize);
+		labelCard->setAnchorPoint(Vec2(0, 1));
+		labelCard->setPosition(Vec2(spriteCard->getPositionX() - 192 / 2 + 16, spriteCard->getPositionY() + 192 / 2 - 16));
+		scene->addChild(labelCard, 2);
 	};
 	int cardMaxHP;
 	int cardCurrentHP;
 	double ScaleCard = 1;
 	cocos2d::Sprite* spriteFrame = nullptr;
 	cocos2d::Sprite* spriteCard = nullptr;
+	cocos2d::Label* labelCard = nullptr;
 	position pos();
 	virtual int cardInteract();
 	virtual void cardOnTurn();
