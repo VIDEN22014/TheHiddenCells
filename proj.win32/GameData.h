@@ -47,6 +47,7 @@ namespace gameData {
 	extern int fontSize;
 	extern bool isSceneLocked;
 	extern std::string pathToMonsters[7];
+	extern int MonstersMaxXP[8];
 	extern int RatioBossMonster;
 
 }

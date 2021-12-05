@@ -8,35 +8,35 @@ Card* Level1Factory::createMonster(position pos, cocos2d::Scene* scene) {
 	GeneraTeCard = rand() % 700;
 	if (GeneraTeCard >= 0 && GeneraTeCard < (100 - gameData::RatioBossMonster))
 	{
-		return new CardCommonMonster(pos,  gameData::pathToMonsters[0], spriteFramePath, scene);
+		return new CardCommonMonster(pos,  gameData::pathToMonsters[0], spriteFramePath, scene,gameData::MonstersMaxXP[0]);
 	}
 	else if (GeneraTeCard >= (100 - gameData::RatioBossMonster) && GeneraTeCard < (200 - gameData::RatioBossMonster))
 	{
-		return new CardCommonMonster(pos, gameData::pathToMonsters[1], spriteFramePath, scene);
+		return new CardCommonMonster(pos, gameData::pathToMonsters[1], spriteFramePath, scene, gameData::MonstersMaxXP[1]);
 	}
 	else if (GeneraTeCard >= (200 - gameData::RatioBossMonster) && GeneraTeCard < (300 - gameData::RatioBossMonster))
 	{
-		return new CardCommonMonster(pos, gameData::pathToMonsters[2], spriteFramePath, scene);
+		return new CardCommonMonster(pos, gameData::pathToMonsters[2], spriteFramePath, scene, gameData::MonstersMaxXP[2]);
 	}
 	else if (GeneraTeCard >= (300 - gameData::RatioBossMonster) && GeneraTeCard < (400 - gameData::RatioBossMonster))
 	{
-		return new CardCommonMonster(pos, gameData::pathToMonsters[3], spriteFramePath, scene);
+		return new CardCommonMonster(pos, gameData::pathToMonsters[3], spriteFramePath, scene, gameData::MonstersMaxXP[3]);
 	}
 	else if (GeneraTeCard >= (400 - gameData::RatioBossMonster) && GeneraTeCard < (500 - gameData::RatioBossMonster))
 	{
-		return new CardCommonMonster(pos, gameData::pathToMonsters[4], spriteFramePath, scene);
+		return new CardCommonMonster(pos, gameData::pathToMonsters[4], spriteFramePath, scene, gameData::MonstersMaxXP[4]);
 	}
 	else if (GeneraTeCard >= (500 - gameData::RatioBossMonster) && GeneraTeCard < (600 - gameData::RatioBossMonster))
 	{
-		return new CardCommonMonster(pos, gameData::pathToMonsters[5], spriteFramePath, scene);
+		return new CardCommonMonster(pos, gameData::pathToMonsters[5], spriteFramePath, scene, gameData::MonstersMaxXP[5]);
 	}
 	else if (GeneraTeCard >= (600 - gameData::RatioBossMonster) && GeneraTeCard < (700 - gameData::RatioBossMonster))
 	{
-		return new CardCommonMonster(pos, gameData::pathToMonsters[6], spriteFramePath, scene);
+		return new CardCommonMonster(pos, gameData::pathToMonsters[6], spriteFramePath, scene, gameData::MonstersMaxXP[6]);
 	}
 	else if (gameData::currentLevel==1&& GeneraTeCard >= (700-gameData::RatioBossMonster))
 	{
-		return new CardRegenXPMonster(pos,"Assets/Monsters/Enchanted Forest - Individual Frames/Elven King/HighElf_M_Idle + Walk_1.png", spriteFramePath, scene);
+		return new CardRegenXPMonster(pos,"Assets/Monsters/Enchanted Forest - Individual Frames/Elven King/HighElf_M_Idle + Walk_1.png", spriteFramePath, scene, gameData::MonstersMaxXP[7]);
 	}
 	
 }
