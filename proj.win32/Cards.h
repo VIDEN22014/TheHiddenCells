@@ -73,7 +73,11 @@ public:
 
 class CardCoin : public Card {
 public:
-	CardCoin(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) : Card(cardpos, spriteCardPath, spriteFramePath, scene) {};
+	CardCoin(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) : Card(cardpos, spriteCardPath, spriteFramePath, scene) {
+		cardMaxHP = rand()%12+1;
+		cardCurrentHP = cardMaxHP;
+		this->labelUpdate(false);
+	};
 	int cardInteract(Card* cards[3][3]) override;
 };
 
@@ -114,12 +118,16 @@ public:
 	int cardInteract(Card* cards[3][3]) override;
 };
 
-class CardMonster : public Card {
+class CardCommonMonster : public Card {
 public:
-	CardMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) : Card(cardpos, spriteCardPath, spriteFramePath, scene) {};
+	CardCommonMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) : Card(cardpos, spriteCardPath, spriteFramePath, scene) {};
 	//int cardInteract() override;
 };
-
+class CardRegenXPMonster : public Card {
+public:
+	CardRegenXPMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) : Card(cardpos, spriteCardPath, spriteFramePath, scene) {};
+	//int cardInteract() override;
+};
 class CardTeasure : public Card {
 public:
 

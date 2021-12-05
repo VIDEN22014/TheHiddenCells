@@ -1,10 +1,44 @@
 #include <proj.win32/Factories.h>
 
 
-Card* Level1Factory::createMonster(position pos, cocos2d::Scene* scene, std::string pathToSprite) {
-	std::string spriteCardPath = "Assets/Monsters/Enchanted Forest - Individual Frames/Gnoll - Brute/GnollBrute_Idle_1.png";
+Card* Level1Factory::createMonster(position pos, cocos2d::Scene* scene) {
+	//std::string spriteCardPath = "Assets/Monsters/Enchanted Forest - Individual Frames/Gnoll - Brute/GnollBrute_Idle_1.png";
+	int GeneraTeCard;
 
-	return new CardMonster(pos, spriteCardPath, spriteFramePath, scene);
+	GeneraTeCard = rand() % 700;
+	if (GeneraTeCard >= 0 && GeneraTeCard < (100 - gameData::RatioBossMonster))
+	{
+		return new CardCommonMonster(pos,  gameData::pathToMonsters[0], spriteFramePath, scene);
+	}
+	else if (GeneraTeCard >= (100 - gameData::RatioBossMonster) && GeneraTeCard < (200 - gameData::RatioBossMonster))
+	{
+		return new CardCommonMonster(pos, gameData::pathToMonsters[1], spriteFramePath, scene);
+	}
+	else if (GeneraTeCard >= (200 - gameData::RatioBossMonster) && GeneraTeCard < (300 - gameData::RatioBossMonster))
+	{
+		return new CardCommonMonster(pos, gameData::pathToMonsters[2], spriteFramePath, scene);
+	}
+	else if (GeneraTeCard >= (300 - gameData::RatioBossMonster) && GeneraTeCard < (400 - gameData::RatioBossMonster))
+	{
+		return new CardCommonMonster(pos, gameData::pathToMonsters[3], spriteFramePath, scene);
+	}
+	else if (GeneraTeCard >= (400 - gameData::RatioBossMonster) && GeneraTeCard < (500 - gameData::RatioBossMonster))
+	{
+		return new CardCommonMonster(pos, gameData::pathToMonsters[4], spriteFramePath, scene);
+	}
+	else if (GeneraTeCard >= (500 - gameData::RatioBossMonster) && GeneraTeCard < (600 - gameData::RatioBossMonster))
+	{
+		return new CardCommonMonster(pos, gameData::pathToMonsters[5], spriteFramePath, scene);
+	}
+	else if (GeneraTeCard >= (600 - gameData::RatioBossMonster) && GeneraTeCard < (700 - gameData::RatioBossMonster))
+	{
+		return new CardCommonMonster(pos, gameData::pathToMonsters[6], spriteFramePath, scene);
+	}
+	else if (gameData::currentLevel==1&& GeneraTeCard >= (700-gameData::RatioBossMonster))
+	{
+		return new CardRegenXPMonster(pos,"Assets/Monsters/Enchanted Forest - Individual Frames/Elven King/HighElf_M_Idle + Walk_1.png", spriteFramePath, scene);
+	}
+	
 }
 Card* Level1Factory::createPotion(position pos, cocos2d::Scene* scene) {
 	int generateCard;
@@ -52,7 +86,7 @@ Card* AbstractFactory::createCoin(position pos, cocos2d::Scene* scene) {
 	std::string spriteCardPath = "Assets/Icons/Coins_0/coin_01.png";
 	return new CardCoin(pos, spriteCardPath, spriteFramePath, scene);
 }
-Card* AbstractFactory::createMonster(position pos, cocos2d::Scene* scene, std::string pathToSprite) { return nullptr; }
+Card* AbstractFactory::createMonster(position pos, cocos2d::Scene* scene) { return nullptr; }
 Card* AbstractFactory::createPotion(position pos, cocos2d::Scene* scene) { return nullptr; }
 Card* AbstractFactory::createGoodTreasure(position pos, cocos2d::Scene* scene) { return nullptr; }
 Card* AbstractFactory::createBadTreasure(position pos, cocos2d::Scene* scene) { return nullptr; }

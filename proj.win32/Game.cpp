@@ -14,6 +14,9 @@ USING_NS_CC;
 
 void Game::Turn(position pos, Card* cards[3][3], int level) {
 	if (abs(pos.x - gameData::heroPosition.x) + abs(pos.y - gameData::heroPosition.y) == 1 && !gameData::isSceneLocked) {
+		if (gameData::RatioBossMonster != 135) {
+			gameData::RatioBossMonster += 9;
+		}
 		if (cards[pos.x][pos.y]->cardInteract(cards) == 1) {
 			std::vector<position> cardVector;
 			CardIterator cardIterator(gameData::heroPosition, pos);
