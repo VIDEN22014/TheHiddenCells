@@ -24,6 +24,7 @@ bool Level1Scene::init()
 	{
 		return false;
 	}
+
 	gameData::currentScene = this;
 	gameData::currentLevel = 1;
 	gameData::heroPosition = position(1, 1);
