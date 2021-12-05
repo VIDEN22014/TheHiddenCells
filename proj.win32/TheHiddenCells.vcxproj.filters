@@ -92,7 +92,6 @@
     <ClInclude Include="GameData.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="CardGenerator.h" />
     <ClInclude Include="GeneratorCard.h">
       <Filter>src</Filter>
     </ClInclude>

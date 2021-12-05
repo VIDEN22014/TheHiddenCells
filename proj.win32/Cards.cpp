@@ -2,6 +2,8 @@
 #include <proj.win32/Cards.h>
 #include <proj.win32/Game.h>
 #include <proj.win32/GameData.h>
+#include <proj.win32/GeneratorCard.h>
+
 
 
 int Card::cardInteract(Card* cards[3][3]) {
@@ -38,6 +40,21 @@ void Card::deleteCard() {
 	if (spriteFrame != nullptr) { spriteFrame->removeFromParent(); }
 	if (spriteCard != nullptr) { spriteCard->removeFromParent(); }
 	if (labelCard != nullptr) { labelCard->removeFromParent(); }
+}
+
+void Card::openTreasure(std::string typeChest) {
+	if (typeChest == "good") {
+		this->spriteCard->setTexture("Assets/Items/Chests/Chest_Gold/chest_gold_empty_open_anim/chest_empty_open_anim_f2.png");
+	}
+	else if (typeChest == "bad") {
+		this->spriteCard->setTexture("Assets/Items/Chests/Chest_Gold/chest_gold_empty_open_anim/chest_empty_open_anim_f2(bad).png");
+	}
+}
+void Card::lockScene() {
+	gameData::isSceneLocked = true;
+}
+void Card::unlockScene() {
+	gameData::isSceneLocked = false;
 }
 
 void Card::labelUpdate(bool isHeroLabel) {
@@ -120,4 +137,16 @@ int CardYellowPotion::cardInteract(Card* cards[3][3]) {
 	}
 	cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP += cardCurrentHP;//Grants Overheal
 	return 1;
+}
+int CardGoodTreasure::cardInteract(Card* cards[3][3]) {
+	this->spriteCard->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), CallFunc::create(std::bind(&Card::openTreasure, this, "good")), DelayTime::create(0.75), CallFunc::create(std::bind(&Card::deleteCard, this)), CallFunc::create(std::bind(&Card::unlockScene, this)), /*DelayTime::create(2 * 0.75), CallFunc::create(std::bind(&Card::spawnCoin, this,cards)),*/ nullptr));
+	cards[ this->pos.x][this->pos.y] = new CardCoin(this->pos, "Assets/Icons/Coins_0/coin_01.png", "Assets/Cards/squareGoldenFrame.png", gameData::currentScene);
+	return 0;
+}
+int CardBadTreasure::cardInteract(Card* cards[3][3]) {
+
+	this->spriteCard->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), CallFunc::create(std::bind(&Card::openTreasure, this,"bad")), DelayTime::create(0.75), CallFunc::create(std::bind(&Card::deleteCard, this)), CallFunc::create(std::bind(&Card::unlockScene, this)), /*DelayTime::create(2 * 0.75), CallFunc::create(std::bind(&Card::spawnCoin, this,cards)),*/ nullptr));
+	//cards[this->pos.x][this->pos.y] = new CardMonster(this->pos, "Assets/Monsters/Enchanted Forest - Individual Frames/Gnoll - Brute/GnollBrute_Idle_1.png", "Assets/Cards/squareGoldenFrame.png", gameData::currentScene);
+    cards[this->pos.x][this->pos.y] = GeneratorCard(1, gameData::currentScene).GenerateBadCard(*(new position(this->pos.x, this->pos.y)));
+	return 0;
 }

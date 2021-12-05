@@ -57,6 +57,10 @@ public:
 	virtual void cardOnTurn(Card* cards[3][3]);
 	virtual void labelUpdate(bool isHeroLabel);
 	virtual void deleteCard();
+
+	virtual void openTreasure(std::string typeChest);
+	virtual void lockScene();
+	virtual void unlockScene();
 };
 
 class CardHero : public Card {
@@ -118,19 +122,24 @@ public:
 
 class CardTeasure : public Card {
 public:
-	bool goodTreasure;
-	CardTeasure(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) : Card(cardpos, spriteCardPath, spriteFramePath, scene) {};
-	//int cardInteract() override;
+
+	CardTeasure(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) : Card(cardpos, spriteCardPath, spriteFramePath, scene) {
+		cardMaxHP = 1;
+		cardCurrentHP = cardMaxHP;
+		this->labelCard->setVisible(false);
+	};
 };
 
 class CardGoodTreasure :public CardTeasure {
 public:
-	CardGoodTreasure(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardTeasure(cardpos, spriteCardPath, spriteFramePath, scene) { this->goodTreasure = true; };
+	CardGoodTreasure(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardTeasure(cardpos, spriteCardPath, spriteFramePath, scene) {};
+	int cardInteract(Card* cards[3][3]) override;
 };
 
 class CardBadTreasure :public CardTeasure {
 public:
-	CardBadTreasure(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardTeasure(cardpos, spriteCardPath, spriteFramePath, scene) { this->goodTreasure = false; };
+	CardBadTreasure(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardTeasure(cardpos, spriteCardPath, spriteFramePath, scene) {  };
+	int cardInteract(Card* cards[3][3]) override;
 };
 
 #endif // __CARDS_H__

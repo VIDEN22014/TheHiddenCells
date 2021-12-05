@@ -14,7 +14,7 @@ public:
 	virtual Card* createHero(position pos, cocos2d::Scene* scene);
 	virtual Card* createCoin(position pos, cocos2d::Scene* scene);
 	virtual Card* createMonster(position pos, cocos2d::Scene* scene, std::string pathToSprite);
-	virtual Card* createPotion(position pos, cocos2d::Scene* scene, std::string pathToSprite);
+	virtual Card* createPotion(position pos, cocos2d::Scene* scene);
 	virtual Card* createGoodTreasure(position pos, cocos2d::Scene* scene);
 	virtual Card* createBadTreasure(position pos, cocos2d::Scene* scene);
 };
@@ -22,7 +22,7 @@ public:
 class Level1Factory : public AbstractFactory {
 public:
 	Card* createMonster(position pos, cocos2d::Scene* scene, std::string pathToSprite) override;
-	Card* createPotion(position pos, cocos2d::Scene* scene, std::string pathToSprite) override;
+	Card* createPotion(position pos, cocos2d::Scene* scene) override;
 	Card* createGoodTreasure(position pos, cocos2d::Scene* scene)override;
 	Card* createBadTreasure(position pos, cocos2d::Scene* scene)override;
 };

@@ -4,7 +4,6 @@
 #include <proj.win32/GameData.h>
 #include <proj.win32/Game.h>
 #include <proj.win32/GeneratorCard.h>
-#include <proj.win32/CardGenerator.h>
 
 USING_NS_CC;
 
@@ -24,7 +23,7 @@ bool Level1Scene::init()
 	{
 		return false;
 	}
-
+	srand(time(NULL));
 	gameData::currentScene = this;
 	gameData::currentLevel = 1;
 	gameData::heroPosition = position(1, 1);

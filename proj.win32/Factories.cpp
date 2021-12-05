@@ -6,10 +6,9 @@ Card* Level1Factory::createMonster(position pos, cocos2d::Scene* scene, std::str
 
 	return new CardMonster(pos, spriteCardPath, spriteFramePath, scene);
 }
-Card* Level1Factory::createPotion(position pos, cocos2d::Scene* scene, std::string pathToSprite) {
+Card* Level1Factory::createPotion(position pos, cocos2d::Scene* scene) {
 	int generateCard;
 	std::string spriteCardPath;
-	srand(time(NULL));
 	generateCard = rand() % 100;
 	if (generateCard >= 0 && generateCard < 25)
 	{
@@ -54,6 +53,6 @@ Card* AbstractFactory::createCoin(position pos, cocos2d::Scene* scene) {
 	return new CardCoin(pos, spriteCardPath, spriteFramePath, scene);
 }
 Card* AbstractFactory::createMonster(position pos, cocos2d::Scene* scene, std::string pathToSprite) { return nullptr; }
-Card* AbstractFactory::createPotion(position pos, cocos2d::Scene* scene, std::string pathToSprite) { return nullptr; }
+Card* AbstractFactory::createPotion(position pos, cocos2d::Scene* scene) { return nullptr; }
 Card* AbstractFactory::createGoodTreasure(position pos, cocos2d::Scene* scene) { return nullptr; }
 Card* AbstractFactory::createBadTreasure(position pos, cocos2d::Scene* scene) { return nullptr; }
