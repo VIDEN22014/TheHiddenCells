@@ -140,7 +140,7 @@ int CardYellowPotion::cardInteract(Card* cards[3][3]) {
 }
 int CardGoodTreasure::cardInteract(Card* cards[3][3]) {
 	this->spriteCard->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), CallFunc::create(std::bind(&Card::openTreasure, this, "good")), DelayTime::create(0.75), CallFunc::create(std::bind(&Card::deleteCard, this)), CallFunc::create(std::bind(&Card::unlockScene, this)), /*DelayTime::create(2 * 0.75), CallFunc::create(std::bind(&Card::spawnCoin, this,cards)),*/ nullptr));
-	cards[ this->pos.x][this->pos.y] = new CardCoin(this->pos, "Assets/Icons/Coins_0/coin_01.png", "Assets/Cards/squareGoldenFrame.png", gameData::currentScene);
+	cards[ this->pos.x][this->pos.y] = new CardCoin( this->pos, "Assets/Icons/Coins_0/coin_01.png", "Assets/Cards/squareGoldenFrame.png", gameData::currentScene);
 	return 0;
 }
 int CardBadTreasure::cardInteract(Card* cards[3][3]) {
