@@ -38,7 +38,7 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 			//Card*[][] Replace
 			for (int i = 0; i < cardVector.size() - 1; i++)
 			{
-				// cards[cardVector[i + 1].x][cardVector[i + 1].y]->pos = cards[cardVector[i].x][cardVector[i].y]->pos;
+				cards[cardVector[i + 1].x][cardVector[i + 1].y]->pos = *(new position(cards[cardVector[i].x][cardVector[i].y]->pos));
 				cards[cardVector[i].x][cardVector[i].y] = cards[cardVector[i + 1].x][cardVector[i + 1].y];
 				
 			}
