@@ -150,3 +150,13 @@ int CardBadTreasure::cardInteract(Card* cards[3][3]) {
     cards[this->pos.x][this->pos.y] = GeneratorCard(1, gameData::currentScene).GenerateBadCard(*(new position(this->pos.x, this->pos.y)));
 	return 0;
 }
+int CardCommonMonster::cardInteract(Card* cards[3][3]) {
+	if(cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP>this->cardCurrentHP){
+		cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP -= this->cardCurrentHP;
+		cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelUpdate(false);
+	}
+	else if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP <= this->cardCurrentHP) {
+		Game::GoToEndGame();
+	}
+	return 1;
+}

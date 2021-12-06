@@ -121,7 +121,7 @@ public:
 class CardCommonMonster : public Card {
 public:
 	CardCommonMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : Card(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {};
-	//int cardInteract(Card* cards[3][3]) override;
+	int cardInteract(Card* cards[3][3]) override;
 };
 class CardRegenXPMonster : public Card {
 public:

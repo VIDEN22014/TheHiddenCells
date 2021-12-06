@@ -8,6 +8,7 @@
 #include <proj.win32/Level3Scene.h>
 #include <proj.win32/GeneratorCard.h>
 #include <proj.win32/CardIterator.h>
+#include<proj.win32/EndGameScene.h>
 #include <Math.h>
 
 USING_NS_CC;
@@ -116,7 +117,10 @@ void Game::GoToLevel3() {
 	Director::getInstance()->replaceScene(scene);
 }
 
-
+void Game::GoToEndGame() {
+	auto scene = EndGameScene::createScene();
+	Director::getInstance()->replaceScene(scene);
+}
 
 void Game::MoneyChange(int moneyDiff, cocos2d::Label* label) {
 	gameData::money += moneyDiff;
