@@ -49,6 +49,7 @@ namespace gameData {
 	extern std::string pathToMonsters[7];
 	extern int MonstersMaxXP[8];
 	extern int RatioBossMonster;
+	extern bool isHeroArmed;
 
 }
 

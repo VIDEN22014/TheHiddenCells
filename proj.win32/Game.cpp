@@ -36,18 +36,38 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 			}
 
 
+
+
 			//Card*[][] Replace
 			for (int i = 0; i < cardVector.size() - 1; i++)
 			{
-				cards[cardVector[i + 1].x][cardVector[i + 1].y]->pos = *(new position(cards[cardVector[i].x][cardVector[i].y]->pos));
 				cards[cardVector[i].x][cardVector[i].y] = cards[cardVector[i + 1].x][cardVector[i + 1].y];
-				
+
 			}
 
+
 			//Creating CallBack Functions
-			position endPos = cardVector[cardVector.size() - 1];
-			auto createCB = CallFunc::create([endPos, cardVector, cards, level]() {
+			position endPos = *(new position(cardVector[cardVector.size() - 1]));
+			auto FinalCB = CallFunc::create([endPos, cardVector, cards, level]() {
 				cards[endPos.x][endPos.y] = GeneratorCard(level, gameData::currentScene).GenerateRandomCard(*(new position(endPos)));
+				//Position Normalization
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						cards[i][j]->pos = *(new position(i, j));
+					}
+				}
+				//Card OnTurn
+				for (int i = 0; i < 3; i++)
+				{
+					for (int j = 0; j < 3; j++)
+					{
+						cards[i][j]->cardOnTurn(cards);
+					}
+				}
+				//Game Over Code
+
 				});
 
 			auto unlockCB = CallFunc::create([endPos, cardVector, cards, level]() {
@@ -58,17 +78,23 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 			for (int i = 0; i < cardVector.size() - 1; i++)
 			{
 				position vecDirection = cardVector[i] - cardVector[i + 1];
+				if (i==0&&gameData::isHeroArmed)
+				{
+					cards[cardVector[i].x][cardVector[i].y]->spriteWeapon->runAction(Sequence::create(DelayTime::create(i * 0.75), MoveBy::create(0.75, Vec2(vecDirection.y * (192 + 10), -vecDirection.x * (192 + 10)))->clone(), nullptr));
+					cards[cardVector[i].x][cardVector[i].y]->labelWeapon->runAction(Sequence::create(DelayTime::create(i * 0.75), MoveBy::create(0.75, Vec2(vecDirection.y * (192 + 10), -vecDirection.x * (192 + 10)))->clone(), nullptr));
+				}
 				cards[cardVector[i].x][cardVector[i].y]->spriteCard->runAction(Sequence::create(DelayTime::create(i * 0.75), MoveBy::create(0.75, Vec2(vecDirection.y * (192 + 10), -vecDirection.x * (192 + 10)))->clone(), nullptr));
 				cards[cardVector[i].x][cardVector[i].y]->spriteFrame->runAction(Sequence::create(DelayTime::create(i * 0.75), MoveBy::create(0.75, Vec2(vecDirection.y * (192 + 10), -vecDirection.x * (192 + 10)))->clone(), nullptr));
 				cards[cardVector[i].x][cardVector[i].y]->labelCard->runAction(Sequence::create(DelayTime::create(i * 0.75), MoveBy::create(0.75, Vec2(vecDirection.y * (192 + 10), -vecDirection.x * (192 + 10)))->clone(), nullptr));
 				if (i == cardVector.size() - 2)
 				{
-					cards[cardVector[i].x][cardVector[i].y]->spriteFrame->runAction(Sequence::create(DelayTime::create((i + 1) * 0.75 + 0.15), createCB, unlockCB, nullptr));
+					cards[cardVector[i].x][cardVector[i].y]->spriteFrame->runAction(Sequence::create(DelayTime::create((i + 1) * 0.75 + 0.15), FinalCB, unlockCB, nullptr));
 				}
 			}
 			gameData::heroPosition = position(pos);
-
-
+		}
+		else
+		{
 			//Card OnTurn
 			for (int i = 0; i < 3; i++)
 			{
@@ -77,8 +103,9 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 					cards[i][j]->cardOnTurn(cards);
 				}
 			}
-
 		}
+
+
 	}
 	return;
 }
