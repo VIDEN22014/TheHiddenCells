@@ -119,7 +119,7 @@ bool ShopScene::init()
     this->addChild(CoinLabel);
 
     //label недовстатньо монеток для покупки
-    InfoLabel = Label::createWithTTF("not enough coins!", "DungeonFont.ttf", 42);
+    InfoLabel = Label::createWithTTF("not enough coins!", "Fonts/DungeonFont.ttf", 42);
     InfoLabel->setColor(Color3B::RED);
     InfoLabel->setAnchorPoint(Vec2(0, 0.5));
     InfoLabel->setPosition(550, 700);

@@ -64,10 +64,10 @@ Card* Level1Factory::createPotion(position pos, cocos2d::Scene* scene) {
 		spriteCardPath = "Assets/Items/Flasks/Flasks_Small/flask_small_yellow.png";
 		return new CardYellowPotion(pos, spriteCardPath, spriteFramePath, scene);
 	}
-
-
-
 }
+
+
+
 Card* Level1Factory::createGoodTreasure(position pos, cocos2d::Scene* scene) {
 	std::string spriteCardPath = "Assets/Items/Chests/Chest_Gold/chest_gold_empty_open_anim/chest_empty_open_anim_f1.png";
 
@@ -86,6 +86,33 @@ Card* AbstractFactory::createCoin(position pos, cocos2d::Scene* scene) {
 	std::string spriteCardPath = "Assets/Icons/Coins_0/coin_01.png";
 	return new CardCoin(pos, spriteCardPath, spriteFramePath, scene);
 }
+Card* AbstractFactory::createWeapon(position pos, cocos2d::Scene* scene) {
+	int generateCard;
+	std::string spriteCardPath;
+	generateCard = rand() % 100;
+	if (generateCard >= 0 && generateCard < 25)
+	{
+		spriteCardPath = "Assets/Weapons/weapon_regular_sword.png";
+		return new CardCommonWeapon(pos, spriteCardPath, spriteFramePath, scene);
+	}
+	else if (generateCard >= 25 && generateCard < 50)
+	{
+		spriteCardPath = "Assets/Weapons/weapon_knight_sword.png";
+		return new CardCommonWeapon(pos, spriteCardPath, spriteFramePath, scene);
+	}
+	else if (generateCard >= 50 && generateCard < 75)
+	{
+		spriteCardPath = "Assets/Weapons/weapon_red_gem_sword.png";
+		return new CardHealingWeapon(pos, spriteCardPath, spriteFramePath, scene);
+	}
+	else if (generateCard >= 75 && generateCard < 100)
+	{
+		spriteCardPath = "Assets/Weapons/androide.png";
+		return new CardPoisonedWeapon(pos, spriteCardPath, spriteFramePath, scene);
+	}
+
+}
+
 Card* AbstractFactory::createMonster(position pos, cocos2d::Scene* scene) { return nullptr; }
 Card* AbstractFactory::createPotion(position pos, cocos2d::Scene* scene) { return nullptr; }
 Card* AbstractFactory::createGoodTreasure(position pos, cocos2d::Scene* scene) { return nullptr; }

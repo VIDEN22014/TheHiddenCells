@@ -7,7 +7,7 @@ Card* GeneratorCard::GenerateHeroCard(position pos) {
 };
 Card* GeneratorCard::GenerateRandomCard(position pos) {
 	int GenerateCard;
-	GenerateCard = rand() % 751;
+	GenerateCard = rand() % 1000;
 	if (GenerateCard >= 0 && GenerateCard < 200)
 	{
 		return factory->createCoin(pos, this->scene);
@@ -28,10 +28,14 @@ Card* GeneratorCard::GenerateRandomCard(position pos) {
 	{
 		return factory->createPotion(pos, this->scene);
 	}
+	else if (GenerateCard >= 750 && GenerateCard < 1000)
+	{
+		return factory->createWeapon(pos, this->scene);
+	}
 }
 //Card* GeneratorCard::GenerateGoodCard(position pos) {};
-Card* GeneratorCard::GenerateBadCard(position pos) { 
+Card* GeneratorCard::GenerateBadCard(position pos) {
 	return factory->createMonster(pos, this->scene);
-	
+
 
 };

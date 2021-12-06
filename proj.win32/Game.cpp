@@ -77,6 +77,11 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 			for (int i = 0; i < cardVector.size() - 1; i++)
 			{
 				position vecDirection = cardVector[i] - cardVector[i + 1];
+				if (i==0&&gameData::isHeroArmed)
+				{
+					cards[cardVector[i].x][cardVector[i].y]->spriteWeapon->runAction(Sequence::create(DelayTime::create(i * 0.75), MoveBy::create(0.75, Vec2(vecDirection.y * (192 + 10), -vecDirection.x * (192 + 10)))->clone(), nullptr));
+					cards[cardVector[i].x][cardVector[i].y]->labelWeapon->runAction(Sequence::create(DelayTime::create(i * 0.75), MoveBy::create(0.75, Vec2(vecDirection.y * (192 + 10), -vecDirection.x * (192 + 10)))->clone(), nullptr));
+				}
 				cards[cardVector[i].x][cardVector[i].y]->spriteCard->runAction(Sequence::create(DelayTime::create(i * 0.75), MoveBy::create(0.75, Vec2(vecDirection.y * (192 + 10), -vecDirection.x * (192 + 10)))->clone(), nullptr));
 				cards[cardVector[i].x][cardVector[i].y]->spriteFrame->runAction(Sequence::create(DelayTime::create(i * 0.75), MoveBy::create(0.75, Vec2(vecDirection.y * (192 + 10), -vecDirection.x * (192 + 10)))->clone(), nullptr));
 				cards[cardVector[i].x][cardVector[i].y]->labelCard->runAction(Sequence::create(DelayTime::create(i * 0.75), MoveBy::create(0.75, Vec2(vecDirection.y * (192 + 10), -vecDirection.x * (192 + 10)))->clone(), nullptr));
@@ -86,12 +91,20 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 				}
 			}
 			gameData::heroPosition = position(pos);
-
-
-
-			
-
 		}
+		else
+		{
+			//Card OnTurn
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					cards[i][j]->cardOnTurn(cards);
+				}
+			}
+		}
+
+
 	}
 	return;
 }

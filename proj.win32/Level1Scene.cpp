@@ -14,7 +14,7 @@ Card* cards[3][3];
 
 Scene* Level1Scene::createScene()
 {
-	return Level1SceneObj = Level1Scene::create();
+	return gameData::currentScene = Level1SceneObj = Level1Scene::create();
 }
 
 bool Level1Scene::init()
@@ -24,7 +24,6 @@ bool Level1Scene::init()
 		return false;
 	}
 	srand(time(NULL));
-	gameData::currentScene = this;
 	gameData::currentLevel = 1;
 	gameData::heroPosition = position(1, 1);
 
