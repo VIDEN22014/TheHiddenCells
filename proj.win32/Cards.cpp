@@ -223,17 +223,24 @@ int CardGoodTreasure::cardInteract(Card* cards[3][3]) {
 int CardBadTreasure::cardInteract(Card* cards[3][3]) {
 
 	this->spriteCard->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), CallFunc::create(std::bind(&Card::openTreasure, this, "bad")), DelayTime::create(0.75), CallFunc::create(std::bind(&Card::deleteCard, this)), CallFunc::create(std::bind(&Card::unlockScene, this)), /*DelayTime::create(2 * 0.75), CallFunc::create(std::bind(&Card::spawnCoin, this,cards)),*/ nullptr));
-	//cards[this->pos.x][this->pos.y] = new CardMonster(this->pos, "Assets/Monsters/Enchanted Forest - Individual Frames/Troll/Troll_Idle_1.png", "Assets/Cards/squareGoldenFrame.png", gameData::currentScene);
 	cards[this->pos.x][this->pos.y] = GeneratorCard(1, gameData::currentScene).GenerateBadCard(*(new position(this->pos.x, this->pos.y)));
 	return 0;
 }
 int CardCommonMonster::cardInteract(Card* cards[3][3]) {
-	if(cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP>this->cardCurrentHP){
-		cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP -= this->cardCurrentHP;
-		cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelUpdate(false);
+	if (gameData::isHeroArmed)
+	{
+		cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->weaponEffect(cards, this);
+		if (this->cardCurrentHP <= 0) { return 1; }
+		return 0;
 	}
-	else if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP <= this->cardCurrentHP) {
-		Game::GoToEndGame();
+	else if (!gameData::isHeroArmed ) {
+		if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP > this->cardCurrentHP) {
+			cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP -= this->cardCurrentHP;
+			cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelUpdate(false);
+		}
+		else if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP <= this->cardCurrentHP) {
+			Game::GoToEndGame();
+		}
 	}
 	return 1;
 }
