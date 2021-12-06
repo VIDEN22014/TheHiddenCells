@@ -12,7 +12,7 @@ using namespace cocos2d;
 class Card {
 public:
 	Card(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) {
-		pos = cardpos;
+		pos =  *(new position(cardpos.x,cardpos.y));
 		spriteFrame = cocos2d::Sprite::create(spriteFramePath);
 		spriteCard = cocos2d::Sprite::create(spriteCardPath);
 		spriteCard->setPosition(Vec2(278 + cardpos.y * (192 + 10), 682 - cardpos.x * (192 + 10)));
@@ -30,7 +30,7 @@ public:
 
 	};
 	Card(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) {
-		pos = cardpos;
+		pos = *(new position(cardpos.x, cardpos.y));
 		spriteFrame = cocos2d::Sprite::create(spriteFramePath);
 		spriteCard = cocos2d::Sprite::create(spriteCardPath);
 		spriteCard->setPosition(Vec2(278 + cardpos.y * (192 + 10), 682 - cardpos.x * (192 + 10)));
