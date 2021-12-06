@@ -16,7 +16,11 @@ namespace gameData {
 	cocos2d::Scene* currentScene;
 	int currentLevel = 1;
 	cocos2d::Label* currentMoneyLabel;
+	int fontSize = 42;
 	bool isSceneLocked = false;
-	std::string pathTosprites[7] = { "Assets/Monsters/Enchanted Forest - Individual Frames/Gnoll - Brute/GnollBrute_Idle_1.png","Assets/Monsters/Enchanted Forest - Individual Frames/Troll/Troll_Idle_1.png","Assets/Monsters/Enchanted Forest - Individual Frames/Bear/Bear_Idle_1.png","Assets/Monsters/Enchanted Forest - Individual Frames/Centaur - Male/Centaur_M_Idle_1.png","Assets/Monsters/Enchanted Forest - Individual Frames/Wolf/Wolf_Idle_1.png","Assets/Monsters/Enchanted Forest - Individual Frames/Gnoll - Shaman/GnollShaman_Idle_1.png","Assets/Monsters/Enchanted Forest - Individual Frames/Ent/Ent_Idle_1.png" };
-	int generateTypeCard=0;
+	std::string pathToMonsters[7] = { "Assets/Monsters/Enchanted Forest - Individual Frames/Gnoll - Brute/GnollBrute_Idle_1.png","Assets/Monsters/Enchanted Forest - Individual Frames/Troll/Troll_Idle_1.png","Assets/Monsters/Enchanted Forest - Individual Frames/Bear/Bear_Idle_1.png","Assets/Monsters/Enchanted Forest - Individual Frames/Centaur - Male/Centaur_M_Idle_1.png","Assets/Monsters/Enchanted Forest - Individual Frames/Wolf/Wolf_Idle_1.png","Assets/Monsters/Enchanted Forest - Individual Frames/Gnoll - Shaman/GnollShaman_Idle_1.png","Assets/Monsters/Enchanted Forest - Individual Frames/Ent/Ent_Idle_1.png" };
+	int MonstersMaxXP[8] = { 1,2,3,4,5,7,8,9 };
+	int RatioBossMonster = 0;
+	bool isHeroArmed = false;
+
 }
