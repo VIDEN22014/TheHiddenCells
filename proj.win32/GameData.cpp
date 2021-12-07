@@ -1,5 +1,8 @@
 #include <proj.win32/GameData.h>
 namespace gameData {
+	bool FirstStart = true;//зманна для провірки першого запуску тіп чи це перший раз відкримваємо головне меню чи ні  використав для запуску музики
+	bool playSound = true;
+	bool playMusic = true;
 	int  money = 2000000;
 	int tempMoney = 0;
 	int  chosenHero = 0;
