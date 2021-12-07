@@ -33,7 +33,7 @@ bool MainMenuScene::init()
 		//CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/backgroundmusic.mp3");
 		
 		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/backgroundmusic.mp3", true);
-		//CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.25f);//νε ημ³νώΊ ν³χξ
+		CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1f);//νε ημ³νώΊ ν³χξ
 	}
 	
 	
