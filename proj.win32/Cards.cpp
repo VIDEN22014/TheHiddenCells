@@ -230,13 +230,14 @@ int CardCommonMonster::cardInteract(Card* cards[3][3]) {
 	if (gameData::isHeroArmed)
 	{
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->weaponEffect(cards, this);
+	//	cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->labelUpdate(false);
 		if (this->cardCurrentHP <= 0) { return 1; }
 		return 0;
 	}
 	else if (!gameData::isHeroArmed ) {
 		if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP > this->cardCurrentHP) {
 			cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP -= this->cardCurrentHP;
-			cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelUpdate(false);
+			cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelUpdate(true);
 		}
 		else if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP <= this->cardCurrentHP) {
 			Game::GoToEndGame();
@@ -244,3 +245,44 @@ int CardCommonMonster::cardInteract(Card* cards[3][3]) {
 	}
 	return 1;
 }
+int CardRegenXPMonster::cardInteract(Card* cards[3][3]) {
+	this->cardBuff = 1;
+	if (gameData::isHeroArmed)
+	{
+		cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->weaponEffect(cards, this);
+		//	cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->labelUpdate(false);
+		if (this->cardCurrentHP <= 0) { return 1; }
+		return 0;
+	}
+	else if (!gameData::isHeroArmed) {
+		if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP > this->cardCurrentHP) {
+			cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP -= this->cardCurrentHP;
+			cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelUpdate(true);
+		}
+		else if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP <= this->cardCurrentHP) {
+			Game::GoToEndGame();
+		}
+	}
+	return 1;
+}
+int CardPoisonedMonster::cardInteract(Card* cards[3][3]) {
+	cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardBuff = 2;
+	if (gameData::isHeroArmed)
+	{
+		cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->weaponEffect(cards, this);
+		//	cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->labelUpdate(false);
+		if (this->cardCurrentHP <= 0) { return 1; }
+		return 0;
+	}
+	else if (!gameData::isHeroArmed) {
+		if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP > this->cardCurrentHP) {
+			cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP -= this->cardCurrentHP;
+			cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelUpdate(true);
+		}
+		else if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP <= this->cardCurrentHP) {
+			Game::GoToEndGame();
+		}
+	}
+	return 1;
+}
+//організувати інтеракт таки самий як для звичайного монстра, але  робити запамятовування координат монстра і якщо в тому векторі є наш монстра то він генерить своє хп на +2 поки не буде максимальним

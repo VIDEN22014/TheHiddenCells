@@ -48,9 +48,11 @@ public:
 	int cardCurrentHP;
 	int cardBuff = 0;//0- None ;1- Regen ;2- Poisoned
 	double ScaleCard = 1;
+	bool isBoss = false;
 	cocos2d::Sprite* spriteFrame = nullptr;
 	cocos2d::Sprite* spriteCard = nullptr;
-	cocos2d::Sprite* spriteWeapon = nullptr;
+    cocos2d::Sprite* spriteWeapon = nullptr;
+
 	cocos2d::Label* labelCard = nullptr;
 	cocos2d::Label* labelWeapon = nullptr;
 	position pos;
@@ -69,6 +71,7 @@ public:
 
 class CardHero : public Card {
 public:
+
 	CardHero(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) : Card(cardpos, spriteCardPath, spriteFramePath, scene, gameData::amountXPHeros[gameData::chosenHero]) {
 		this->labelUpdate(true);
 	};
@@ -159,10 +162,20 @@ public:
 };
 class CardRegenXPMonster : public Card {
 public:
-	CardRegenXPMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : Card(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {};
-	//int cardInteract() override;
+	CardRegenXPMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : Card(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {
+		gameData::posBossHpRegen = cardpos;
+		isBoss = true;
+	};
+	int cardInteract(Card* cards[3][3]) override;
 };
-
+class CardPoisonedMonster : public Card {
+public:
+	CardPoisonedMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : Card(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {
+		gameData::posBossHpRegen = cardpos;
+		isBoss = true;
+	};
+	int cardInteract(Card* cards[3][3]) override;
+};
 //Chest Cards
 class CardTeasure : public Card {
 public:
