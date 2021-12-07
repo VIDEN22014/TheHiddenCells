@@ -15,6 +15,7 @@ public:
 	virtual Card* createCoin(position pos, cocos2d::Scene* scene);
 	virtual Card* createMonster(position pos, cocos2d::Scene* scene);
 	virtual Card* createPotion(position pos, cocos2d::Scene* scene);
+	virtual Card* createWeapon(position pos, cocos2d::Scene* scene);
 	virtual Card* createGoodTreasure(position pos, cocos2d::Scene* scene);
 	virtual Card* createBadTreasure(position pos, cocos2d::Scene* scene);
 };

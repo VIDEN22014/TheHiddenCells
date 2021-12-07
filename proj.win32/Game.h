@@ -19,6 +19,7 @@ public:
 	static void GoToLevel1();
 	static void GoToLevel2();
 	static void GoToLevel3();
+	static void GoToEndGame();
 	static void GoToGameScene();
 	static void MoneyChange(int moneyDiff, cocos2d::Label* label);
 	static void Turn(position pos, Card* cards[3][3], int level);
