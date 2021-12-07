@@ -33,6 +33,7 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 			while (cardIterator.hasNext())
 			{
 				cardVector.push_back(cardIterator.getNext());
+				//if(cards[cardVector[cardVector.size()-1].x][cardVector[cardVector.size() - 1].y].isBoss)
 			}
 
 
@@ -42,7 +43,6 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 			for (int i = 0; i < cardVector.size() - 1; i++)
 			{
 				cards[cardVector[i].x][cardVector[i].y] = cards[cardVector[i + 1].x][cardVector[i + 1].y];
-
 			}
 
 

@@ -50,6 +50,7 @@ namespace gameData {
 	extern int MonstersMaxXP[8];
 	extern int RatioBossMonster;
 	extern bool isHeroArmed;
+	extern position posBossHpRegen;
 
 }
 

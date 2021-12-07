@@ -22,5 +22,6 @@ namespace gameData {
 	int MonstersMaxXP[8] = { 1,2,3,4,5,7,8,9 };
 	int RatioBossMonster = 0;
 	bool isHeroArmed = false;
+	position posBossHpRegen(0,0);
 
 }

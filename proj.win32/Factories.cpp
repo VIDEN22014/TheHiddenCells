@@ -38,6 +38,21 @@ Card* Level1Factory::createMonster(position pos, cocos2d::Scene* scene) {
 	{
 		return new CardRegenXPMonster(pos,"Assets/Monsters/Enchanted Forest - Individual Frames/Elven King/HighElf_M_Idle + Walk_1.png", spriteFramePath, scene, gameData::MonstersMaxXP[7]);
 	}
+	else if (gameData::currentLevel == 2 && GeneraTeCard >= (700 - gameData::RatioBossMonster))
+	{
+		return new CardPoisonedMonster(pos, "Assets/Monsters/Enchanted Forest - Individual Frames/Wizard/Wizard_Idle + Walk_1.png", spriteFramePath, scene, gameData::MonstersMaxXP[7]);
+	}
+	else if (gameData::currentLevel == 3 && GeneraTeCard >= (700 - gameData::RatioBossMonster))
+	{
+		int GeneraetBoss = rand() % 1;
+		if (GeneraetBoss==0) {
+			return new CardPoisonedMonster(pos, "Assets/Monsters/Enchanted Forest - Individual Frames/Wizard/Wizard_Idle + Walk_1.png", spriteFramePath, scene, gameData::MonstersMaxXP[7]);
+
+		}
+		else {
+			return new CardRegenXPMonster(pos, "Assets/Monsters/Enchanted Forest - Individual Frames/Elven King/HighElf_M_Idle + Walk_1.png", spriteFramePath, scene, gameData::MonstersMaxXP[7]);
+		}
+    }
 	
 }
 Card* Level1Factory::createPotion(position pos, cocos2d::Scene* scene) {
