@@ -22,7 +22,6 @@ bool Level2Scene::init()
 	{
 		return false;
 	}
-
 	//Background Sprite
 	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG 4.png");
 	Size size = Director::getInstance()->getWinSize();
