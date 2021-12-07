@@ -289,6 +289,7 @@ bool MainMenuScene::init()
 		}
 		});
 	//
+
 	auto endMusicButton = ui::Button::create("Assets/UI/Test-Button/musicEndButton.png", "Assets/UI/Test-Button/musicEndButtonPressed.png");
 	endMusicButton->setAnchorPoint(Vec2(0, 0));
 	endMusicButton->setScale(4.5);
