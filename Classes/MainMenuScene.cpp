@@ -13,8 +13,7 @@ Scene* MainMenuScene::createScene()
 {
 	return MainMenuScene::create();
 }
-bool playSound = true;
-bool playMusic = true;
+using namespace gameData;
 cocos2d::Label* LabelAmountXP1;
 cocos2d::Label* LabelAmountAmmo1;
 cocos2d::Sprite* minixp1;
@@ -26,14 +25,21 @@ bool MainMenuScene::init()
 	{
 		return false;
 	}
+	
+	if (gameData::playMusic&& gameData::FirstStart) {
+		gameData::FirstStart = false;
+		
+		CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/SoundBlip.wav");
+		//CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/backgroundmusic.mp3");
+		
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/backgroundmusic.mp3", true);
+		//CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.25f);//íå çì³íþº í³÷î
+	}
+	
+	
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/SoundBlip.wav");
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/backgroundmusic.mp3");
 
-
-
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/backgroundmusic.mp3", true);
-	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.25f);
+	
 
 	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG 4.png");
 	Size size = Director::getInstance()->getWinSize();
@@ -143,7 +149,7 @@ bool MainMenuScene::init()
 	auto levelSelectButton = ui::Button::create("Assets/UI/Test-Button/startButton.png", "Assets/UI/Test-Button/startButtonPressed.png");
 	levelSelectButton->setAnchorPoint(Vec2(0, 0));
 	levelSelectButton->setScale(4.5);
-	levelSelectButton->setPosition(Vec2(440, 375));
+	levelSelectButton->setPosition(Vec2(440, 355));
 
 	levelSelectButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type)
@@ -152,7 +158,7 @@ bool MainMenuScene::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 			if (playSound) {
-				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
+				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
 			}
 			Game::GoToLevelSelect();
 			break;
@@ -165,7 +171,7 @@ bool MainMenuScene::init()
 	auto shopButton = ui::Button::create("Assets/UI/Test-Button/shopButton.png", "Assets/UI/Test-Button/shopButtonPressed.png");
 	shopButton->setAnchorPoint(Vec2(0, 0));
 	shopButton->setScale(4.5);
-	shopButton->setPosition(Vec2(440, 275));
+	shopButton->setPosition(Vec2(440, 260));
 
 	shopButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type)
@@ -187,7 +193,7 @@ bool MainMenuScene::init()
 	auto exitButton = ui::Button::create("Assets/UI/StoneButtons/tile000.png", "Assets/UI/Test-Button/exitButtonPressed.png");
 	exitButton->setAnchorPoint(Vec2(0, 0));
 	exitButton->setScale(4.5);
-	exitButton->setPosition(Vec2(440, 175));
+	exitButton->setPosition(Vec2(450, 168));
 
 	exitButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type)
@@ -219,9 +225,13 @@ bool MainMenuScene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			playSound = true;
-			CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/SoundBlip.wav");
+			if (!playSound) {
+				playSound = true;
+				CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/SoundBlip.wav");
+				
+			}
 			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
+			
 			break;
 		default:
 			break;
@@ -239,9 +249,12 @@ bool MainMenuScene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
-			playSound = false;
-			CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("Sound/SoundBlip.wav");
+			if (playSound){
+				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
+				playSound = false;
+				CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("Sound/SoundBlip.wav");
+			}
+			
 			break;
 		default:
 			break;
@@ -251,20 +264,25 @@ bool MainMenuScene::init()
 	auto startMusicButton = ui::Button::create("Assets/UI/Test-Button/musicButton.png", "Assets/UI/Test-Button/musicButtonPressed.png");
 	startMusicButton->setAnchorPoint(Vec2(0, 0));
 	startMusicButton->setScale(4.5);	
-	startMusicButton->setPosition(Vec2(735, 775));
+	startMusicButton->setPosition(Vec2(738, 768));
 	this->addChild(startMusicButton);
+	
 	startMusicButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			playMusic = true;
+		
 			if (playSound) {
 				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
 			}
-			CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/backgroundmusic.mp3");
-			CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/backgroundmusic.mp3", true);
+			if (!playMusic) {
+				playMusic = true;
+				CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/backgroundmusic.mp3");
+				CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/backgroundmusic.mp3", true);
+			}
+		
 			break;
 		default:
 			break;
@@ -274,7 +292,7 @@ bool MainMenuScene::init()
 	auto endMusicButton = ui::Button::create("Assets/UI/Test-Button/musicEndButton.png", "Assets/UI/Test-Button/musicEndButtonPressed.png");
 	endMusicButton->setAnchorPoint(Vec2(0, 0));
 	endMusicButton->setScale(4.5);
-	endMusicButton->setPosition(Vec2(825, 775));
+	endMusicButton->setPosition(Vec2(825, 765));
 	this->addChild(endMusicButton);
 	endMusicButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type)
@@ -282,22 +300,28 @@ bool MainMenuScene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			playMusic = false;
+			
 			if (playSound) {
 				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
+			} 
+			if (playMusic) {
+				playMusic = false;
+				CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("Sound/backgroundmusic.mp3");
+				CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 			}
-			CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("Sound/backgroundmusic.mp3");
-			CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+			
 			break;
 		default:
 			break;
 		}
 		});
+
 	
 	this->scheduleUpdate();
-
+	
 	return true;
 }
+
 void MainMenuScene::changeTextureHeroes() {
 
 		if (gameData::chosenHero==0&&gameData::lockHero[0]){
@@ -357,7 +381,7 @@ void MainMenuScene::changeTextureHeroes() {
 			return;
 
 		}
-		else if (gameData::chosenHero == 3 && gameData::lockHero[3]) {
+		else if (chosenHero == 3 && gameData::lockHero[3]) {
 			miniammo1->setTexture("Assets/Weapons/weapon_golden_sword.png");
 			LabelAmountXP1->setString(std::to_string(gameData::amountXPHeros[3]));
 			LabelAmountAmmo1->setString(std::to_string(gameData::amountAmmoHeros[3]));

@@ -32,7 +32,7 @@ bool LevelSelectScene::init()
 	//Level Buttons
 	auto level1Button = ui::Button::create("Assets/UI/StoneButtonsLight/tile002.png", "Assets/UI/StoneButtonsLightPressed/tile002.png");
 	level1Button->setScale(5);
-	level1Button->setPosition(Vec2(size.width / 2.0, size.height / 2.0));
+	level1Button->setPosition(Vec2(size.width / 2.0-100, size.height / 2.0+120));
 	level1Button->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type)
 		{
