@@ -28,6 +28,9 @@ struct position {
 
 
 namespace gameData {
+	extern bool FirstStart;
+	extern bool playSound;
+	extern bool playMusic;
 	extern int money;
 	extern int tempMoney;
 	extern int chosenHero;

@@ -13,8 +13,7 @@ Scene* MainMenuScene::createScene()
 {
 	return MainMenuScene::create();
 }
-bool playSound = true;
-bool playMusic = true;
+using namespace gameData;
 cocos2d::Label* LabelAmountXP1;
 cocos2d::Label* LabelAmountAmmo1;
 cocos2d::Sprite* minixp1;
@@ -26,14 +25,23 @@ bool MainMenuScene::init()
 	{
 		return false;
 	}
+	
+	if (gameData::playMusic&& gameData::FirstStart) {
+		gameData::FirstStart = false;
+		
+		CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/SoundBlip.wav");
+		CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/backgroundmusic.mp3");
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/SoundBlip.wav");
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/backgroundmusic.mp3");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/backgroundmusic.mp3", true);
+		CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.25f);
+		
+		  float dd = CocosDenshion::SimpleAudioEngine::getInstance()->getBackgroundMusicVolume();
+	}
+	
+	
 
 
-
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/backgroundmusic.mp3", true);
-	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.25f);
+	
 
 	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG 4.png");
 	Size size = Director::getInstance()->getWinSize();
@@ -219,9 +227,13 @@ bool MainMenuScene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			playSound = true;
-			CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/SoundBlip.wav");
+			if (!playSound) {
+				playSound = true;
+				CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/SoundBlip.wav");
+				
+			}
 			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
+			
 			break;
 		default:
 			break;
@@ -239,9 +251,12 @@ bool MainMenuScene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
-			playSound = false;
-			CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("Sound/SoundBlip.wav");
+			if (playSound){
+				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
+				playSound = false;
+				CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("Sound/SoundBlip.wav");
+			}
+			
 			break;
 		default:
 			break;
@@ -259,12 +274,16 @@ bool MainMenuScene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			playMusic = true;
+		
 			if (playSound) {
 				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
 			}
-			CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/backgroundmusic.mp3");
-			CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/backgroundmusic.mp3", true);
+			if (!playMusic) {
+				playMusic = true;
+				CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/backgroundmusic.mp3");
+				CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/backgroundmusic.mp3", true);
+			}
+		
 			break;
 		default:
 			break;
@@ -282,12 +301,16 @@ bool MainMenuScene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			playMusic = false;
+			
 			if (playSound) {
 				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
+			} 
+			if (playMusic) {
+				playMusic = false;
+				CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("Sound/backgroundmusic.mp3");
+				CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 			}
-			CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("Sound/backgroundmusic.mp3");
-			CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+			
 			break;
 		default:
 			break;
