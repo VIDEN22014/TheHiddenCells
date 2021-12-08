@@ -12,6 +12,7 @@ Card* GeneratorCard::GenerateRandomCard(position pos) {
 	{
 		return factory->createCoin(pos, this->scene);
 	}
+	
 	else if (GenerateCard >= 200 && GenerateCard < 300)
 	{
 		return factory->createBadTreasure(pos, this->scene);
@@ -32,6 +33,7 @@ Card* GeneratorCard::GenerateRandomCard(position pos) {
 	{
 		return factory->createWeapon(pos, this->scene);
 	}
+	
 }
 //Card* GeneratorCard::GenerateGoodCard(position pos) {};
 Card* GeneratorCard::GenerateBadCard(position pos) {

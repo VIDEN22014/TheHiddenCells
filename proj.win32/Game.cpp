@@ -25,7 +25,7 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 			//Lock Scene
 			gameData::isSceneLocked = true;
 
-
+			//Game::CardDelete(cards[pos.x][pos.y]);
 			cards[pos.x][pos.y]->deleteCard();
 
 
@@ -152,6 +152,11 @@ void Game::GoToEndGame() {
 void Game::MoneyChange(int moneyDiff, cocos2d::Label* label) {
 	gameData::money += moneyDiff;
 	label->setString(std::to_string(gameData::money));
+}
+
+void Game::CardDelete(Card* card) {
+	delete card;
+	return;
 }
 
 

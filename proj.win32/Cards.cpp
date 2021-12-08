@@ -37,9 +37,13 @@ void Card::cardOnTurn(Card* cards[3][3]) {
 }
 
 void Card::deleteCard() {
-	if (spriteFrame != nullptr) { spriteFrame->removeFromParent(); }
-	if (spriteCard != nullptr) { spriteCard->removeFromParent(); }
-	if (labelCard != nullptr) { labelCard->removeFromParent(); }
+	Game::CardDelete(this);
+}
+
+void CardTreasure::deleteCard() {
+	spriteFrame->removeFromParentAndCleanup(true);
+	spriteCard->removeFromParentAndCleanup(true);
+	labelCard->removeFromParentAndCleanup(true);
 }
 
 void Card::openTreasure(std::string typeChest) {
@@ -158,6 +162,7 @@ int CardWeapon::cardInteract(Card* cards[3][3]) {
 		{
 			gameData::isHeroArmed = false;
 			//Weapon Delete
+			//Game::CardDelete(this);
 			gameData::currentScene->removeChild(cards[gameData::heroPosition.x][gameData::heroPosition.y]->spriteWeapon, true);
 			gameData::currentScene->removeChild(cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelWeapon, true);
 		}
@@ -200,29 +205,30 @@ void CardWeapon::weaponEffect(Card* cards[3][3], Card* enemy) {
 }
 
 void CardHealingWeapon::weaponEffect(Card* cards[3][3], Card* enemy) {
-	this->CardWeapon::weaponEffect(cards, enemy);
 	cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP += std::min(cardCurrentHP, enemy->cardCurrentHP);
 	if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP > cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardMaxHP)
 	{
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP = cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardMaxHP;
 	}
+	this->CardWeapon::weaponEffect(cards, enemy);
 }
 
 void CardPoisonedWeapon::weaponEffect(Card* cards[3][3], Card* enemy) {
-	this->CardWeapon::weaponEffect(cards, enemy);
 	//Poisoned weapon code
+
+	this->CardWeapon::weaponEffect(cards, enemy);
 }
 
 
 //Treause Cards
 int CardGoodTreasure::cardInteract(Card* cards[3][3]) {
-	this->spriteCard->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), CallFunc::create(std::bind(&Card::openTreasure, this, "good")), DelayTime::create(0.75), CallFunc::create(std::bind(&Card::deleteCard, this)), CallFunc::create(std::bind(&Card::unlockScene, this)), /*DelayTime::create(2 * 0.75), CallFunc::create(std::bind(&Card::spawnCoin, this,cards)),*/ nullptr));
+	this->spriteFrame->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), CallFunc::create(std::bind(&Card::openTreasure, this, "good")), DelayTime::create(0.75), CallFunc::create(std::bind(&CardTreasure::deleteCard, this)), CallFunc::create(std::bind(&Card::unlockScene, this)), /*DelayTime::create(2 * 0.75), CallFunc::create(std::bind(&Card::spawnCoin, this,cards)),*/ nullptr));
 	cards[this->pos.x][this->pos.y] = new CardCoin(this->pos, "Assets/Icons/Coins_0/coin_01.png", "Assets/Cards/squareGoldenFrame.png", gameData::currentScene);
 	return 0;
 }
 int CardBadTreasure::cardInteract(Card* cards[3][3]) {
 
-	this->spriteCard->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), CallFunc::create(std::bind(&Card::openTreasure, this, "bad")), DelayTime::create(0.75), CallFunc::create(std::bind(&Card::deleteCard, this)), CallFunc::create(std::bind(&Card::unlockScene, this)), /*DelayTime::create(2 * 0.75), CallFunc::create(std::bind(&Card::spawnCoin, this,cards)),*/ nullptr));
+	this->spriteFrame->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), CallFunc::create(std::bind(&Card::openTreasure, this, "bad")), DelayTime::create(0.75), CallFunc::create(std::bind(&CardTreasure::deleteCard, this)), CallFunc::create(std::bind(&Card::unlockScene, this)), /*DelayTime::create(2 * 0.75), CallFunc::create(std::bind(&Card::spawnCoin, this,cards)),*/ nullptr));
 	cards[this->pos.x][this->pos.y] = GeneratorCard(1, gameData::currentScene).GenerateBadCard(*(new position(this->pos.x, this->pos.y)));
 	return 0;
 }
@@ -230,11 +236,11 @@ int CardCommonMonster::cardInteract(Card* cards[3][3]) {
 	if (gameData::isHeroArmed)
 	{
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->weaponEffect(cards, this);
-	//	cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->labelUpdate(false);
+		//	cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->labelUpdate(false);
 		if (this->cardCurrentHP <= 0) { return 1; }
 		return 0;
 	}
-	else if (!gameData::isHeroArmed ) {
+	else if (!gameData::isHeroArmed) {
 		if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP > this->cardCurrentHP) {
 			cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP -= this->cardCurrentHP;
 			cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelUpdate(true);

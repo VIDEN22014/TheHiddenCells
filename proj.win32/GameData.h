@@ -13,6 +13,7 @@ struct position {
 		this->x = x;
 		this->y = y;
 	};
+	~position() {};
 	position operator+(position pos2)
 	{
 		return position(this->x + pos2.x, this->y + pos2.y);
