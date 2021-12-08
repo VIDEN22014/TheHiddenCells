@@ -168,6 +168,7 @@ class CardHealingWeapon :public CardWeapon {
 public:
 	CardHealingWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene) {};
 	~CardHealingWeapon() override {};
+	int cardInteract(Card* cards[3][3]) override;
 	void weaponEffect(Card* cards[3][3], Card* enemy) override;
 };
 
@@ -175,6 +176,7 @@ class CardPoisonedWeapon :public CardWeapon {
 public:
 	CardPoisonedWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene) {};
 	~CardPoisonedWeapon() override {};
+	int cardInteract(Card* cards[3][3]) override;
 	void weaponEffect(Card* cards[3][3], Card* enemy) override;
 };
 
