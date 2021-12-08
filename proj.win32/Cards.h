@@ -12,6 +12,7 @@ using namespace cocos2d;
 class Card {
 public:
 	Card(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) {
+		pathToSprite = spriteCardPath;
 		pos = *(new position(cardpos.x, cardpos.y));
 		spriteFrame = cocos2d::Sprite::create(spriteFramePath);
 		spriteCard = cocos2d::Sprite::create(spriteCardPath);
@@ -60,6 +61,8 @@ public:
 	int cardBuff = 0;//0- None ;1- Regen ;2- Poisoned
 	double ScaleCard = 1;
 	bool isBoss = false;
+	std::string pathToSprite;
+	//std::string pathToFrame;
 	cocos2d::Sprite* spriteFrame = nullptr;
 	cocos2d::Sprite* spriteCard = nullptr;
     cocos2d::Sprite* spriteWeapon = nullptr;

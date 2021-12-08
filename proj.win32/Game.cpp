@@ -33,10 +33,7 @@ void Game::Turn(position pos, Card* cards[3][3], int level) {
 			while (cardIterator.hasNext())
 			{
 				cardVector.push_back(cardIterator.getNext());
-				//if(cards[cardVector[cardVector.size()-1].x][cardVector[cardVector.size() - 1].y].isBoss)
 			}
-
-
 
 
 			//Card*[][] Replace
@@ -125,8 +122,10 @@ void Game::GoToShop() {
 }
 
 void Game::GoToLevelSelect() {
+	gameData::isHeroArmed = false;
 	auto scene = LevelSelectScene::createScene();
 	Director::getInstance()->replaceScene(scene);
+
 }
 
 void Game::GoToLevel1() {

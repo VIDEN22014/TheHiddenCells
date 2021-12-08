@@ -25,11 +25,11 @@ Card* GeneratorCard::GenerateRandomCard(position pos) {
 	{
 		return factory->createMonster(pos, this->scene);
 	}
-	else if (GenerateCard >= 650 && GenerateCard < 950)
+	else if (GenerateCard >= 650 && GenerateCard < 750)
 	{
 		return factory->createPotion(pos, this->scene);
 	}
-	else if (GenerateCard >= 950 && GenerateCard < 1000)
+	else if (GenerateCard >= 750 && GenerateCard < 1000)
 	{
 		return factory->createWeapon(pos, this->scene);
 	}

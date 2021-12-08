@@ -105,6 +105,7 @@ void CardHero::cardOnTurn(Card* cards[3][3]) {
 		if (cardCurrentHP <= 1)
 		{
 			cardBuff == 0;//None
+			Game::GoToEndGame();
 		}
 		else
 		{
@@ -188,7 +189,16 @@ int CardWeapon::cardInteract(Card* cards[3][3]) {
 	}
 	return 1;
 }
-
+int  CardHealingWeapon::cardInteract(Card* cards[3][3]) { 
+	this->CardWeapon::cardInteract(cards);
+	cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon = new CardHealingWeapon(*this);
+	return 1;
+}
+int  CardPoisonedWeapon::cardInteract(Card* cards[3][3]) {
+	this->CardWeapon::cardInteract(cards);
+	cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon = new CardPoisonedWeapon(*this);
+	return 1;
+}
 void CardWeapon::weaponEffect(Card* cards[3][3], Card* enemy) {
 	int min = std::min(cardCurrentHP, enemy->cardCurrentHP);
 	enemy->cardCurrentHP -= min;
@@ -214,8 +224,7 @@ void CardHealingWeapon::weaponEffect(Card* cards[3][3], Card* enemy) {
 }
 
 void CardPoisonedWeapon::weaponEffect(Card* cards[3][3], Card* enemy) {
-	//Poisoned weapon code
-
+	enemy->cardBuff = 2;
 	this->CardWeapon::weaponEffect(cards, enemy);
 }
 
@@ -236,7 +245,6 @@ int CardCommonMonster::cardInteract(Card* cards[3][3]) {
 	if (gameData::isHeroArmed)
 	{
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->weaponEffect(cards, this);
-		//	cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->labelUpdate(false);
 		if (this->cardCurrentHP <= 0) { return 1; }
 		return 0;
 	}
@@ -256,7 +264,6 @@ int CardRegenXPMonster::cardInteract(Card* cards[3][3]) {
 	if (gameData::isHeroArmed)
 	{
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->weaponEffect(cards, this);
-		//	cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->labelUpdate(false);
 		if (this->cardCurrentHP <= 0) { return 1; }
 		return 0;
 	}
