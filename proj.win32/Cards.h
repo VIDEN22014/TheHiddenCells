@@ -12,6 +12,7 @@ using namespace cocos2d;
 class Card {
 public:
 	Card(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) {
+		pathToSprite = spriteCardPath;
 		pos = *(new position(cardpos.x, cardpos.y));
 		spriteFrame = cocos2d::Sprite::create(spriteFramePath);
 		spriteCard = cocos2d::Sprite::create(spriteCardPath);
@@ -49,6 +50,8 @@ public:
 	int cardBuff = 0;//0- None ;1- Regen ;2- Poisoned
 	double ScaleCard = 1;
 	bool isBoss = false;
+	std::string pathToSprite;
+	//std::string pathToFrame;
 	cocos2d::Sprite* spriteFrame = nullptr;
 	cocos2d::Sprite* spriteCard = nullptr;
     cocos2d::Sprite* spriteWeapon = nullptr;
@@ -144,12 +147,14 @@ public:
 class CardHealingWeapon :public CardWeapon {
 public:
 	CardHealingWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene) {};
+	int cardInteract(Card* cards[3][3]) override;
 	void weaponEffect(Card* cards[3][3], Card* enemy) override;
 };
 
 class CardPoisonedWeapon :public CardWeapon {
 public:
 	CardPoisonedWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene) {};
+	int cardInteract(Card* cards[3][3]) override;
 	void weaponEffect(Card* cards[3][3], Card* enemy) override;
 };
 
@@ -158,6 +163,7 @@ public:
 class CardCommonMonster : public Card {
 public:
 	CardCommonMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : Card(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {};
+	
 	int cardInteract(Card* cards[3][3]) override;
 };
 class CardRegenXPMonster : public Card {

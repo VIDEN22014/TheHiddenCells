@@ -389,8 +389,8 @@ void ShopScene::changeTextureHeroes(int index,bool ThisHeroBuy) {
       spriteStartHero->runAction(Animate::create(animationHero));
     }
     else if (index == 2) {
-      weaponExp->setTexture("Assets/Weapons/weapon_red_magic_staff.png");
-      miniammo->setTexture("Assets/Weapons/weapon_red_magic_staff.png");
+      weaponExp->setTexture("Assets/Weapons/weapon_axe.png");
+      miniammo->setTexture("Assets/Weapons/weapon_axe.png");
       miniammo->setScale(1.5);
       LabelAmountXP->setString(std::to_string(gameData::amountXPHeros[2]));
       LabelAmountAmmo->setString(std::to_string(gameData::amountAmmoHeros[2]));
