@@ -23,6 +23,7 @@ bool Level1Scene::init()
 	{
 		return false;
 	}
+	gameData::isHeroArmed = false;
 	srand(time(NULL));
 	gameData::currentLevel = 1;
 	gameData::heroPosition = position(1, 1);
@@ -34,6 +35,7 @@ bool Level1Scene::init()
 			if (i == 1 && j == 1) {
 				cards[i][j] = GeneratorCard(1, this).GenerateHeroCard(*(new position(i, j)));
 			}
+			else if (i == 1 && j == 2) { cards[i][j] = GeneratorCard(1, this).GenerateHeroWeapon(*(new position(i, j))); }
 			else {
 				cards[i][j] = GeneratorCard(1, this).GenerateRandomCard(*(new position(i, j)));
 			}

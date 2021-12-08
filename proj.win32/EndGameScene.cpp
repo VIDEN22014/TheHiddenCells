@@ -55,6 +55,15 @@ bool EndGameScene::init()
 	if (gameData::chosenHero == 0) {
 		spriteDeadHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_3(Die).png");
 	}
+	else if (gameData::chosenHero == 1) { 
+		spriteDeadHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Elite/EliteKnight_Idle_3(Die).png");
+	}
+	else if (gameData::chosenHero == 2) {
+		spriteDeadHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Mage/Mage_Idle_3(Die).png");
+	}
+	else if (gameData::chosenHero == 3) {
+		spriteDeadHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Thief/Thief_Idle_3(Die).png");
+	}
 
 	auto CoinLabel = Label::createWithTTF(std::to_string(gameData::tempMoney), "Fonts/DungeonFont.ttf", 42);
 	CoinLabel->setAnchorPoint(Vec2(0, 0.5));
@@ -80,12 +89,12 @@ bool EndGameScene::init()
 			if (gameData::currentLevel == 1) {
 				Game::GoToLevel1();
 			}
-			//if (gameData::currentLevel == 2) {
-			//	Game::GoToLevel2();
-			//}
-			//if (gameData::currentLevel == 3) {
-			//	Game::GoToLevel3();
-			//}
+			if (gameData::currentLevel == 2) {
+				Game::GoToLevel2();
+			}
+			if (gameData::currentLevel == 3) {
+				Game::GoToLevel3();
+			}
 			break;
 		default:
 			break;

@@ -4,7 +4,7 @@
 #define __FACTORIES_H__
 
 #include <proj.win32/Cards.h>
-
+//#include <proj.win32/GameData.h>
 
 
 class AbstractFactory
@@ -18,6 +18,7 @@ public:
 	virtual Card* createWeapon(position pos, cocos2d::Scene* scene);
 	virtual Card* createGoodTreasure(position pos, cocos2d::Scene* scene);
 	virtual Card* createBadTreasure(position pos, cocos2d::Scene* scene);
+	virtual Card* createHeroWeapon(position pos, cocos2d::Scene* scene);
 };
 
 class Level1Factory : public AbstractFactory {

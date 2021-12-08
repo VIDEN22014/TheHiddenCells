@@ -38,6 +38,9 @@ Card* GeneratorCard::GenerateRandomCard(position pos) {
 //Card* GeneratorCard::GenerateGoodCard(position pos) {};
 Card* GeneratorCard::GenerateBadCard(position pos) {
 	return factory->createMonster(pos, this->scene);
-
-
 };
+
+Card* GeneratorCard::GenerateHeroWeapon(position pos) {
+	return factory->createHeroWeapon(pos, this->scene);
+};
+

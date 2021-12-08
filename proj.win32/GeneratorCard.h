@@ -21,8 +21,10 @@ public:
 
 	Card* GenerateHeroCard(position pos);
 	Card* GenerateRandomCard(position pos);
-	Card* GenerateGoodCard(position pos);
 	Card* GenerateBadCard(position pos);
+	Card* GenerateHeroWeapon(position pos);
+	//Card* GenerateGoodCard(position pos);
+
 	
 	
 };

@@ -36,21 +36,21 @@ Card* Level1Factory::createMonster(position pos, cocos2d::Scene* scene) {
 	}
 	else if (gameData::currentLevel==1&& GeneraTeCard >= (700-gameData::RatioBossMonster))
 	{
-		return new CardRegenXPMonster(pos,"Assets/Monsters/Enchanted Forest - Individual Frames/Elven King/HighElf_M_Idle + Walk_1.png", spriteFramePath, scene, gameData::MonstersMaxXP[7]);
+		return new CardRegenXPMonster(pos,"Assets/Monsters/Enchanted Forest - Individual Frames/Elven King/HighElf_M_Idle + Walk_1(Big).png", spriteFramePath, scene, gameData::MonstersMaxXP[7]);
 	}
 	else if (gameData::currentLevel == 2 && GeneraTeCard >= (700 - gameData::RatioBossMonster))
 	{
-		return new CardPoisonedMonster(pos, "Assets/Monsters/Enchanted Forest - Individual Frames/Wizard/Wizard_Idle + Walk_1.png", spriteFramePath, scene, gameData::MonstersMaxXP[7]);
+		return new CardPoisonedMonster(pos, "Assets/Monsters/Enchanted Forest - Individual Frames/Wizard/Wizard_Idle + Walk_1(Big).png", spriteFramePath, scene, gameData::MonstersMaxXP[7]);
 	}
 	else if (gameData::currentLevel == 3 && GeneraTeCard >= (700 - gameData::RatioBossMonster))
 	{
 		int GeneraetBoss = rand() % 1;
 		if (GeneraetBoss==0) {
-			return new CardPoisonedMonster(pos, "Assets/Monsters/Enchanted Forest - Individual Frames/Wizard/Wizard_Idle + Walk_1.png", spriteFramePath, scene, gameData::MonstersMaxXP[7]);
+			return new CardPoisonedMonster(pos, "Assets/Monsters/Enchanted Forest - Individual Frames/Wizard/Wizard_Idle + Walk_1(Big).png", spriteFramePath, scene, gameData::MonstersMaxXP[7]);
 
 		}
 		else {
-			return new CardRegenXPMonster(pos, "Assets/Monsters/Enchanted Forest - Individual Frames/Elven King/HighElf_M_Idle + Walk_1.png", spriteFramePath, scene, gameData::MonstersMaxXP[7]);
+			return new CardRegenXPMonster(pos, "Assets/Monsters/Enchanted Forest - Individual Frames/Elven King/HighElf_M_Idle + Walk_1(Big).png", spriteFramePath, scene, gameData::MonstersMaxXP[7]);
 		}
     }
 	
@@ -94,7 +94,38 @@ Card* Level1Factory::createBadTreasure(position pos, cocos2d::Scene* scene) {
 	return new CardBadTreasure(pos, spriteCardPath, spriteFramePath, scene);
 }
 Card* AbstractFactory::createHero(position pos, cocos2d::Scene* scene) {
-	std::string spriteCardPath = "Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_128.png";
+	std::string spriteCardPath;
+	if (gameData::chosenHero % 4 == 0) {
+		spriteCardPath = "Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard /Knight_Idle_1(Big).png";
+	}
+	else if (gameData::chosenHero % 4 == 1 && gameData::lockHero[1]) {
+		spriteCardPath = "Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Elite/EliteKnight_Idle_1(Big).png";
+
+	}
+	else if (gameData::chosenHero % 4 == 2 && gameData::lockHero[2]) {
+		spriteCardPath = "Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Mage/Mage_Idle_1(Big).png";
+
+	}
+	else if (gameData::chosenHero % 4 == 3 && gameData::lockHero[3]) {
+		spriteCardPath = "Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Thief/Thief_Idle_1(Big).png";
+
+	}
+	if (gameData::lastBuyHero == 3) {
+		spriteCardPath = "Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Thief/Thief_Idle_1(Big).png";
+
+	}
+	else if (gameData::lastBuyHero == 2) {
+		spriteCardPath = "Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Mage/Mage_Idle_1(Big).png";
+
+	}
+	else if (gameData::lastBuyHero == 1) {
+		spriteCardPath = "Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Elite/EliteKnight_Idle_1(Big).png";
+
+	}
+	else if (gameData::lastBuyHero == 0) {
+		spriteCardPath = "Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_1(Big).png";
+	}
+
 	return new CardHero(pos, spriteCardPath, spriteFramePath, scene);
 }
 Card* AbstractFactory::createCoin(position pos, cocos2d::Scene* scene) {
@@ -127,7 +158,20 @@ Card* AbstractFactory::createWeapon(position pos, cocos2d::Scene* scene) {
 	}
 
 }
-
+Card* AbstractFactory::createHeroWeapon(position pos, cocos2d::Scene* scene) {
+	if (gameData::chosenHero==0) {
+		return new CardCommonWeapon(pos, "Assets/Weapons/weapon_regular_sword.png", spriteFramePath, scene, gameData::amountAmmoHeros[gameData::chosenHero%4]);
+	}
+	else if (gameData::chosenHero == 1) {
+		return new CardCommonWeapon(pos, "Assets/Weapons/weapon_knight_sword.png", spriteFramePath, scene, gameData::amountAmmoHeros[gameData::chosenHero % 4]);
+	}
+	else if (gameData::chosenHero == 2) {
+		return new CardPoisonedWeapon(pos, "Assets/Weapons/androide.png", spriteFramePath, scene, gameData::amountAmmoHeros[gameData::chosenHero % 4]);
+	}
+	else if (gameData::chosenHero == 3) {
+		return new CardHealingWeapon(pos, "Assets/Weapons/weapon_red_gem_sword.png", spriteFramePath, scene, gameData::amountAmmoHeros[gameData::chosenHero % 4]);
+	}
+}
 Card* AbstractFactory::createMonster(position pos, cocos2d::Scene* scene) { return nullptr; }
 Card* AbstractFactory::createPotion(position pos, cocos2d::Scene* scene) { return nullptr; }
 Card* AbstractFactory::createGoodTreasure(position pos, cocos2d::Scene* scene) { return nullptr; }

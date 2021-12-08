@@ -132,7 +132,7 @@ bool ShopScene::init()
     minixp->setPosition(420, 615);
     this->addChild(minixp);
     //встановлення іконки зброї на іконку героя
-    miniammo = Sprite::create("Assets/Weapons/weapon_regular_sword.png");
+    miniammo = Sprite::create("Assets/Weapons/weapon_knight_sword.png");
     miniammo->setScale(2.0);
     miniammo->setPosition(520, 610);
     this->addChild(miniammo);
@@ -159,9 +159,10 @@ bool ShopScene::init()
             gameData::chosenHero++;
             if (gameData::chosenHero == -1) { gameData::chosenHero = 3; }
             changeTextureHeroes(abs(gameData::chosenHero % 4),false);
+            LabelpriceHeart->setString(std::to_string(gameData::lvlHeart[gameData::chosenHero % 4] * 20));
+            LabelpriceAmmo->setString(std::to_string(gameData::lvlAmmo[gameData::chosenHero % 4] * 20));
             changeTexturelineExp(gameData::lvlHeart[gameData::chosenHero % 4],0);
             changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);
-            //CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
             break;
         default:
             break;
@@ -179,10 +180,10 @@ bool ShopScene::init()
             gameData::chosenHero--;
             if (gameData::chosenHero == -1) { gameData::chosenHero = 3; }
             changeTextureHeroes(abs(gameData::chosenHero % 4),false);
-           
+            LabelpriceHeart ->setString(std::to_string( gameData::lvlHeart[gameData::chosenHero % 4]*20));
+            LabelpriceAmmo->setString(std::to_string(gameData::lvlAmmo[gameData::chosenHero % 4] * 20));
             changeTexturelineExp(gameData::lvlHeart[gameData::chosenHero % 4],0);
-          changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);
-            // CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("SoundBlip.wav");
+            changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);
             break;
         default:
             break;
@@ -221,12 +222,14 @@ bool ShopScene::init()
             if (gameData::lockHero[gameData::chosenHero % 4]&& gameData::money >= gameData::priceHeart) {
                 if (gameData::lvlHeart[gameData::chosenHero % 4] < 7) {
                     gameData::lvlHeart[gameData::chosenHero % 4]++;
+                    gameData::amountXPHeros[gameData::chosenHero % 4] += 2;
+                    LabelAmountXP->setString(std::to_string(gameData::amountXPHeros[gameData::chosenHero % 4]));
                     changeTexturelineExp(gameData::lvlHeart[gameData::chosenHero % 4], 0);
                 
                     Game::MoneyChange(-gameData::priceHeart, CoinLabel);
                     gameData::priceHeart += 20;
                     LabelpriceHeart->setString(std::to_string(gameData::priceHeart));
-                    //Game::MoneyChange(20, LabelpriceHeart);
+                   // if (gameData::lvlHeart[gameData::chosenHero % 4] == 6) { LabelpriceHeart->setVisible(false); }
                 }
             }
             break;
@@ -246,14 +249,17 @@ bool ShopScene::init()
             break;
         case ui::Widget::TouchEventType::ENDED:
             if (gameData::lockHero[gameData::chosenHero % 4]) {
-                if (gameData::lvlAmmo[gameData::chosenHero % 4] < 7&& gameData::money >= gameData::priceAmmo) {
+                if (gameData::lvlAmmo[gameData::chosenHero % 4] < 7 && gameData::money >= gameData::priceAmmo) {
                     gameData::lvlAmmo[gameData::chosenHero % 4]++;
+                    
+                    gameData::amountAmmoHeros[gameData::chosenHero % 4] ++;
+                    LabelAmountAmmo->setString(std::to_string(gameData::amountAmmoHeros[gameData::chosenHero % 4]));
                     ShopScene::changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);
                 
                     Game::MoneyChange(-gameData::priceAmmo, CoinLabel);
                     gameData::priceAmmo += 20;
                     LabelpriceAmmo->setString(std::to_string(gameData::priceAmmo));
-                    //  Game::MoneyChange(20, LabelpriceAmmo);
+                   // if (gameData::lvlAmmo[gameData::chosenHero % 4] == 6) { LabelpriceAmmo->setVisible(false); }
                 }
             }
             break;
@@ -313,29 +319,29 @@ bool ShopScene::init()
 
 void ShopScene::changeTexturelineExp(int index,int sprite) {
     if (sprite == 0) {
-        if (index == 0) { lineExpXP->setTexture("Assets/UI/lineExp.png"); }
-        if (index == 1) { lineExpXP->setTexture("Assets/UI/lineExp1.png"); }
-        else if (index == 2) { lineExpXP->setTexture("Assets/UI/lineExp2.png"); }
-        else if (index == 3) { lineExpXP->setTexture("Assets/UI/lineExp3.png"); }
-        else if (index == 4) { lineExpXP->setTexture("Assets/UI/lineExp4.png"); }
-        else if (index == 5) { lineExpXP->setTexture("Assets/UI/lineExp5.png"); }
-        else if (index == 6) { lineExpXP->setTexture("Assets/UI/lineExp6.png"); }
+        if (index == 1) { lineExpXP->setTexture("Assets/UI/lineExp.png"); }
+        if (index == 2) { lineExpXP->setTexture("Assets/UI/lineExp1.png"); }
+        else if (index == 3) { lineExpXP->setTexture("Assets/UI/lineExp2.png"); }
+        else if (index == 4) { lineExpXP->setTexture("Assets/UI/lineExp3.png"); }
+        else if (index == 5) { lineExpXP->setTexture("Assets/UI/lineExp4.png"); }
+        else if (index == 6) { lineExpXP->setTexture("Assets/UI/lineExp5.png"); }
+        else if (index == 7) { lineExpXP->setTexture("Assets/UI/lineExp6.png"); }
     }
     else if (sprite == 1) {
-        if (index == 0) { lineExpAmmo->setTexture("Assets/UI/lineExp.png"); }
-        if (index == 1) { lineExpAmmo->setTexture("Assets/UI/lineExp1.png"); }
-        else if (index == 2) { lineExpAmmo->setTexture("Assets/UI/lineExp2.png"); }
-        else if (index == 3) { lineExpAmmo->setTexture("Assets/UI/lineExp3.png"); }
-        else if (index == 4) { lineExpAmmo->setTexture("Assets/UI/lineExp4.png"); }
-        else if (index == 5) { lineExpAmmo->setTexture("Assets/UI/lineExp5.png"); }
-        else if (index == 6) { lineExpAmmo->setTexture("Assets/UI/lineExp6.png"); }
+        if (index == 1) { lineExpAmmo->setTexture("Assets/UI/lineExp.png"); }
+        if (index == 2) { lineExpAmmo->setTexture("Assets/UI/lineExp1.png"); }
+        else if (index == 3) { lineExpAmmo->setTexture("Assets/UI/lineExp2.png"); }
+        else if (index == 4) { lineExpAmmo->setTexture("Assets/UI/lineExp3.png"); }
+        else if (index == 5) { lineExpAmmo->setTexture("Assets/UI/lineExp4.png"); }
+        else if (index == 6) { lineExpAmmo->setTexture("Assets/UI/lineExp5.png"); }
+        else if (index == 7) { lineExpAmmo->setTexture("Assets/UI/lineExp6.png"); }
     }
 }
 
 void ShopScene::changeTextureHeroes(int index,bool ThisHeroBuy) {
   if (index == 0) {
-      weaponExp->setTexture("Assets/Weapons/weapon_regular_sword.png");
-      miniammo->setTexture("Assets/Weapons/weapon_regular_sword.png");
+      weaponExp->setTexture("Assets/Weapons/weapon_regular_sword(small).png");
+      miniammo->setTexture("Assets/Weapons/weapon_regular_sword(small).png");
       LabelAmountXP->setString(std::to_string(gameData::amountXPHeros[0]));
       LabelAmountAmmo->setString(std::to_string(gameData::amountAmmoHeros[0]));
       if (!gameData::lockHero[index]) {
@@ -357,12 +363,12 @@ void ShopScene::changeTextureHeroes(int index,bool ThisHeroBuy) {
       animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_4.png");
       animationHero->setDelayPerUnit(0.1111111112f);
       animationHero->setLoops(-1);
-
+      priceHero->setString("");
       spriteStartHero->runAction(Animate::create(animationHero));
     }
     else if (index == 1) {
-      weaponExp->setTexture("Assets/Weapons/weapon_hammer.png");
-      miniammo->setTexture("Assets/Weapons/weapon_hammer.png");
+      weaponExp->setTexture("Assets/Weapons/weapon_knight_sword(small).png");
+      miniammo->setTexture("Assets/Weapons/weapon_knight_sword(small).png");
       LabelAmountXP->setString(std::to_string(gameData::amountXPHeros[1]));
       LabelAmountAmmo->setString(std::to_string(gameData::amountAmmoHeros[1]));
       if (!gameData::lockHero[index]) {
@@ -376,21 +382,21 @@ void ShopScene::changeTextureHeroes(int index,bool ThisHeroBuy) {
 
       }
       spriteStartHero->stopAllActions();
-      spriteStartHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Large Knight - Standard/LargeKnight_Idle_1.png");
+      spriteStartHero->setTexture("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Elite/EliteKnight_Idle_1.png");
 
       auto animationHero = Animation::create();
-      animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Large Knight - Standard/LargeKnight_Idle_1.png");
-      animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Large Knight - Standard/LargeKnight_Idle_2.png");
-      animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Large Knight - Standard/LargeKnight_Idle_3.png");
-      animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Large Knight - Standard/LargeKnight_Idle_4.png");
+      animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Elite/EliteKnight_Idle_1.png");
+      animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Elite/EliteKnight_Idle_2.png");
+      animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Elite/EliteKnight_Idle_3.png");
+      animationHero->addSpriteFrameWithFile("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Elite/EliteKnight_Idle_4.png");
       animationHero->setDelayPerUnit(0.1111111112f);
       animationHero->setLoops(-1);
 
       spriteStartHero->runAction(Animate::create(animationHero));
     }
     else if (index == 2) {
-      weaponExp->setTexture("Assets/Weapons/weapon_axe.png");
-      miniammo->setTexture("Assets/Weapons/weapon_axe.png");
+      weaponExp->setTexture("Assets/Weapons/androide(small).png");
+      miniammo->setTexture("Assets/Weapons/androide(small).png");
       miniammo->setScale(1.5);
       LabelAmountXP->setString(std::to_string(gameData::amountXPHeros[2]));
       LabelAmountAmmo->setString(std::to_string(gameData::amountAmmoHeros[2]));
@@ -418,8 +424,8 @@ void ShopScene::changeTextureHeroes(int index,bool ThisHeroBuy) {
       
     }
     else if (index == 3) {
-      weaponExp->setTexture("Assets/Weapons/weapon_golden_sword.png");
-      miniammo->setTexture("Assets/Weapons/weapon_golden_sword.png");
+      weaponExp->setTexture("Assets/Weapons/weapon_red_gem_sword(small).png");
+      miniammo->setTexture("Assets/Weapons/weapon_red_gem_sword(small).png");
       LabelAmountXP->setString(std::to_string(gameData::amountXPHeros[3]));
       LabelAmountAmmo->setString(std::to_string(gameData::amountAmmoHeros[3]));
       if (!gameData::lockHero[index]) {

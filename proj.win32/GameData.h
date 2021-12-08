@@ -50,6 +50,7 @@ namespace gameData {
 	extern cocos2d::Label* currentMoneyLabel;
 	extern int fontSize;
 	extern bool isSceneLocked;
+	//extern std::string pathToHeroes[4];
 	extern std::string pathToMonsters[7];
 	extern int MonstersMaxXP[8];
 	extern int RatioBossMonster;

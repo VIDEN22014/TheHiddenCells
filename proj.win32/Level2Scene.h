@@ -14,6 +14,8 @@ public:
     virtual bool init();
     CREATE_FUNC(Level2Scene);
     void update(float dt);
+
+   bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
 };
 
 #endif // __LEVEL_SELECT_SCENE_H__

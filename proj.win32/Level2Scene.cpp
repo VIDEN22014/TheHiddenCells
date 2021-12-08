@@ -3,14 +3,16 @@
 #include <proj.win32/Cards.h>
 #include <proj.win32/GameData.h>
 #include <proj.win32/Game.h>
-
+#include <proj.win32/GeneratorCard.h>
 
 
 
 USING_NS_CC;
 
 Scene* Level2SceneObj;
-
+Label* Coin1Label;
+Sprite* touchSprite[3][3];
+Card* cards[3][3];
 Scene* Level2Scene::createScene()
 {
 	return Level2SceneObj = Level2Scene::create();
@@ -21,6 +23,23 @@ bool Level2Scene::init()
 	if (!Scene::init())
 	{
 		return false;
+	}
+	gameData::isHeroArmed = false;
+	srand(time(NULL));
+	gameData::currentLevel = 2;
+	gameData::heroPosition = position(1, 1);
+	gameData::isSceneLocked = false;
+
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (i == 1 && j == 1) {
+				cards[i][j] = GeneratorCard(1, this).GenerateHeroCard(*(new position(i, j)));
+			}
+			else if (i == 1 && j == 2) { cards[i][j] = GeneratorCard(1, this).GenerateHeroWeapon(*(new position(i, j))); }
+			else {
+				cards[i][j] = GeneratorCard(1, this).GenerateRandomCard(*(new position(i, j)));
+			}
+		}
 	}
 
 	//Background Sprite
@@ -71,10 +90,46 @@ bool Level2Scene::init()
 		});
 	this->addChild(returnButton);
 
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			touchSprite[i][j] = Sprite::create("Assets/UI/StoneButtonsLight/tile005.png");
+			touchSprite[i][j]->setScale(12);
+			touchSprite[i][j]->setPosition(Vec2(278 + j * (touchSprite[i][j]->getContentSize().width * touchSprite[i][j]->getScale() + 10),
+				682 - i * (touchSprite[i][j]->getContentSize().width * touchSprite[i][j]->getScale() + 10)));
+			touchSprite[i][j]->setVisible(false);
+			this->addChild(touchSprite[i][j]);
+		}
+	}
+
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = CC_CALLBACK_2(Level2Scene::onTouchBegan, this);
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
 
 	return true;
 }
+
+void checkTouch(float touchX, float touchY) {
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (touchX >= touchSprite[i][j]->getPositionX() - 192 / 2.0 && touchX <= touchSprite[i][j]->getPositionX() + 192 / 2.0 && touchY >= touchSprite[i][j]->getPositionY() - 192 / 2.0 && touchY <= touchSprite[i][j]->getPositionY() + 192 / 2.0) {
+				Game::Turn(position(i, j), cards, 1);
+			}
+		}
+	}
+}
+
+bool Level2Scene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+	checkTouch(touch->getLocation().x, touch->getLocation().y);
+	return true;
+}
+
+
 
 void Level2Scene::update(float dt) {};
 
