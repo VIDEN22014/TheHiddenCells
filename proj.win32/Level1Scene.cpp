@@ -9,7 +9,7 @@ USING_NS_CC;
 
 Scene* Level1SceneObj;
 Label* Coin1Label;
-Sprite* touchSprite[3][3];
+Sprite* touch1Sprite[3][3];
 Card* cards[3][3];
 
 Scene* Level1Scene::createScene()
@@ -97,12 +97,12 @@ bool Level1Scene::init()
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			touchSprite[i][j] = Sprite::create("Assets/UI/StoneButtonsLight/tile005.png");
-			touchSprite[i][j]->setScale(12);
-			touchSprite[i][j]->setPosition(Vec2(278 + j * (touchSprite[i][j]->getContentSize().width * touchSprite[i][j]->getScale() + 10),
-				682 - i * (touchSprite[i][j]->getContentSize().width * touchSprite[i][j]->getScale() + 10)));
-			touchSprite[i][j]->setVisible(false);
-			this->addChild(touchSprite[i][j]);
+			touch1Sprite[i][j] = Sprite::create("Assets/UI/StoneButtonsLight/tile005.png");
+			touch1Sprite[i][j]->setScale(12);
+			touch1Sprite[i][j]->setPosition(Vec2(278 + j * (touch1Sprite[i][j]->getContentSize().width * touch1Sprite[i][j]->getScale() + 10),
+				682 - i * (touch1Sprite[i][j]->getContentSize().width * touch1Sprite[i][j]->getScale() + 10)));
+			touch1Sprite[i][j]->setVisible(false);
+			this->addChild(touch1Sprite[i][j]);
 		}
 	}
 
@@ -114,12 +114,12 @@ bool Level1Scene::init()
 	return true;
 }
 
-void checkTouch(float touchX, float touchY) {
+void Level1Scene::checkTouch(float touchX, float touchY) {
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			if (touchX >= touchSprite[i][j]->getPositionX() - 192 / 2.0 && touchX <= touchSprite[i][j]->getPositionX() + 192 / 2.0 && touchY >= touchSprite[i][j]->getPositionY() - 192 / 2.0 && touchY <= touchSprite[i][j]->getPositionY() + 192 / 2.0) {
+			if (touchX >= touch1Sprite[i][j]->getPositionX() - 192 / 2.0 && touchX <= touch1Sprite[i][j]->getPositionX() + 192 / 2.0 && touchY >= touch1Sprite[i][j]->getPositionY() - 192 / 2.0 && touchY <= touch1Sprite[i][j]->getPositionY() + 192 / 2.0) {
 				Game::Turn(position(i, j), cards, 1);
 			}
 		}

@@ -10,12 +10,14 @@
 USING_NS_CC;
 
 Scene* Level2SceneObj;
-Label* Coin1Label;
-Sprite* touchSprite[3][3];
-Card* cards[3][3];
+Label* Coin2Label;
+Sprite* touch2Sprite[3][3];
+Card* cards2[3][3];
+
 Scene* Level2Scene::createScene()
 {
-	return Level2SceneObj = Level2Scene::create();
+	return gameData::currentScene = Level2SceneObj = Level2Scene::create();
+
 }
 
 bool Level2Scene::init()
@@ -33,11 +35,11 @@ bool Level2Scene::init()
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			if (i == 1 && j == 1) {
-				cards[i][j] = GeneratorCard(1, this).GenerateHeroCard(*(new position(i, j)));
+				cards2[i][j] = GeneratorCard(1, this).GenerateHeroCard(*(new position(i, j)));
 			}
-			else if (i == 1 && j == 2) { cards[i][j] = GeneratorCard(1, this).GenerateHeroWeapon(*(new position(i, j))); }
+			else if (i == 1 && j == 2) { cards2[i][j] = GeneratorCard(1, this).GenerateHeroWeapon(*(new position(i, j))); }
 			else {
-				cards[i][j] = GeneratorCard(1, this).GenerateRandomCard(*(new position(i, j)));
+				cards2[i][j] = GeneratorCard(1, this).GenerateRandomCard(*(new position(i, j)));
 			}
 		}
 	}
@@ -65,11 +67,13 @@ bool Level2Scene::init()
 	animation->setDelayPerUnit(0.1111111112f);
 	animation->setLoops(-1);
 	CoinSprite->runAction(Animate::create(animation));
-	auto CoinLabel = Label::createWithTTF(std::to_string(gameData::money), "Fonts/DungeonFont.ttf", 42);
-	CoinLabel->setAnchorPoint(Vec2(0, 0.5));
-	CoinLabel->setPosition(Vec2(CoinSprite->getPositionX() + CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
-	this->addChild(CoinLabel);
 
+	auto Coin2Label = Label::createWithTTF(std::to_string(gameData::money), "Fonts/DungeonFont.ttf", 42);
+	Coin2Label->setAnchorPoint(Vec2(0, 0.5));
+	Coin2Label->setPosition(Vec2(CoinSprite->getPositionX() + CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
+	this->addChild(Coin2Label);
+
+	gameData::currentMoneyLabel = Coin2Label;
 
 	//Return Button
 	auto returnButton = ui::Button::create("Assets/UI/StoneButtonsLight/tile005.png", "Assets/UI/StoneButtonsLightPressed/tile005.png");
@@ -94,12 +98,12 @@ bool Level2Scene::init()
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			touchSprite[i][j] = Sprite::create("Assets/UI/StoneButtonsLight/tile005.png");
-			touchSprite[i][j]->setScale(12);
-			touchSprite[i][j]->setPosition(Vec2(278 + j * (touchSprite[i][j]->getContentSize().width * touchSprite[i][j]->getScale() + 10),
-				682 - i * (touchSprite[i][j]->getContentSize().width * touchSprite[i][j]->getScale() + 10)));
-			touchSprite[i][j]->setVisible(false);
-			this->addChild(touchSprite[i][j]);
+			touch2Sprite[i][j] = Sprite::create("Assets/UI/StoneButtonsLight/tile005.png");
+			touch2Sprite[i][j]->setScale(12);
+			touch2Sprite[i][j]->setPosition(Vec2(278 + j * (touch2Sprite[i][j]->getContentSize().width * touch2Sprite[i][j]->getScale() + 10),
+				682 - i * (touch2Sprite[i][j]->getContentSize().width * touch2Sprite[i][j]->getScale() + 10)));
+			touch2Sprite[i][j]->setVisible(false);
+			this->addChild(touch2Sprite[i][j]);
 		}
 	}
 
@@ -111,13 +115,13 @@ bool Level2Scene::init()
 	return true;
 }
 
-void checkTouch(float touchX, float touchY) {
+void Level2Scene::checkTouch(float touchX, float touchY) {
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			if (touchX >= touchSprite[i][j]->getPositionX() - 192 / 2.0 && touchX <= touchSprite[i][j]->getPositionX() + 192 / 2.0 && touchY >= touchSprite[i][j]->getPositionY() - 192 / 2.0 && touchY <= touchSprite[i][j]->getPositionY() + 192 / 2.0) {
-				Game::Turn(position(i, j), cards, 1);
+			if (touchX >= touch2Sprite[i][j]->getPositionX() - 192 / 2.0 && touchX <= touch2Sprite[i][j]->getPositionX() + 192 / 2.0 && touchY >= touch2Sprite[i][j]->getPositionY() - 192 / 2.0 && touchY <= touch2Sprite[i][j]->getPositionY() + 192 / 2.0) {
+				Game::Turn(position(i, j), cards2, 1);
 			}
 		}
 	}

@@ -16,6 +16,7 @@ public:
     void update(float dt);
 
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+    void checkTouch(float touchX, float touchY);
 
 };
 
