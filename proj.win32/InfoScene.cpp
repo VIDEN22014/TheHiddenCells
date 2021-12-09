@@ -1,6 +1,6 @@
 #include "ui/CocosGUI.h"
-#include "ui/CocosGUI.h"
 #include <proj.win32/Level3Scene.h>
+#include <proj.win32/InfoScene.h>
 #include <proj.win32/Cards.h>
 #include <proj.win32/GameData.h>
 #include <proj.win32/Game.h>
@@ -9,15 +9,15 @@
 
 
 USING_NS_CC;
+int count = 1;
+Scene* InfoSceneObj;
 
-Scene* Level3SceneObj;
-
-Scene* Level3Scene::createScene()
+Scene* InfoScene::createScene()
 {
-	return Level3SceneObj = Level3Scene::create();
+	return InfoSceneObj = InfoScene::create();
 }
 
-bool Level3Scene::init()
+bool InfoScene::init()
 {
 
 	if (!Scene::init())
@@ -64,7 +64,7 @@ bool Level3Scene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			Game::GoToLevelSelect();
+			Game::GoToMainMenu();
 			break;
 		default:
 			break;
@@ -73,11 +73,32 @@ bool Level3Scene::init()
 	this->addChild(returnButton);
 
 
+	count = 1;
+	CreateInfo("Assets/Items/Flasks/Flasks_Big/flask_big_red.png", "hello word");
+	CreateInfo("Assets/Items/Flasks/Flasks_Small/flask_small_green.png", "hello word");
+	CreateInfo("Assets/Items/Flasks/Flasks_Small/flask_small_blue.png", "hello word");
+	CreateInfo("Assets/Items/Flasks/Flasks_Small/flask_small_yellow.png", "hello word");
+	
 
 	return true;
 }
 
-void Level3Scene::update(float dt) {};
+void InfoScene::CreateInfo(char *path, char* InfoText) {
+	Size size = Director::getInstance()->getWinSize();
+
+	auto InfoCard = cocos2d::Sprite::create(path);
+	InfoCard->setPosition(Vec2(70, size.height-100*count-10));
+	this->addChild(InfoCard);
+
+	auto InfoTextlabl = Label::create(InfoText, "Fonts/DungeonFont.ttf", gameData::fontSize);
+	InfoTextlabl->setPosition(Vec2( 200, size.height - 100* count-30));
+	this->addChild(InfoTextlabl);
+
+
+	count++;
+}
+
+void InfoScene::update(float dt) {};
 
 
 

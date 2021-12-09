@@ -209,7 +209,27 @@ bool MainMenuScene::init()
 		}
 		});
 	this->addChild(exitButton);
-	//
+	// 
+	auto infoButton = ui::Button::create("Assets/UI/Test-Button/sountButton.png", "Assets/UI/Test-Button/sountButtonPressed.png");
+	infoButton->setAnchorPoint(Vec2(0, 0));
+	infoButton->setScale(4.5);
+	infoButton->setPosition(Vec2(535, 855));
+	this->addChild(infoButton);
+	infoButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			if (playSound) {
+				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
+			}
+			Game::GoToInfo();
+			break;
+		default:
+			break;
+		}
+		});
 
 	auto startSoundButton = ui::Button::create("Assets/UI/Test-Button/sountButton.png", "Assets/UI/Test-Button/sountButtonPressed.png");
 	startSoundButton->setAnchorPoint(Vec2(0, 0));
