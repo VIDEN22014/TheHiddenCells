@@ -2,6 +2,8 @@
 #include <proj.win32/GameData.h>
 #include <MainMenuScene.h>
 #include <proj.win32/ShopScene.h>
+#include <proj.win32/InfoScene.h>
+#include <proj.win32/InfoScene2.h>
 #include <proj.win32/LevelSelectScene.h>
 #include <proj.win32/Level1Scene.h>
 #include <proj.win32/Level2Scene.h>
@@ -127,6 +129,14 @@ void Game::GoToMainMenu() {
 
 void Game::GoToShop() {
 	auto scene = ShopScene::createScene();
+	Director::getInstance()->replaceScene(scene);
+}
+void Game::GoToInfo() {
+	auto scene = InfoScene::createScene();
+	Director::getInstance()->replaceScene(scene);
+}
+void Game::GoToInfo2() {
+	auto scene = InfoScene2::createScene();
 	Director::getInstance()->replaceScene(scene);
 }
 

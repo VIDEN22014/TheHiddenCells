@@ -4,7 +4,7 @@
 #include <proj.win32/GameData.h>
 #include <proj.win32/Game.h>
 #include <proj.win32/GeneratorCard.h>
-
+#include "SimpleAudioEngine.h"
 
 
 USING_NS_CC;
@@ -32,6 +32,10 @@ bool Level2Scene::init()
 	gameData::heroPosition = position(1, 1);
 	gameData::isSceneLocked = false;
 
+	if (gameData::playMusic) {
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/2GoldenWin.mp3", true);
+	}
+
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			if (i == 1 && j == 1) {
@@ -45,7 +49,7 @@ bool Level2Scene::init()
 	}
 
 	//Background Sprite
-	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG 4.png");
+	auto spriteBackground = Sprite::create("Assets/Backgrounds/2.png");
 	Size size = Director::getInstance()->getWinSize();
 	spriteBackground->setAnchorPoint(Vec2(0, 0));
 	spriteBackground->setPosition(Vec2(0, 0));
@@ -86,6 +90,12 @@ bool Level2Scene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
+			if (gameData::playMusic) {
+
+				CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("Sound/2GoldenWin.mp3");
+				CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+				CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/backgroundmusic.mp3", true);
+			}
 			Game::GoToLevelSelect();
 			break;
 		default:

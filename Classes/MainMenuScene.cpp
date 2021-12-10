@@ -97,7 +97,7 @@ bool MainMenuScene::init()
 	this->addChild(minixp1);
 	//встановлення іконки зброї на іконку героя
 	miniammo1 = Sprite::create("Assets/Weapons/weapon_regular_sword(small).png");
-	miniammo1->setScale(2.0);
+	miniammo1->setScale(0.4);
 	miniammo1->setPosition(520, 610);
 	this->addChild(miniammo1);
 
@@ -209,7 +209,27 @@ bool MainMenuScene::init()
 		}
 		});
 	this->addChild(exitButton);
-	//
+	// 
+	auto infoButton = ui::Button::create("Assets/UI/StoneButtonsLight/tile007.png", "Assets/UI/StoneButtonsLightPressed/tile007.png");
+	infoButton->setAnchorPoint(Vec2(0, 0));
+	infoButton->setScale(4.5);
+	infoButton->setPosition(Vec2(450, 855));
+	this->addChild(infoButton);
+	infoButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			if (playSound) {
+				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
+			}
+			Game::GoToInfo();
+			break;
+		default:
+			break;
+		}
+		});
 
 	auto startSoundButton = ui::Button::create("Assets/UI/Test-Button/sountButton.png", "Assets/UI/Test-Button/sountButtonPressed.png");
 	startSoundButton->setAnchorPoint(Vec2(0, 0));

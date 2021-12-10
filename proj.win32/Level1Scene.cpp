@@ -4,7 +4,7 @@
 #include <proj.win32/GameData.h>
 #include <proj.win32/Game.h>
 #include <proj.win32/GeneratorCard.h>
-
+#include "SimpleAudioEngine.h"
 USING_NS_CC;
 
 Scene* Level1SceneObj;
@@ -29,6 +29,9 @@ bool Level1Scene::init()
 	gameData::heroPosition = position(1, 1);
 	gameData::isSceneLocked=false;
 
+	if (gameData::playMusic) {
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/1MadeinCosmo.mp3", true);
+	}
 
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
@@ -42,7 +45,7 @@ bool Level1Scene::init()
 		}
 	}
 	//Background Sprite
-	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG 4.png");
+	auto spriteBackground = Sprite::create("Assets/Backgrounds/jeff-nin-volcano.png");
 	Size size = Director::getInstance()->getWinSize();
 	spriteBackground->setAnchorPoint(Vec2(0, 0));
 	spriteBackground->setPosition(Vec2(0, 0));
@@ -84,6 +87,13 @@ bool Level1Scene::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 			if (!gameData::isSceneLocked) {
+				if (gameData::playMusic) {
+					
+					CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("Sound/1MadeinCosmo.mp3");
+					CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+					CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/backgroundmusic.mp3", true);
+				}
+			
 				Game::GoToLevelSelect();
 			}
 			break;
