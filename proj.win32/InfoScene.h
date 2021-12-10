@@ -14,7 +14,7 @@ public:
     virtual bool init();
     CREATE_FUNC(InfoScene);
     void update(float dt);
-    void CreateInfo(char* path, char* InfoText);
+    void CreateInfo(std::string path, char* InfoText,bool isVisible);
 };
 
 #endif // __LEVEL_SELECT_SCENE_H__

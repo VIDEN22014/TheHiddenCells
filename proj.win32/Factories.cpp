@@ -96,7 +96,7 @@ Card* Level1Factory::createBadTreasure(position pos, cocos2d::Scene* scene) {
 Card* AbstractFactory::createHero(position pos, cocos2d::Scene* scene) {
 	std::string spriteCardPath;
 	if (gameData::chosenHero % 4 == 0) {
-		spriteCardPath = "Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard /Knight_Idle_1(Big).png";
+		spriteCardPath = "Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_1(Big).png";
 	}
 	else if (gameData::chosenHero % 4 == 1 && gameData::lockHero[1]) {
 		spriteCardPath = "Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Elite/EliteKnight_Idle_1(Big).png";

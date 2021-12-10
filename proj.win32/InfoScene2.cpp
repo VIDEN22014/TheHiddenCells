@@ -81,32 +81,44 @@ bool InfoScene2::init()
 	count2 = 0;
 
 
-	CreateInfo("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Elite/EliteKnight_Idle_1(Big).png", "hello word");
-	CreateInfo("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Mage/Mage_Idle_1(Big).png", "hello word");
-	CreateInfo("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Thief/Thief_Idle_1(Big).png", "hello word");
-	CreateInfo("Assets/Monsters/Enchanted Forest - Individual Frames/Elven King/HighElf_M_Idle + Walk_1(Big).png", "hello word");
-	CreateInfo("Assets/Monsters/Enchanted Forest - Individual Frames/Wizard/Wizard_Idle + Walk_1(Big).png", "hello word");
+	CreateInfo("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Standard/Knight_Idle_1(Big).png", "Standart Knight: Default Hero",true);
+	CreateInfo("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Knight - Elite/EliteKnight_Idle_1(Big).png", "Elite Knight: He Has a Cape!",true);
+	CreateInfo("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Mage/Mage_Idle_1(Big).png", "Mage: Immune to Poision",true);
+	CreateInfo("Assets/NPC/Fantasy RPG NPCs - Individuel Frames/Thief/Thief_Idle_1(Big).png", "Thief: Collect More Money",true);
 
-	CreateInfo("Assets/Icons/Coins_0/coin_01.png", "hello word");
-	
+
+	CreateInfo("Assets/Icons/Coins_0/coin_01.png", "Empty", false);
+	CreateInfo("Assets/Icons/Coins_0/coin_01.png", "Empty", false);
+
+
+	CreateInfo("Assets/Weapons/weapon_regular_sword.png", "Common Weapon", true);
+	CreateInfo("Assets/Weapons/weapon_knight_sword.png", "Common Weapon", true);
+	CreateInfo("Assets/Weapons/androide.png", "Poisons Enemy", true);
+	CreateInfo("Assets/Weapons/weapon_red_gem_sword.png", "Heals Hero", true);
+
+
 	return true;
 }
-int X = 70;
-void InfoScene2::CreateInfo(char* path, char* InfoText) {
-	Size size = Director::getInstance()->getWinSize();
 
+int x2 = 70;
+void InfoScene2::CreateInfo(char* path, char* InfoText,bool isVisible) {
+	Size size = Director::getInstance()->getWinSize();
 	int countY = (count2 % 6) + 1;
 
 
 	if (count2 % 6 == 0) {
-		X = 70 + (count2 / 6) * 450;
+		x2 = 70 + (count2 / 6) * 450;
 	}
 	auto InfoCard = cocos2d::Sprite::create(path);
-	InfoCard->setPosition(Vec2(X, size.height - (130 * countY) + 20));
+	InfoCard->setVisible(isVisible);
+	InfoCard->setPosition(Vec2(x2, size.height - (130 * countY) + 20));
 	this->addChild(InfoCard);
 
 	auto InfoTextlabl = Label::create(InfoText, "Fonts/DungeonFont.ttf", gameData::fontSize);
-	InfoTextlabl->setPosition(Vec2(X + 150, size.height - (130 * countY)));
+	InfoTextlabl->setVisible(isVisible);
+	InfoTextlabl->setPosition(Vec2(InfoCard->getPosition().x + 96, InfoCard->getPosition().y));
+	InfoTextlabl->setAnchorPoint(Vec2(0, 0.5));
+	InfoTextlabl->setDimensions(300, 0);
 	this->addChild(InfoTextlabl);
 
 

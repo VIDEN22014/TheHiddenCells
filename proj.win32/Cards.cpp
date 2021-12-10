@@ -11,7 +11,6 @@ int Card::cardInteract(Card* cards[3][3]) {
 }
 
 void Card::cardOnTurn(Card* cards[3][3]) {
-	this->labelUpdate(false);
 	if (cardBuff == 1)//Regen
 	{
 		if (cardCurrentHP >= cardMaxHP)
@@ -34,6 +33,7 @@ void Card::cardOnTurn(Card* cards[3][3]) {
 			cardCurrentHP--;
 		}
 	}
+	this->labelUpdate(false);
 }
 
 void Card::deleteCard() {
@@ -77,14 +77,27 @@ void Card::labelUpdate(bool isHeroLabel) {
 void Card::weaponEffect(Card* cards[3][3], Card* enemy) {}
 
 int CardCoin::cardInteract(Card* cards[3][3]) {
-	Game::MoneyChange(cardCurrentHP, gameData::currentMoneyLabel);
-	gameData::tempMoney += cardCurrentHP;
-
+	if (gameData::chosenHero==3)//If Thief Choosen
+	{
+		Game::MoneyChange(cardCurrentHP*1.5, gameData::currentMoneyLabel);
+		gameData::tempMoney += cardCurrentHP*1.5;
+	}
+	else
+	{
+		Game::MoneyChange(cardCurrentHP, gameData::currentMoneyLabel);
+		gameData::tempMoney += cardCurrentHP;
+	}
 	return 1;
 }
 
 void CardHero::cardOnTurn(Card* cards[3][3]) {
-	this->labelUpdate(true);
+	if (gameData::chosenHero==2)//if Mage Chosen
+	{
+		if (cardBuff==2)//Poisoned
+		{
+			cardBuff = 0;//Cancel Poisoned
+		}
+	}
 	if (cardCurrentHP > cardMaxHP)//Overheal Decreases
 	{
 		cardCurrentHP--;
@@ -112,6 +125,7 @@ void CardHero::cardOnTurn(Card* cards[3][3]) {
 			cardCurrentHP--;
 		}
 	}
+	this->labelUpdate(true);
 }
 
 //Potion Cards
@@ -137,8 +151,11 @@ int CardRedPotion::cardInteract(Card* cards[3][3]) {
 }
 
 int CardGreenPotion::cardInteract(Card* cards[3][3]) {
-	cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP--;
-	cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardBuff = 2;//Grants Poison Debuff
+	if (gameData::chosenHero != 2)//if Mage Chosen
+	{
+		cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP--;
+		cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardBuff = 2;//Grants Poison Debuff
+	}
 	return 1;
 }
 

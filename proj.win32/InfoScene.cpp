@@ -53,7 +53,7 @@ bool InfoScene::init()
 	CoinLabel->setPosition(Vec2(CoinSprite->getPositionX() + CoinSprite->getContentSize().width, CoinSprite->getPositionY()));
 	this->addChild(CoinLabel);
 
-	
+
 	//Return Button
 	auto returnButton = ui::Button::create("Assets/UI/StoneButtonsLight/tile005.png", "Assets/UI/StoneButtonsLightPressed/tile005.png");
 	returnButton->setScale(5);
@@ -100,46 +100,40 @@ bool InfoScene::init()
 
 	// на сцену вміщається 12 штук
 	count = 0;
-	CreateInfo("Assets/Items/Flasks/Flasks_Big/flask_big_red.png", "hello word");
-	CreateInfo("Assets/Items/Flasks/Flasks_Small/flask_small_green.png", "hello word");
-	CreateInfo("Assets/Items/Flasks/Flasks_Small/flask_small_blue.png", "hello word");
-	CreateInfo("Assets/Items/Flasks/Flasks_Small/flask_small_yellow.png", "hello word");
+	CreateInfo("Assets/Icons/Coins_0/coin_01.png", "Coin: collect them to lvl up the hero ",true);
+	CreateInfo("Assets/Items/Chests/Chest_Gold/chest_gold_empty_open_anim/chest_empty_open_anim_f1.png", "Good Chest: Drops Coin", true);
+	CreateInfo("Assets/Items/Chests/Chest_Gold/chest_gold_empty_open_anim/chest_empty_open_anim_f1(bad).png", "Bad Chest: Drops something bad", true);
 
-	CreateInfo("Assets/Items/Chests/Chest_Gold/chest_gold_empty_open_anim/chest_empty_open_anim_f1.png", "hello word");
-	CreateInfo("Assets/Items/Chests/Chest_Gold/chest_gold_empty_open_anim/chest_empty_open_anim_f1(bad).png", "hello word");
+	CreateInfo(gameData::pathToMonsters[0], "Common Monster: Deals damage equal to his HP", true);
+	CreateInfo("Assets/Monsters/Enchanted Forest - Individual Frames/Elven King/HighElf_M_Idle + Walk_1(Big).png", "Boss: Regen his own HP", true);
+	CreateInfo("Assets/Monsters/Enchanted Forest - Individual Frames/Wizard/Wizard_Idle + Walk_1(Big).png", "Boss: Poisons hero on attack", true);
 
-	
-
-
-	CreateInfo("Assets/Weapons/weapon_regular_sword.png", "hello word");
-	CreateInfo("Assets/Weapons/weapon_knight_sword.png", "hello word");
-	CreateInfo("Assets/Weapons/weapon_red_gem_sword.png", "hello word");
-
-	CreateInfo("Assets/Weapons/androide.png", "hello word");
-
-	
-
-
-	
+	CreateInfo("Assets/Items/Flasks/Flasks_Big/flask_big_red.png", "Red flask: Heals Hero", true);
+	CreateInfo("Assets/Items/Flasks/Flasks_Small/flask_small_green.png", "Green flask: Poisons Hero", true);
+	CreateInfo("Assets/Items/Flasks/Flasks_Small/flask_small_blue.png", "Blue flask: Grant Regen to Hero", true);
+	CreateInfo("Assets/Items/Flasks/Flasks_Small/flask_small_yellow.png", "Yellow flask: Heals Hero above maxHP", true);
 
 	return true;
 }
-	int x = 70;
-void InfoScene::CreateInfo(char *path, char* InfoText) {
+int x1 = 70;
+void InfoScene::CreateInfo(std::string path, char* InfoText,bool isVisible) {
 	Size size = Director::getInstance()->getWinSize();
+	int countY = (count % 6) + 1;
 
-	int countY = (count % 6)+1;
 
-
-	if (count%6==0) {
-		x= 70+ (count / 6)*450;
+	if (count % 6 == 0) {
+		x1 = 70 + (count / 6) * 450;
 	}
 	auto InfoCard = cocos2d::Sprite::create(path);
-	InfoCard->setPosition(Vec2(x, size.height-(130* countY)+20 ));
+	InfoCard->setPosition(Vec2(x1, size.height - (130 * countY) + 20));
+	InfoCard->setVisible(isVisible);
 	this->addChild(InfoCard);
 
 	auto InfoTextlabl = Label::create(InfoText, "Fonts/DungeonFont.ttf", gameData::fontSize);
-	InfoTextlabl->setPosition(Vec2( x+150, size.height - (130* countY) ));
+	InfoTextlabl->setVisible(isVisible);
+	InfoTextlabl->setPosition(Vec2(InfoCard->getPosition().x+96, InfoCard->getPosition().y));
+	InfoTextlabl->setAnchorPoint(Vec2(0, 0.5));
+	InfoTextlabl->setDimensions(300, 0);
 	this->addChild(InfoTextlabl);
 
 
