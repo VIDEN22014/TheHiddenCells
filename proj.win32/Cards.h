@@ -28,7 +28,19 @@ public:
 		scene->addChild(labelCard, 2);
 
 
+		spriteRegenXP = cocos2d::Sprite::create("Assets/Icons/heart/24.png");
+		spriteRegenXP->setAnchorPoint(Vec2(1, 1));
+		spriteRegenXP->setPosition(Vec2(spriteCard->getPositionX() + 142 / 2 + 16, spriteCard->getPositionY() + 192 / 2 - 16));
+		spriteRegenXP->setVisible(false);
+		scene->addChild(spriteRegenXP, 4);
 
+		spritePoisned = cocos2d::Sprite::create("Assets/Icons/heart/47.png");
+		spritePoisned->setAnchorPoint(Vec2(1, 1));
+		spritePoisned->setPosition(Vec2(spriteCard->getPositionX() + 142 / 2 + 16, spriteCard->getPositionY() + 192 / 2 - 16));
+		spritePoisned->setVisible(false);
+		scene->addChild(spritePoisned, 3);
+
+		
 	};
 	Card(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) {
 		pos = *(new position(cardpos.x, cardpos.y));
@@ -44,11 +56,28 @@ public:
 		labelCard->setAnchorPoint(Vec2(0, 1));
 		labelCard->setPosition(Vec2(spriteCard->getPositionX() - 192 / 2 + 16, spriteCard->getPositionY() + 192 / 2 - 16));
 		scene->addChild(labelCard, 2);
+
+		spriteRegenXP = cocos2d::Sprite::create("Assets/Icons/heart/47.png");
+		spriteRegenXP->setAnchorPoint(Vec2(1, 1));
+		spriteRegenXP->setPosition(Vec2(spriteCard->getPositionX() + 142 / 2 + 16, spriteCard->getPositionY() + 192 / 2 - 10));
+		spriteRegenXP->setVisible(false);
+		scene->addChild(spriteRegenXP, 4);
+
+		spritePoisned = cocos2d::Sprite::create("Assets/Icons/heart/24.png");
+		spritePoisned->setAnchorPoint(Vec2(1, 1));
+		spritePoisned->setPosition(Vec2(spriteCard->getPositionX() + 142 / 2 + 16, spriteCard->getPositionY() + 192 / 2 - 10));
+		spritePoisned->setVisible(false);
+		scene->addChild(spritePoisned, 3);
+
+
 	};
 	virtual ~Card() {
 		spriteFrame->removeFromParentAndCleanup(true);
 		spriteCard->removeFromParentAndCleanup(true);
 		labelCard->removeFromParentAndCleanup(true);
+
+		spritePoisned->removeFromParentAndCleanup(true);
+		spriteRegenXP->removeFromParentAndCleanup(true);
 		if (spriteWeapon!=nullptr && labelWeapon!=nullptr)
 		{
 			spriteWeapon->removeFromParentAndCleanup(true);
@@ -66,6 +95,9 @@ public:
 	cocos2d::Sprite* spriteFrame = nullptr;
 	cocos2d::Sprite* spriteCard = nullptr;
     cocos2d::Sprite* spriteWeapon = nullptr;
+
+	cocos2d::Sprite* spritePoisned = nullptr;
+	cocos2d::Sprite* spriteRegenXP = nullptr;
 
 	cocos2d::Label* labelCard = nullptr;
 	cocos2d::Label* labelWeapon = nullptr;
@@ -85,10 +117,9 @@ public:
 
 class CardHero : public Card {
 public:
-
+	;
 	CardHero(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) : Card(cardpos, spriteCardPath, spriteFramePath, scene, gameData::amountXPHeros[gameData::chosenHero]) {
 		this->labelUpdate(true);
-		
 	};
 	~CardHero() override {};
 	void cardOnTurn(Card* cards[3][3]) override;
@@ -191,12 +222,14 @@ public:
 //Monster Cards
 class CardCommonMonster : public Card {
 public:
+	cocos2d::Sprite* spritePoisned = nullptr;
 	CardCommonMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : Card(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {};
 	~CardCommonMonster() override {};
 	int cardInteract(Card* cards[3][3]) override;
 };
 class CardRegenXPMonster : public Card {
 public:
+	cocos2d::Sprite* spritePoisned = nullptr;
 	CardRegenXPMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : Card(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {
 		gameData::posBossHpRegen = cardpos;
 		isBoss = true;
@@ -206,6 +239,7 @@ public:
 };
 class CardPoisonedMonster : public Card {
 public:
+	cocos2d::Sprite* spritePoisned = nullptr;
 	CardPoisonedMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : Card(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {
 		gameData::posBossHpRegen = cardpos;
 		isBoss = true;

@@ -48,6 +48,7 @@ namespace gameData {
 	extern cocos2d::Scene* currentScene;
 	extern int currentLevel;
 	extern cocos2d::Label* currentMoneyLabel;
+	extern cocos2d::Sprite* kickSprite;
 	extern int fontSize;
 	extern bool isSceneLocked;
 	//extern std::string pathToHeroes[4];

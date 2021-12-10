@@ -11,10 +11,13 @@ int Card::cardInteract(Card* cards[3][3]) {
 }
 
 void Card::cardOnTurn(Card* cards[3][3]) {
+	this->labelUpdate(false);
 	if (cardBuff == 1)//Regen
 	{
 		if (cardCurrentHP >= cardMaxHP)
 		{
+			this->spriteRegenXP->setVisible(false);
+			this->spritePoisned->setVisible(false);
 			cardBuff == 0;//None
 		}
 		else
@@ -26,6 +29,8 @@ void Card::cardOnTurn(Card* cards[3][3]) {
 	{
 		if (cardCurrentHP <= 1)
 		{
+			this->spriteRegenXP->setVisible(false);
+			this->spritePoisned->setVisible(false);
 			cardBuff == 0;//None
 		}
 		else
@@ -33,17 +38,19 @@ void Card::cardOnTurn(Card* cards[3][3]) {
 			cardCurrentHP--;
 		}
 	}
-	this->labelUpdate(false);
 }
+
 
 void Card::deleteCard() {
 	Game::CardDelete(this);
+
 }
 
 void CardTreasure::deleteCard() {
 	spriteFrame->removeFromParentAndCleanup(true);
 	spriteCard->removeFromParentAndCleanup(true);
 	labelCard->removeFromParentAndCleanup(true);
+
 }
 
 void Card::openTreasure(std::string typeChest) {
@@ -62,6 +69,22 @@ void Card::unlockScene() {
 }
 
 void Card::labelUpdate(bool isHeroLabel) {
+	switch (cardBuff) {
+	case 0://NONE
+		this->spriteRegenXP->setVisible(false);
+		this->spritePoisned->setVisible(false);
+		break;
+	case 1://REGEN
+		this->spriteRegenXP->setVisible(true);
+		this->spritePoisned->setVisible(false);
+		break;
+	case 2://POISENED
+		this->spriteRegenXP->setVisible(false);
+		this->spritePoisned->setVisible(true);
+		break;
+	default:
+		break;
+	}
 	if (isHeroLabel)
 	{
 		labelCard->setString(std::to_string(cardCurrentHP) + "/" + std::to_string(cardMaxHP));
@@ -69,7 +92,7 @@ void Card::labelUpdate(bool isHeroLabel) {
 		{
 			labelWeapon->setString(std::to_string(weapon->cardCurrentHP));
 		}
-		return;
+		//return;
 	}
 	labelCard->setString(std::to_string(cardCurrentHP));
 }
@@ -91,9 +114,9 @@ int CardCoin::cardInteract(Card* cards[3][3]) {
 }
 
 void CardHero::cardOnTurn(Card* cards[3][3]) {
-	if (gameData::chosenHero == 2)//if Mage Chosen
+	if (gameData::chosenHero==2)//if Mage Chosen
 	{
-		if (cardBuff == 2)//Poisoned
+		if (cardBuff==2)//Poisoned
 		{
 			cardBuff = 0;//Cancel Poisoned
 		}
@@ -115,9 +138,13 @@ void CardHero::cardOnTurn(Card* cards[3][3]) {
 	}
 	if (cardBuff == 2)//Poisoned
 	{
-		if (cardCurrentHP <= 1)
+		if (cardCurrentHP == 1)
 		{
 			cardBuff == 0;//None
+			
+		}
+		if (cardCurrentHP < 1)
+		{
 			Game::GoToEndGame();
 		}
 		else
@@ -125,11 +152,16 @@ void CardHero::cardOnTurn(Card* cards[3][3]) {
 			cardCurrentHP--;
 		}
 	}
+	if (cardCurrentHP > cardMaxHP && cardBuff != 2)//Overheal Decreases
+	{
+		cardCurrentHP--;
+	}
 	this->labelUpdate(true);
 }
 
 //Potion Cards
 int CardPotion::cardInteract(Card* cards[3][3]) {
+	
 	if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardBuff == 2)//Canel Poision
 	{
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardBuff = 0;
@@ -139,6 +171,7 @@ int CardPotion::cardInteract(Card* cards[3][3]) {
 
 int CardRedPotion::cardInteract(Card* cards[3][3]) {
 	this->CardPotion::cardInteract(cards);
+	cards[gameData::heroPosition.x][gameData::heroPosition.y]->spritePoisned->setVisible(false);
 	if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP < cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardMaxHP)
 	{
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP += cardCurrentHP;
@@ -151,9 +184,11 @@ int CardRedPotion::cardInteract(Card* cards[3][3]) {
 }
 
 int CardGreenPotion::cardInteract(Card* cards[3][3]) {
-	if (gameData::chosenHero != 2)//if Mage Chosen
-	{
-		cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP--;
+	if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardBuff != 2) {
+		cards[gameData::heroPosition.x][gameData::heroPosition.y]->spritePoisned->setVisible(true);
+		cards[gameData::heroPosition.x][gameData::heroPosition.y]->spriteRegenXP->setVisible(false);
+
+		//cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP--;
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardBuff = 2;//Grants Poison Debuff
 	}
 	return 1;
@@ -161,12 +196,15 @@ int CardGreenPotion::cardInteract(Card* cards[3][3]) {
 
 int CardBluePotion::cardInteract(Card* cards[3][3]) {
 	this->CardPotion::cardInteract(cards);
+	cards[gameData::heroPosition.x][gameData::heroPosition.y]->spritePoisned->setVisible(false);
+	cards[gameData::heroPosition.x][gameData::heroPosition.y]->spriteRegenXP->setVisible(true);
 	cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardBuff = 1;//Regen
 	return 1;
 }
 
 int CardYellowPotion::cardInteract(Card* cards[3][3]) {
 	this->CardPotion::cardInteract(cards);
+	cards[gameData::heroPosition.x][gameData::heroPosition.y]->spritePoisned->setVisible(false);
 	cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP += cardCurrentHP;//Grants Overheal
 	return 1;
 }
@@ -176,6 +214,7 @@ int CardWeapon::cardInteract(Card* cards[3][3]) {
 	//Give Weapon To Hero Card
 	if (!gameData::isHeroArmed || (gameData::isHeroArmed && this->cardCurrentHP > cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->cardCurrentHP))
 	{
+		//cards[this->pos.x][this->pos.y]->spriteCard->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), ScaleTo::create(0.3, 0.8), DelayTime::create(0.3), ScaleTo::create(0.3, 1), CallFunc::create(std::bind(&Card::unlockScene, this)), nullptr));
 		if (gameData::isHeroArmed)
 		{
 			gameData::isHeroArmed = false;
@@ -262,7 +301,11 @@ int CardCommonMonster::cardInteract(Card* cards[3][3]) {
 	if (gameData::isHeroArmed)
 	{
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->weaponEffect(cards, this);
-		if (this->cardCurrentHP <= 0) { return 1; }
+		cards[this->pos.x][this->pos.y]->labelUpdate(false);
+		cards[this->pos.x][this->pos.y]->spriteCard->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), ScaleTo::create(0.3, 0.8), DelayTime::create(0.3), ScaleTo::create(0.3, 1), CallFunc::create(std::bind(&Card::unlockScene, this)),nullptr));
+		if (this->cardCurrentHP <= 0) { 
+		    return 1; 
+		}
 		return 0;
 	}
 	else if (!gameData::isHeroArmed) {
@@ -281,6 +324,8 @@ int CardRegenXPMonster::cardInteract(Card* cards[3][3]) {
 	if (gameData::isHeroArmed)
 	{
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->weaponEffect(cards, this);
+		cards[this->pos.x][this->pos.y]->labelUpdate(false);
+		cards[this->pos.x][this->pos.y]->spriteCard->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), ScaleTo::create(0.3, 0.8), DelayTime::create(0.3), ScaleTo::create(0.3, 1), CallFunc::create(std::bind(&Card::unlockScene, this)), nullptr));
 		if (this->cardCurrentHP <= 0) { return 1; }
 		return 0;
 	}
@@ -300,7 +345,8 @@ int CardPoisonedMonster::cardInteract(Card* cards[3][3]) {
 	if (gameData::isHeroArmed)
 	{
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->weaponEffect(cards, this);
-		//	cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->labelUpdate(false);
+		cards[this->pos.x][this->pos.y]->labelUpdate(false);
+		cards[this->pos.x][this->pos.y]->spriteCard->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), ScaleTo::create(0.3, 0.8), DelayTime::create(0.3), ScaleTo::create(0.3, 1), CallFunc::create(std::bind(&Card::unlockScene, this)), nullptr));
 		if (this->cardCurrentHP <= 0) { return 1; }
 		return 0;
 	}
@@ -315,4 +361,3 @@ int CardPoisonedMonster::cardInteract(Card* cards[3][3]) {
 	}
 	return 1;
 }
-//організувати інтеракт таки самий як для звичайного монстра, але  робити запамятовування координат монстра і якщо в тому векторі є наш монстра то він генерить своє хп на +2 поки не буде максимальним
