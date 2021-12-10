@@ -26,6 +26,7 @@ bool Level2Scene::init()
 	{
 		return false;
 	}
+	gameData::ScaleCard = 0;
 	gameData::isHeroArmed = false;
 	srand(time(NULL));
 	gameData::currentLevel = 2;
