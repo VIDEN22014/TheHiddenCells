@@ -77,10 +77,10 @@ void Card::labelUpdate(bool isHeroLabel) {
 void Card::weaponEffect(Card* cards[3][3], Card* enemy) {}
 
 int CardCoin::cardInteract(Card* cards[3][3]) {
-	if (gameData::chosenHero==3)//If Thief Choosen
+	if (gameData::chosenHero == 3)//If Thief Choosen
 	{
-		Game::MoneyChange(cardCurrentHP*1.5, gameData::currentMoneyLabel);
-		gameData::tempMoney += cardCurrentHP*1.5;
+		Game::MoneyChange(cardCurrentHP * 1.5, gameData::currentMoneyLabel);
+		gameData::tempMoney += cardCurrentHP * 1.5;
 	}
 	else
 	{
@@ -91,9 +91,9 @@ int CardCoin::cardInteract(Card* cards[3][3]) {
 }
 
 void CardHero::cardOnTurn(Card* cards[3][3]) {
-	if (gameData::chosenHero==2)//if Mage Chosen
+	if (gameData::chosenHero == 2)//if Mage Chosen
 	{
-		if (cardBuff==2)//Poisoned
+		if (cardBuff == 2)//Poisoned
 		{
 			cardBuff = 0;//Cancel Poisoned
 		}
@@ -206,7 +206,7 @@ int CardWeapon::cardInteract(Card* cards[3][3]) {
 	}
 	return 1;
 }
-int  CardHealingWeapon::cardInteract(Card* cards[3][3]) { 
+int  CardHealingWeapon::cardInteract(Card* cards[3][3]) {
 	this->CardWeapon::cardInteract(cards);
 	cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon = new CardHealingWeapon(*this);
 	return 1;
