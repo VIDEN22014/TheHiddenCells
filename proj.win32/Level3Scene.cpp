@@ -4,7 +4,7 @@
 #include <proj.win32/Cards.h>
 #include <proj.win32/GameData.h>
 #include <proj.win32/Game.h>
-
+#include "SimpleAudioEngine.h"
 
 
 
@@ -24,8 +24,12 @@ bool Level3Scene::init()
 	{
 		return false;
 	}
+	if (gameData::playMusic) {
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/3RoadChariot.mp3", true);
+	}
+
 	//Background Sprite
-	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG 4.png");
+	auto spriteBackground = Sprite::create("Assets/Backgrounds/jeff-nixon-skull-valley.png");
 	Size size = Director::getInstance()->getWinSize();
 	spriteBackground->setAnchorPoint(Vec2(0, 0));
 	spriteBackground->setPosition(Vec2(0, 0));
@@ -64,6 +68,12 @@ bool Level3Scene::init()
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
+			if (gameData::playMusic) {
+
+				CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect("Sound/3RoadChariot.mp3");
+				CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+				CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/backgroundmusic.mp3", true);
+			}
 			Game::GoToLevelSelect();
 			break;
 		default:

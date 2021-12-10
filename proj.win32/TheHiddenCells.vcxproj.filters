@@ -60,6 +60,9 @@
     <ClCompile Include="InfoScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="InfoScene2.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -108,6 +111,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="InfoScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoScene2.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

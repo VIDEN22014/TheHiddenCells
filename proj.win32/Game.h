@@ -16,6 +16,7 @@ public:
 	static void GoToMainMenu();
 	static void GoToShop();
 	static void GoToInfo();
+	static void GoToInfo2();
 	static void GoToLevelSelect();
 	static void GoToLevel1();
 	static void GoToLevel2();
