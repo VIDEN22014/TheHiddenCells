@@ -1,11 +1,12 @@
 #include <proj.win32/GeneratorCard.h>
 
-//dddddddddddddddddddddddddddddddddd
+
 
 Card* GeneratorCard::GenerateHeroCard(position pos) {
 	return factory->createHero(pos, this->scene);
 };
 Card* GeneratorCard::GenerateRandomCard(position pos) {
+	if (gameData::ScaleCard <= 8.125) { gameData::ScaleCard += 0.125; }
 	int GenerateCard;
 	GenerateCard = rand() % 1000;
 	if (GenerateCard >= 0 && GenerateCard < 200)
@@ -35,12 +36,14 @@ Card* GeneratorCard::GenerateRandomCard(position pos) {
 	}
 	
 }
-//Card* GeneratorCard::GenerateGoodCard(position pos) {};
+
 Card* GeneratorCard::GenerateBadCard(position pos) {
+	if (gameData::ScaleCard != 8) { gameData::ScaleCard += 0.125; }
 	return factory->createMonster(pos, this->scene);
 };
 
 Card* GeneratorCard::GenerateHeroWeapon(position pos) {
+
 	return factory->createHeroWeapon(pos, this->scene);
 };
 

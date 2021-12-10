@@ -39,11 +39,11 @@ bool Level2Scene::init()
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			if (i == 1 && j == 1) {
-				cards2[i][j] = GeneratorCard(1, this).GenerateHeroCard(*(new position(i, j)));
+				cards2[i][j] = GeneratorCard(2, this).GenerateHeroCard(*(new position(i, j)));
 			}
 			else if (i == 1 && j == 2) { cards2[i][j] = GeneratorCard(1, this).GenerateHeroWeapon(*(new position(i, j))); }
 			else {
-				cards2[i][j] = GeneratorCard(1, this).GenerateRandomCard(*(new position(i, j)));
+				cards2[i][j] = GeneratorCard(2, this).GenerateRandomCard(*(new position(i, j)));
 			}
 		}
 	}
@@ -131,7 +131,7 @@ void Level2Scene::checkTouch(float touchX, float touchY) {
 		for (int j = 0; j < 3; j++)
 		{
 			if (touchX >= touch2Sprite[i][j]->getPositionX() - 192 / 2.0 && touchX <= touch2Sprite[i][j]->getPositionX() + 192 / 2.0 && touchY >= touch2Sprite[i][j]->getPositionY() - 192 / 2.0 && touchY <= touch2Sprite[i][j]->getPositionY() + 192 / 2.0) {
-				Game::Turn(position(i, j), cards2, 1);
+				Game::Turn(position(i, j), cards2, 2);
 			}
 		}
 	}

@@ -33,6 +33,7 @@ namespace gameData {
 	extern bool playSound;
 	extern bool playMusic;
 	extern int money;
+	extern double tempSpeedMove;
 	extern int tempMoney;
 	extern int chosenHero;
 	extern int lvlHeart[4];
@@ -51,12 +52,24 @@ namespace gameData {
 	extern cocos2d::Sprite* kickSprite;
 	extern int fontSize;
 	extern bool isSceneLocked;
-	//extern std::string pathToHeroes[4];
-	extern std::string pathToMonsters[7];
-	extern int MonstersMaxXP[8];
+	extern bool isbought[4];
+
+	extern std::string pathToWeaponLvl1[4];
+	extern int WeaponMaxXPLvl1[4];
+
+	extern std::string pathToMonstersLvl1[7];
+	extern std::string pathToMonstersLvl2[7];
+	extern std::string pathToMonstersLvl3[7];
+
+	extern int MonstersMaxXPLvl1[8];
+	extern int MonstersMaxXPLvl2[8];
+	extern int MonstersMaxXPLvl3[8];
 	extern int RatioBossMonster;
 	extern bool isHeroArmed;
 	extern position posBossHpRegen;
+	extern bool weaponIsPoisned;
+	extern bool weaponIsHeling;
+	extern double ScaleCard;
 
 }
 

@@ -104,7 +104,7 @@ bool InfoScene::init()
 	CreateInfo("Assets/Items/Chests/Chest_Gold/chest_gold_empty_open_anim/chest_empty_open_anim_f1.png", "Good Chest: Drops Coin", true);
 	CreateInfo("Assets/Items/Chests/Chest_Gold/chest_gold_empty_open_anim/chest_empty_open_anim_f1(bad).png", "Bad Chest: Drops something bad", true);
 
-	CreateInfo(gameData::pathToMonsters[0], "Common Monster: Deals damage equal to his HP", true);
+	CreateInfo(gameData::pathToMonstersLvl1[0], "Common Monster: Deals damage equal to his HP", true);
 	CreateInfo("Assets/Monsters/Enchanted Forest - Individual Frames/Elven King/HighElf_M_Idle + Walk_1(Big).png", "Boss: Regen his own HP", true);
 	CreateInfo("Assets/Monsters/Enchanted Forest - Individual Frames/Wizard/Wizard_Idle + Walk_1(Big).png", "Boss: Poisons hero on attack", true);
 

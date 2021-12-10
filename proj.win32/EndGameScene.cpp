@@ -90,7 +90,7 @@ bool EndGameScene::init()
 				Game::GoToLevel1();
 			}
 			if (gameData::currentLevel == 2) {
-				//Game::GoToLevel2();
+			    Game::GoToLevel2();
 			}
 			if (gameData::currentLevel == 3) {
 				Game::GoToLevel3();

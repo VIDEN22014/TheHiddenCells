@@ -97,7 +97,7 @@ bool MainMenuScene::init()
 	this->addChild(minixp1);
 	//встановлення іконки зброї на іконку героя
 	miniammo1 = Sprite::create("Assets/Weapons/weapon_regular_sword(small).png");
-	miniammo1->setScale(0.4);
+	//miniammo1->setScale(0.4);
 	miniammo1->setPosition(520, 610);
 	this->addChild(miniammo1);
 
@@ -117,6 +117,10 @@ bool MainMenuScene::init()
 	auto spriteKNIS = Sprite::create("Assets/Icons/KNIS-Gerb/knisback.png");
 	spriteKNIS->setPosition(Vec2(825, 135));
 	this->addChild(spriteKNIS);
+
+	auto spriteGameHub = Sprite::create("GameHub_logo.png");
+	spriteGameHub->setPosition(Vec2(205, 155));
+	this->addChild(spriteGameHub);
 
 	auto spriteKNISGerb = Sprite::create("Assets/Icons/KNIS-Gerb/knisGerb01.png");
 	spriteKNISGerb->setPosition(Vec2(825, 135));
@@ -197,10 +201,7 @@ bool MainMenuScene::init()
 
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			/*CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/SoundBlip.wav");
-			CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();*/
 			if (playSound) {
-				//CocosDenshion::SimpleAudioEngine::getInstance()->unload
 				Game::GoToExit();
 			}
 			break;

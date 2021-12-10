@@ -35,17 +35,17 @@ bool Level3Scene::init()
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			if (i == 1 && j == 1) {
-				cards3[i][j] = GeneratorCard(1, this).GenerateHeroCard(*(new position(i, j)));
+				cards3[i][j] = GeneratorCard(3, this).GenerateHeroCard(*(new position(i, j)));
 			}
 			else if (i == 1 && j == 2) { cards3[i][j] = GeneratorCard(1, this).GenerateHeroWeapon(*(new position(i, j))); }
 			else {
-				cards3[i][j] = GeneratorCard(1, this).GenerateRandomCard(*(new position(i, j)));
+				cards3[i][j] = GeneratorCard(3, this).GenerateRandomCard(*(new position(i, j)));
 			}
 		}
 	}
 
 	//Background Sprite
-	auto spriteBackground = Sprite::create("Assets/Backgrounds/BG 4.png");
+	auto spriteBackground = Sprite::create("Assets/Backgrounds/jeff-nixon-skull-valley.png");
 	Size size = Director::getInstance()->getWinSize();
 	spriteBackground->setAnchorPoint(Vec2(0, 0));
 	spriteBackground->setPosition(Vec2(0, 0));
@@ -121,7 +121,7 @@ void Level3Scene::checkTouch(float touchX, float touchY) {
 		for (int j = 0; j < 3; j++)
 		{
 			if (touchX >= touch3Sprite[i][j]->getPositionX() - 192 / 2.0 && touchX <= touch3Sprite[i][j]->getPositionX() + 192 / 2.0 && touchY >= touch3Sprite[i][j]->getPositionY() - 192 / 2.0 && touchY <= touch3Sprite[i][j]->getPositionY() + 192 / 2.0) {
-				Game::Turn(position(i, j), cards3, 1);
+				Game::Turn(position(i, j), cards3, 3);
 			}
 		}
 	}

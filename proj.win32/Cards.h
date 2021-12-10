@@ -88,8 +88,10 @@ public:
 	int cardMaxHP;
 	int cardCurrentHP;
 	int cardBuff = 0;//0- None ;1- Regen ;2- Poisoned
-	double ScaleCard = 1;
+	//double ScaleCard = 1;
 	bool isBoss = false;
+	bool isPoisned=false;
+	bool isHealing = false;
 	std::string pathToSprite;
 	//std::string pathToFrame;
 	cocos2d::Sprite* spriteFrame = nullptr;
@@ -106,7 +108,7 @@ public:
 
 	virtual int cardInteract(Card* cards[3][3]);
 	virtual void cardOnTurn(Card* cards[3][3]);
-	virtual void labelUpdate(bool isHeroLabel);
+	virtual void labelUpdate(bool isHeroLabel, Card* card);
 	virtual void deleteCard();
 
 	virtual void weaponEffect(Card* cards[3][3], Card* enemy);
@@ -119,7 +121,7 @@ class CardHero : public Card {
 public:
 	;
 	CardHero(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) : Card(cardpos, spriteCardPath, spriteFramePath, scene, gameData::amountXPHeros[gameData::chosenHero]) {
-		this->labelUpdate(true);
+		this->labelUpdate(true,this);
 	};
 	~CardHero() override {};
 	void cardOnTurn(Card* cards[3][3]) override;
@@ -130,7 +132,7 @@ public:
 	CardCoin(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) : Card(cardpos, spriteCardPath, spriteFramePath, scene) {
 		cardMaxHP = rand() % 12 + 1;
 		cardCurrentHP = cardMaxHP;
-		this->labelUpdate(false);
+		this->labelUpdate(false,this);
 	};
 	~CardCoin() override {};
 	int cardInteract(Card* cards[3][3]) override;
@@ -156,7 +158,7 @@ public:
 	CardGreenPotion(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardPotion(cardpos, spriteCardPath, spriteFramePath, scene) {
 		cardMaxHP = 1;
 		cardCurrentHP = cardMaxHP;
-		this->labelUpdate(false);
+		this->labelUpdate(false,this);
 	};
 	~CardGreenPotion() override {};
 	int cardInteract(Card* cards[3][3]) override;
@@ -167,7 +169,8 @@ public:
 	CardBluePotion(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardPotion(cardpos, spriteCardPath, spriteFramePath, scene) {
 		cardMaxHP = 1;
 		cardCurrentHP = cardMaxHP;
-		this->labelUpdate(false);
+		this->labelUpdate(false,this);
+
 	};
 	~CardBluePotion() override {};
 	int cardInteract(Card* cards[3][3]) override;
@@ -175,7 +178,7 @@ public:
 
 class CardYellowPotion :public CardPotion {
 public:
-	CardYellowPotion(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardPotion(cardpos, spriteCardPath, spriteFramePath, scene) {};
+	CardYellowPotion(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardPotion(cardpos, spriteCardPath, spriteFramePath, scene) {  };
 	~CardYellowPotion() override {};
 	int cardInteract(Card* cards[3][3]) override;
 };
@@ -194,16 +197,28 @@ public:
 
 class CardCommonWeapon :public CardWeapon {
 public:
-	CardCommonWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene) {};
-	CardCommonWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {};
-
+	CardCommonWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene) {
+		isPoisned = false;
+		isHealing = false;
+	}
+	CardCommonWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) { 
+		isPoisned = false;
+		isHealing = false;
+	};
+	
 	~CardCommonWeapon() override {};
 };
 
 class CardHealingWeapon :public CardWeapon {
 public:
-	CardHealingWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene) {};
-	CardHealingWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {};
+	CardHealingWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene) {
+		isPoisned = false;
+		isHealing = true;
+	};
+	CardHealingWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) { 
+		isPoisned = false;
+		isHealing = true;
+	};
 	~CardHealingWeapon() override {};
 	int cardInteract(Card* cards[3][3]) override;
 	void weaponEffect(Card* cards[3][3], Card* enemy) override;
@@ -211,8 +226,16 @@ public:
 
 class CardPoisonedWeapon :public CardWeapon {
 public:
-	CardPoisonedWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene) {};
-	CardPoisonedWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {};
+	CardPoisonedWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene) :CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene) { 
+	isPoisned = true; 
+	isHealing = false;
+
+	};
+	CardPoisonedWeapon(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : CardWeapon(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {
+	isPoisned = true; 
+	isHealing = false;
+
+	 };
 	~CardPoisonedWeapon() override {};
 	int cardInteract(Card* cards[3][3]) override;
 	void weaponEffect(Card* cards[3][3], Card* enemy) override;
@@ -223,7 +246,7 @@ public:
 class CardCommonMonster : public Card {
 public:
 	cocos2d::Sprite* spritePoisned = nullptr;
-	CardCommonMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : Card(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {};
+	CardCommonMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : Card(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {  };
 	~CardCommonMonster() override {};
 	int cardInteract(Card* cards[3][3]) override;
 };
@@ -233,6 +256,7 @@ public:
 	CardRegenXPMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : Card(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {
 		gameData::posBossHpRegen = cardpos;
 		isBoss = true;
+		
 	};
 	~CardRegenXPMonster() override {};
 	int cardInteract(Card* cards[3][3]) override;
@@ -243,6 +267,7 @@ public:
 	CardPoisonedMonster(position cardpos, std::string spriteCardPath, std::string spriteFramePath, cocos2d::Scene* scene, int cardMaxHP) : Card(cardpos, spriteCardPath, spriteFramePath, scene, cardMaxHP) {
 		gameData::posBossHpRegen = cardpos;
 		isBoss = true;
+	
 	};
 	~CardPoisonedMonster() override {};
 	int cardInteract(Card* cards[3][3]) override;

@@ -23,7 +23,7 @@ cocos2d::Sprite* minixp;
 cocos2d::Sprite* miniammo;
 cocos2d::Label* LabelAmountXP;
 cocos2d::Label* LabelAmountAmmo;
-
+int chooseHeroForGame=0;
 bool ShopScene::init()
 {
 
@@ -139,6 +139,7 @@ bool ShopScene::init()
 
     //встановлення лейбла к-сті хп
     LabelAmountXP = Label::create("", "Fonts/DungeonFont.ttf", 18);
+    
     LabelAmountXP->setAnchorPoint(Vec2(0, 0.5));
     LabelAmountXP->setPosition(435, 615);
     this->addChild(LabelAmountXP);
@@ -155,14 +156,27 @@ bool ShopScene::init()
         case ui::Widget::TouchEventType::BEGAN:
             break;
         case ui::Widget::TouchEventType::ENDED:
+            chooseHeroForGame++;
+            if (chooseHeroForGame == -1) { chooseHeroForGame = 3; }
             InfoLabel->setVisible(false);
-            gameData::chosenHero++;
-            if (gameData::chosenHero == -1) { gameData::chosenHero = 3; }
-            changeTextureHeroes(abs(gameData::chosenHero % 4),false);
-            LabelpriceHeart->setString(std::to_string(gameData::lvlHeart[gameData::chosenHero % 4] * 20));
-            LabelpriceAmmo->setString(std::to_string(gameData::lvlAmmo[gameData::chosenHero % 4] * 20));
-            changeTexturelineExp(gameData::lvlHeart[gameData::chosenHero % 4],0);
-            changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);
+  /*          gameData::chosenHero++;
+            if (gameData::chosenHero == -1) { gameData::chosenHero = 3; }*/
+           // changeTextureHeroes(abs(gameData::chosenHero % 4),false);
+            changeTextureHeroes(abs(chooseHeroForGame % 4), false);
+            LabelpriceHeart->setString(std::to_string(gameData::lvlHeart[chooseHeroForGame % 4] * 20));
+            LabelpriceAmmo->setString(std::to_string(gameData::lvlAmmo[chooseHeroForGame % 4] * 20));
+            if (gameData::lvlAmmo[chooseHeroForGame % 4] == 7) { LabelpriceAmmo->setString("max"); }
+            if (gameData::lvlHeart[chooseHeroForGame % 4] == 7) { LabelpriceHeart->setString("max"); }
+
+            changeTexturelineExp(gameData::lvlHeart[chooseHeroForGame % 4], 0);
+            changeTexturelineExp(gameData::lvlAmmo[chooseHeroForGame % 4], 1);
+           // LabelpriceHeart->setString(std::to_string(gameData::lvlHeart[gameData::chosenHero % 4] * 20));
+          //  LabelpriceAmmo->setString(std::to_string(gameData::lvlAmmo[gameData::chosenHero % 4] * 20));
+           // if (gameData::lvlAmmo[gameData::chosenHero % 4] == 7) { LabelpriceAmmo->setString("max"); }
+           // if (gameData::lvlHeart[gameData::chosenHero % 4] == 7) {LabelpriceHeart->setString("max");}
+
+           // changeTexturelineExp(gameData::lvlHeart[gameData::chosenHero % 4],0);
+           // changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);
             break;
         default:
             break;
@@ -176,14 +190,29 @@ bool ShopScene::init()
         case ui::Widget::TouchEventType::BEGAN:
             break;
         case ui::Widget::TouchEventType::ENDED:
+            chooseHeroForGame--;
+            if (chooseHeroForGame == -1) { chooseHeroForGame = 3; }
             InfoLabel->setVisible(false);
-            gameData::chosenHero--;
-            if (gameData::chosenHero == -1) { gameData::chosenHero = 3; }
-            changeTextureHeroes(abs(gameData::chosenHero % 4),false);
-            LabelpriceHeart ->setString(std::to_string( gameData::lvlHeart[gameData::chosenHero % 4]*20));
+            //gameData::chosenHero--;
+            //if (gameData::chosenHero == -1) { gameData::chosenHero = 3; }
+           // changeTextureHeroes(abs(gameData::chosenHero % 4),false);
+
+            changeTextureHeroes(abs(chooseHeroForGame % 4), false);
+            LabelpriceHeart->setString(std::to_string(gameData::lvlHeart[chooseHeroForGame % 4] * 20));
+            LabelpriceAmmo->setString(std::to_string(gameData::lvlAmmo[chooseHeroForGame % 4] * 20));
+            if (gameData::lvlAmmo[chooseHeroForGame % 4] == 7) { LabelpriceAmmo->setString("max"); }
+            if (gameData::lvlHeart[chooseHeroForGame % 4] == 7) { LabelpriceHeart->setString("max"); }
+
+            changeTexturelineExp(gameData::lvlHeart[chooseHeroForGame % 4], 0);
+            changeTexturelineExp(gameData::lvlAmmo[chooseHeroForGame % 4], 1);
+
+       /*     LabelpriceHeart ->setString(std::to_string( gameData::lvlHeart[gameData::chosenHero % 4]*20));
             LabelpriceAmmo->setString(std::to_string(gameData::lvlAmmo[gameData::chosenHero % 4] * 20));
+            if (gameData::lvlAmmo[gameData::chosenHero % 4] == 7) { LabelpriceAmmo->setString("max"); }
+            if (gameData::lvlHeart[gameData::chosenHero % 4] == 7) { LabelpriceHeart->setString("max"); }
+
             changeTexturelineExp(gameData::lvlHeart[gameData::chosenHero % 4],0);
-            changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);
+            changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);*/
             break;
         default:
             break;
@@ -202,6 +231,7 @@ bool ShopScene::init()
            // whichHeroBuy();
             break;
         case ui::Widget::TouchEventType::ENDED:
+            if (gameData::isbought[chooseHeroForGame % 4] == true) { gameData::chosenHero = chooseHeroForGame % 4; }
             Game::GoToMainMenu();
             break;
         default:
@@ -219,17 +249,17 @@ bool ShopScene::init()
         case ui::Widget::TouchEventType::BEGAN:
             break;
         case ui::Widget::TouchEventType::ENDED:
-            if (gameData::lockHero[gameData::chosenHero % 4]&& gameData::money >= gameData::priceHeart) {
-                if (gameData::lvlHeart[gameData::chosenHero % 4] < 7) {
-                    gameData::lvlHeart[gameData::chosenHero % 4]++;
-                    gameData::amountXPHeros[gameData::chosenHero % 4] += 2;
-                    LabelAmountXP->setString(std::to_string(gameData::amountXPHeros[gameData::chosenHero % 4]));
-                    changeTexturelineExp(gameData::lvlHeart[gameData::chosenHero % 4], 0);
+            if (gameData::lockHero[chooseHeroForGame % 4]&& gameData::money >= gameData::priceHeart) {
+                if (gameData::lvlHeart[chooseHeroForGame % 4] < 7) {
+                    gameData::lvlHeart[chooseHeroForGame % 4]++;
+                    gameData::amountXPHeros[chooseHeroForGame % 4] += 2;
+                    LabelAmountXP->setString(std::to_string(gameData::amountXPHeros[chooseHeroForGame % 4]));
+                    changeTexturelineExp(gameData::lvlHeart[chooseHeroForGame % 4], 0);
                 
                     Game::MoneyChange(-gameData::priceHeart, CoinLabel);
                     gameData::priceHeart += 20;
                     LabelpriceHeart->setString(std::to_string(gameData::priceHeart));
-                   // if (gameData::lvlHeart[gameData::chosenHero % 4] == 6) { LabelpriceHeart->setVisible(false); }
+                    if (gameData::lvlHeart[chooseHeroForGame % 4] == 7) { LabelpriceHeart->setString("max"); }
                 }
             }
             break;
@@ -248,18 +278,19 @@ bool ShopScene::init()
         case ui::Widget::TouchEventType::BEGAN:
             break;
         case ui::Widget::TouchEventType::ENDED:
-            if (gameData::lockHero[gameData::chosenHero % 4]) {
-                if (gameData::lvlAmmo[gameData::chosenHero % 4] < 7 && gameData::money >= gameData::priceAmmo) {
-                    gameData::lvlAmmo[gameData::chosenHero % 4]++;
+            if (gameData::lockHero[chooseHeroForGame % 4]) {
+                if (gameData::lvlAmmo[chooseHeroForGame % 4] < 7 && gameData::money >= gameData::priceAmmo) {
+                    gameData::lvlAmmo[chooseHeroForGame % 4]++;
                     
                     gameData::amountAmmoHeros[gameData::chosenHero % 4] ++;
-                    LabelAmountAmmo->setString(std::to_string(gameData::amountAmmoHeros[gameData::chosenHero % 4]));
-                    ShopScene::changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);
+                    LabelAmountAmmo->setString(std::to_string(gameData::amountAmmoHeros[chooseHeroForGame % 4]));
+                    ShopScene::changeTexturelineExp(gameData::lvlAmmo[chooseHeroForGame % 4], 1);
                 
                     Game::MoneyChange(-gameData::priceAmmo, CoinLabel);
                     gameData::priceAmmo += 20;
                     LabelpriceAmmo->setString(std::to_string(gameData::priceAmmo));
-                   // if (gameData::lvlAmmo[gameData::chosenHero % 4] == 6) { LabelpriceAmmo->setVisible(false); }
+                    if (gameData::lvlAmmo[chooseHeroForGame % 4] == 7) { LabelpriceAmmo->setString("max"); }
+                 
                 }
             }
             break;
@@ -278,11 +309,13 @@ bool ShopScene::init()
         case ui::Widget::TouchEventType::BEGAN:
             break;
         case ui::Widget::TouchEventType::ENDED:
-            if (gameData::money>=abs( gameData::priceHero[gameData::chosenHero % 4])) {
-                gameData::lockHero[gameData::chosenHero % 4] = true;
+            if (gameData::money>=abs( gameData::priceHero[chooseHeroForGame % 4])) {
+                gameData::isbought[chooseHeroForGame % 4] = true;
+
+                gameData::lockHero[chooseHeroForGame % 4] = true;
                 lockHero->setVisible(false);
-                changeTextureHeroes(gameData::chosenHero % 4,true);
-                Game::MoneyChange(gameData::priceHero[gameData::chosenHero % 4], CoinLabel);
+                changeTextureHeroes(chooseHeroForGame,true);
+                Game::MoneyChange(gameData::priceHero[chooseHeroForGame % 4], CoinLabel);
             }
             else { InfoLabel->setVisible(true); }
             break;
@@ -300,10 +333,12 @@ bool ShopScene::init()
 
     //label ціна хп
     LabelpriceHeart= Label::create(std::to_string(gameData::priceHeart), "Fonts/DungeonFont.ttf", 42);
+    if (gameData::lvlHeart[gameData::chosenHero % 4] == 7) { LabelpriceHeart->setString("max"); }
     LabelpriceHeart->setPosition(750, 430);
     this->addChild(LabelpriceHeart);
     //label ціна зброї
     LabelpriceAmmo = Label::create(std::to_string(gameData::priceAmmo), "Fonts/DungeonFont.ttf", 42);
+    if (gameData::lvlAmmo[gameData::chosenHero % 4] == 7) { LabelpriceAmmo->setString("max"); }
     LabelpriceAmmo->setPosition(750, 330);
     this->addChild(LabelpriceAmmo);
 
@@ -344,6 +379,7 @@ void ShopScene::changeTextureHeroes(int index,bool ThisHeroBuy) {
       miniammo->setTexture("Assets/Weapons/weapon_regular_sword(small).png");
       LabelAmountXP->setString(std::to_string(gameData::amountXPHeros[0]));
       LabelAmountAmmo->setString(std::to_string(gameData::amountAmmoHeros[0]));
+
       if (!gameData::lockHero[index]) {
           lockHero->setVisible(true);
 

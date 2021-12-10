@@ -40,6 +40,7 @@ bool Level1Scene::init()
 			}
 			else if (i == 1 && j == 2) { cards[i][j] = GeneratorCard(1, this).GenerateHeroWeapon(*(new position(i, j))); }
 			else {
+				
 				cards[i][j] = GeneratorCard(1, this).GenerateRandomCard(*(new position(i, j)));
 			}
 		}

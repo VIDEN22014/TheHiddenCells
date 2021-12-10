@@ -11,14 +11,13 @@ int Card::cardInteract(Card* cards[3][3]) {
 }
 
 void Card::cardOnTurn(Card* cards[3][3]) {
-	this->labelUpdate(false);
+	this->labelUpdate(false, this);
+
 	if (cardBuff == 1)//Regen
 	{
 		if (cardCurrentHP >= cardMaxHP)
 		{
-			this->spriteRegenXP->setVisible(false);
-			this->spritePoisned->setVisible(false);
-			cardBuff == 0;//None
+			cardBuff = 0;//None
 		}
 		else
 		{
@@ -29,9 +28,7 @@ void Card::cardOnTurn(Card* cards[3][3]) {
 	{
 		if (cardCurrentHP <= 1)
 		{
-			this->spriteRegenXP->setVisible(false);
-			this->spritePoisned->setVisible(false);
-			cardBuff == 0;//None
+			cardBuff = 0;//None
 		}
 		else
 		{
@@ -68,19 +65,19 @@ void Card::unlockScene() {
 	gameData::isSceneLocked = false;
 }
 
-void Card::labelUpdate(bool isHeroLabel) {
-	switch (cardBuff) {
+void Card::labelUpdate(bool isHeroLabel, Card * card) {
+	switch (card->cardBuff) {
 	case 0://NONE
-		this->spriteRegenXP->setVisible(false);
-		this->spritePoisned->setVisible(false);
+		card->spriteRegenXP->setVisible(false);
+		card->spritePoisned->setVisible(false);
 		break;
 	case 1://REGEN
-		this->spriteRegenXP->setVisible(true);
-		this->spritePoisned->setVisible(false);
+		card->spriteRegenXP->setVisible(true);
+		card->spritePoisned->setVisible(false);
 		break;
 	case 2://POISENED
-		this->spriteRegenXP->setVisible(false);
-		this->spritePoisned->setVisible(true);
+		card->spriteRegenXP->setVisible(false);
+		card->spritePoisned->setVisible(true);
 		break;
 	default:
 		break;
@@ -94,7 +91,9 @@ void Card::labelUpdate(bool isHeroLabel) {
 		}
 		//return;
 	}
-	labelCard->setString(std::to_string(cardCurrentHP));
+	else {
+		labelCard->setString(std::to_string(cardCurrentHP));
+	}
 }
 
 void Card::weaponEffect(Card* cards[3][3], Card* enemy) {}
@@ -114,6 +113,7 @@ int CardCoin::cardInteract(Card* cards[3][3]) {
 }
 
 void CardHero::cardOnTurn(Card* cards[3][3]) {
+
 	if (gameData::chosenHero==2)//if Mage Chosen
 	{
 		if (cardBuff==2)//Poisoned
@@ -121,15 +121,12 @@ void CardHero::cardOnTurn(Card* cards[3][3]) {
 			cardBuff = 0;//Cancel Poisoned
 		}
 	}
-	if (cardCurrentHP > cardMaxHP)//Overheal Decreases
-	{
-		cardCurrentHP--;
-	}
+	if (cardCurrentHP <= 1&& cardBuff==2) { cardBuff = 0; }
 	if (cardBuff == 1)//Regen
 	{
 		if (cardCurrentHP >= cardMaxHP)
 		{
-			cardBuff == 0;//None
+			cardBuff = 0;//None
 		}
 		else
 		{
@@ -140,7 +137,7 @@ void CardHero::cardOnTurn(Card* cards[3][3]) {
 	{
 		if (cardCurrentHP == 1)
 		{
-			cardBuff == 0;//None
+			cardBuff = 0;//None
 			
 		}
 		if (cardCurrentHP < 1)
@@ -156,7 +153,7 @@ void CardHero::cardOnTurn(Card* cards[3][3]) {
 	{
 		cardCurrentHP--;
 	}
-	this->labelUpdate(true);
+	this->labelUpdate(true, cards[gameData::heroPosition.x][gameData::heroPosition.y]);
 }
 
 //Potion Cards
@@ -184,7 +181,7 @@ int CardRedPotion::cardInteract(Card* cards[3][3]) {
 }
 
 int CardGreenPotion::cardInteract(Card* cards[3][3]) {
-	if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardBuff != 2) {
+	if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardBuff != 2&& cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP>1) {
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->spritePoisned->setVisible(true);
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->spriteRegenXP->setVisible(false);
 
@@ -225,6 +222,13 @@ int CardWeapon::cardInteract(Card* cards[3][3]) {
 		}
 		gameData::isHeroArmed = true;
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon = new CardWeapon(*this);
+
+		if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->isPoisned) { gameData::weaponIsPoisned = true; }
+		else { gameData::weaponIsPoisned = false; }
+
+		if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->isHealing) { gameData::weaponIsHeling = true; }
+		else { gameData::weaponIsHeling = false; }
+
 		auto sprite = cocos2d::Sprite::create("Assets/Weapons/weapon_regular_sword.png");
 		sprite->setTexture(this->spriteCard->getTexture());
 		sprite->setScale(0.5);
@@ -266,12 +270,13 @@ void CardWeapon::weaponEffect(Card* cards[3][3], Card* enemy) {
 		//Weapon Delete
 		gameData::currentScene->removeChild(cards[gameData::heroPosition.x][gameData::heroPosition.y]->spriteWeapon, true);
 		gameData::currentScene->removeChild(cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelWeapon, true);
-		//delete cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon;
 	}
 }
 
 void CardHealingWeapon::weaponEffect(Card* cards[3][3], Card* enemy) {
-	cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP += std::min(cardCurrentHP, enemy->cardCurrentHP);
+	if (gameData::weaponIsHeling) {
+		cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP += std::min(cardCurrentHP, enemy->cardCurrentHP);
+	}
 	if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP > cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardMaxHP)
 	{
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP = cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardMaxHP;
@@ -280,8 +285,11 @@ void CardHealingWeapon::weaponEffect(Card* cards[3][3], Card* enemy) {
 }
 
 void CardPoisonedWeapon::weaponEffect(Card* cards[3][3], Card* enemy) {
-	enemy->cardBuff = 2;
-	this->CardWeapon::weaponEffect(cards, enemy);
+	if (gameData::weaponIsPoisned) {
+		enemy->cardBuff = 2;
+	}
+		this->CardWeapon::weaponEffect(cards, enemy);
+	
 }
 
 
@@ -300,8 +308,10 @@ int CardBadTreasure::cardInteract(Card* cards[3][3]) {
 int CardCommonMonster::cardInteract(Card* cards[3][3]) {
 	if (gameData::isHeroArmed)
 	{
+
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->weaponEffect(cards, this);
-		cards[this->pos.x][this->pos.y]->labelUpdate(false);
+
+		cards[this->pos.x][this->pos.y]->labelUpdate(false, this);
 		cards[this->pos.x][this->pos.y]->spriteCard->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), ScaleTo::create(0.3, 0.8), DelayTime::create(0.3), ScaleTo::create(0.3, 1), CallFunc::create(std::bind(&Card::unlockScene, this)),nullptr));
 		if (this->cardCurrentHP <= 0) { 
 		    return 1; 
@@ -311,7 +321,7 @@ int CardCommonMonster::cardInteract(Card* cards[3][3]) {
 	else if (!gameData::isHeroArmed) {
 		if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP > this->cardCurrentHP) {
 			cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP -= this->cardCurrentHP;
-			cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelUpdate(true);
+			cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelUpdate(true, cards[gameData::heroPosition.x][gameData::heroPosition.y]);
 		}
 		else if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP <= this->cardCurrentHP) {
 			Game::GoToEndGame();
@@ -324,7 +334,7 @@ int CardRegenXPMonster::cardInteract(Card* cards[3][3]) {
 	if (gameData::isHeroArmed)
 	{
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->weaponEffect(cards, this);
-		cards[this->pos.x][this->pos.y]->labelUpdate(false);
+		cards[this->pos.x][this->pos.y]->labelUpdate(false,this);
 		cards[this->pos.x][this->pos.y]->spriteCard->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), ScaleTo::create(0.3, 0.8), DelayTime::create(0.3), ScaleTo::create(0.3, 1), CallFunc::create(std::bind(&Card::unlockScene, this)), nullptr));
 		if (this->cardCurrentHP <= 0) { return 1; }
 		return 0;
@@ -332,7 +342,7 @@ int CardRegenXPMonster::cardInteract(Card* cards[3][3]) {
 	else if (!gameData::isHeroArmed) {
 		if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP > this->cardCurrentHP) {
 			cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP -= this->cardCurrentHP;
-			cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelUpdate(true);
+			cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelUpdate(true, cards[gameData::heroPosition.x][gameData::heroPosition.y]);
 		}
 		else if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP <= this->cardCurrentHP) {
 			Game::GoToEndGame();
@@ -344,8 +354,9 @@ int CardPoisonedMonster::cardInteract(Card* cards[3][3]) {
 	cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardBuff = 2;
 	if (gameData::isHeroArmed)
 	{
+
 		cards[gameData::heroPosition.x][gameData::heroPosition.y]->weapon->weaponEffect(cards, this);
-		cards[this->pos.x][this->pos.y]->labelUpdate(false);
+		cards[this->pos.x][this->pos.y]->labelUpdate(false,this);
 		cards[this->pos.x][this->pos.y]->spriteCard->runAction(Sequence::create(CallFunc::create(std::bind(&Card::lockScene, this)), ScaleTo::create(0.3, 0.8), DelayTime::create(0.3), ScaleTo::create(0.3, 1), CallFunc::create(std::bind(&Card::unlockScene, this)), nullptr));
 		if (this->cardCurrentHP <= 0) { return 1; }
 		return 0;
@@ -353,7 +364,7 @@ int CardPoisonedMonster::cardInteract(Card* cards[3][3]) {
 	else if (!gameData::isHeroArmed) {
 		if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP > this->cardCurrentHP) {
 			cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP -= this->cardCurrentHP;
-			cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelUpdate(true);
+			cards[gameData::heroPosition.x][gameData::heroPosition.y]->labelUpdate(true, cards[gameData::heroPosition.x][gameData::heroPosition.y]);
 		}
 		else if (cards[gameData::heroPosition.x][gameData::heroPosition.y]->cardCurrentHP <= this->cardCurrentHP) {
 			Game::GoToEndGame();

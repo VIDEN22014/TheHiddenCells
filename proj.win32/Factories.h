@@ -24,9 +24,13 @@ public:
 class Level1Factory : public AbstractFactory {
 public:
 	Card* createMonster(position pos, cocos2d::Scene* scene) override;
-	Card* createPotion(position pos, cocos2d::Scene* scene) override;
-	Card* createGoodTreasure(position pos, cocos2d::Scene* scene)override;
-	Card* createBadTreasure(position pos, cocos2d::Scene* scene)override;
 };
-
+class Level2Factory : public AbstractFactory {
+public:
+	Card* createMonster(position pos, cocos2d::Scene* scene) override;
+};
+class Level3Factory : public AbstractFactory {
+public:
+	Card* createMonster(position pos, cocos2d::Scene* scene) override;
+};
 #endif // __FACTORIES_H__
