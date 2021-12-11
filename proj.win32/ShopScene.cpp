@@ -159,9 +159,9 @@ bool ShopScene::init()
             chooseHeroForGame++;
             if (chooseHeroForGame == -1) { chooseHeroForGame = 3; }
             InfoLabel->setVisible(false);
-  /*          gameData::chosenHero++;
-            if (gameData::chosenHero == -1) { gameData::chosenHero = 3; }*/
-           // changeTextureHeroes(abs(gameData::chosenHero % 4),false);
+            if (gameData::isbought[chooseHeroForGame % 4]) {
+                gameData::chosenHero = chooseHeroForGame % 4;
+            }
             changeTextureHeroes(abs(chooseHeroForGame % 4), false);
             LabelpriceHeart->setString(std::to_string(gameData::lvlHeart[chooseHeroForGame % 4] * 20));
             LabelpriceAmmo->setString(std::to_string(gameData::lvlAmmo[chooseHeroForGame % 4] * 20));
@@ -170,13 +170,6 @@ bool ShopScene::init()
 
             changeTexturelineExp(gameData::lvlHeart[chooseHeroForGame % 4], 0);
             changeTexturelineExp(gameData::lvlAmmo[chooseHeroForGame % 4], 1);
-           // LabelpriceHeart->setString(std::to_string(gameData::lvlHeart[gameData::chosenHero % 4] * 20));
-          //  LabelpriceAmmo->setString(std::to_string(gameData::lvlAmmo[gameData::chosenHero % 4] * 20));
-           // if (gameData::lvlAmmo[gameData::chosenHero % 4] == 7) { LabelpriceAmmo->setString("max"); }
-           // if (gameData::lvlHeart[gameData::chosenHero % 4] == 7) {LabelpriceHeart->setString("max");}
-
-           // changeTexturelineExp(gameData::lvlHeart[gameData::chosenHero % 4],0);
-           // changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);
             break;
         default:
             break;
@@ -193,10 +186,9 @@ bool ShopScene::init()
             chooseHeroForGame--;
             if (chooseHeroForGame == -1) { chooseHeroForGame = 3; }
             InfoLabel->setVisible(false);
-            //gameData::chosenHero--;
-            //if (gameData::chosenHero == -1) { gameData::chosenHero = 3; }
-           // changeTextureHeroes(abs(gameData::chosenHero % 4),false);
-
+            if (gameData::isbought[chooseHeroForGame % 4]) {
+                gameData::chosenHero = chooseHeroForGame % 4;
+            }
             changeTextureHeroes(abs(chooseHeroForGame % 4), false);
             LabelpriceHeart->setString(std::to_string(gameData::lvlHeart[chooseHeroForGame % 4] * 20));
             LabelpriceAmmo->setString(std::to_string(gameData::lvlAmmo[chooseHeroForGame % 4] * 20));
@@ -205,14 +197,6 @@ bool ShopScene::init()
 
             changeTexturelineExp(gameData::lvlHeart[chooseHeroForGame % 4], 0);
             changeTexturelineExp(gameData::lvlAmmo[chooseHeroForGame % 4], 1);
-
-       /*     LabelpriceHeart ->setString(std::to_string( gameData::lvlHeart[gameData::chosenHero % 4]*20));
-            LabelpriceAmmo->setString(std::to_string(gameData::lvlAmmo[gameData::chosenHero % 4] * 20));
-            if (gameData::lvlAmmo[gameData::chosenHero % 4] == 7) { LabelpriceAmmo->setString("max"); }
-            if (gameData::lvlHeart[gameData::chosenHero % 4] == 7) { LabelpriceHeart->setString("max"); }
-
-            changeTexturelineExp(gameData::lvlHeart[gameData::chosenHero % 4],0);
-            changeTexturelineExp(gameData::lvlAmmo[gameData::chosenHero % 4], 1);*/
             break;
         default:
             break;
@@ -228,7 +212,6 @@ bool ShopScene::init()
         switch (type)
         {
         case ui::Widget::TouchEventType::BEGAN:
-           // whichHeroBuy();
             break;
         case ui::Widget::TouchEventType::ENDED:
             if (gameData::isbought[chooseHeroForGame % 4] == true) { gameData::chosenHero = chooseHeroForGame % 4; }
@@ -311,7 +294,7 @@ bool ShopScene::init()
         case ui::Widget::TouchEventType::ENDED:
             if (gameData::money>=abs( gameData::priceHero[chooseHeroForGame % 4])) {
                 gameData::isbought[chooseHeroForGame % 4] = true;
-
+                gameData::chosenHero = chooseHeroForGame % 4;
                 gameData::lockHero[chooseHeroForGame % 4] = true;
                 lockHero->setVisible(false);
                 changeTextureHeroes(chooseHeroForGame,true);
