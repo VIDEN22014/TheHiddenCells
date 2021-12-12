@@ -34,7 +34,7 @@ bool Level2Scene::init()
 	gameData::isSceneLocked = false;
 
 	if (gameData::playMusic) {
-		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/2GoldenWin.mp3", true);
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/3RoadChariot.mp3.mp3", true);
 	}
 
 	for (int i = 0; i < 3; i++) {
